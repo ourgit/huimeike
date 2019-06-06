@@ -1,0 +1,702 @@
+{
+	"pages": [		
+		{
+			//登陆
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}
+		},		
+		{
+			//注册
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}						
+		},		
+		{
+			//忘记密码
+			"path": "pages/forgot/forgot",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}				
+			}			
+		},
+		{
+			//主页
+			"path": "pages/home/home",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "汇美客",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"searchInput": {
+							"backgroundColor": "rgba(231, 231, 231,.7)",
+							"borderRadius": "16px",
+							"placeholder": "请输入搜索的内容",
+							//允许输入框点击
+							"disabled": false,
+							"placeholderColor": "#606266"
+						},
+						"buttons": [{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "26",
+								"color": "#303133",
+								"float": "left",
+								"background": "rgba(0,0,0,0)"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue70a",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+			}			
+			
+		},
+		{
+			//商城
+			"path":"pages/shop/shop",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商城",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商城",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue766",
+								"fontSize": "27",
+								"float": "left",
+								"color": "#fff"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
+			//商品详情
+			"path":"pages/shopDetail/shopDetail",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商品详情",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商品详情",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			//个人中心
+			"path":"pages/my/my",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "个人中心",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "个人中心",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "27",
+								"float": "left",
+								"color": "#fff"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue607",
+								"fontSize": "27",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			//云课堂
+			"path":"pages/classroom/classroom",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "云课堂",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "云课堂",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
+			//未购买/已购买课程
+			"path":"pages/NotPurchased/NotPurchased",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "文稿",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "文稿",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}							
+		},
+		{
+			//音频播放
+			"path":"pages/audio/audio",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "音频播放",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+			}							
+		},
+		{
+			//视频播放
+			"path":"pages/video/video",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "视频播放",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+			}							
+		},		
+		{
+			//线下课
+			"path":"pages/OfflineClass/Offline",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "线下课",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "线下课",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			//学员分享
+			"path":"pages/StudentSharing/StudentSharing",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学员分享",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学员分享",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}						
+		},
+		{
+			//顾问案
+			"path":"pages/guwenan/guwenan",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "顾问案",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "顾问案",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "27",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			//每周预约课
+			"path":"pages/Course/Course",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程预约",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程预约",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}						
+		},
+		{
+			//结算台
+			"path":"pages/buy/buy",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
+			//添加地址
+			"path":"pages/address/address",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "添加地址",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "添加地址"
+					}
+				}
+			}							
+		},
+		{
+			//新增地址
+			"path":"pages/Newaddress/Newaddress",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "编辑地址",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "编辑地址"
+					}
+				}
+			}							
+		},
+		{
+			//充值
+			"path":"pages/pay/pay",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "商品详情",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "商品详情",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}			
+		},
+		{	//设置
+			"path":"pages/set/set",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "设置",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "设置",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}			
+		},
+		{	//修改姓名电话等
+			"path":"pages/revise/revise",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//修改密码
+			"path":"pages/Modify/Modify",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改密码",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改密码",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//学员证
+			"path":"pages/certificate/certificate",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学员证",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学员证",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//订单
+			"path":"pages/order/order",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "订单",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "订单",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//卡券
+			"path":"pages/coupons/coupons",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "优惠券",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "优惠券",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//充值记录
+			"path":"pages/record/record",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "记录",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "记录",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//人脉
+			"path":"pages/contacts/contacts",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "人脉",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "人脉",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//收藏
+			"path":"pages/collection/collection",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "收藏",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "收藏",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//下载
+			"path":"pages/download/download",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "下载",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "下载",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		}								
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "汇美客",
+		"navigationBarBackgroundColor": "#ed824c",
+		"backgroundColor": "#f8f8f8"
+	},
+	"tabBar": {
+		"color":"#000",
+		"selectedColor":"#ed824a",
+		"list": [
+			{
+				"pagePath":"pages/home/home",
+				"iconPath":"static/images/common/home1.png",
+				"selectedIconPath":"static/images/common/home2.png",
+				"text":"首页"
+			},
+			{
+				"pagePath":"pages/shop/shop",
+				"iconPath":"static/images/common/shop1.png",
+				"selectedIconPath":"static/images/common/shop2.png",
+				"text":"商城"
+			},
+			{
+				"pagePath":"pages/my/my",
+				"iconPath":"static/images/common/my1.png",
+				"selectedIconPath":"static/images/common/my2.png",
+				"text":"我的"				
+			}
+		]
+	}
+}

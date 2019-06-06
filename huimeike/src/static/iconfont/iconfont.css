@@ -1,0 +1,12 @@
+	/* icon图标 */
+	@font-face {
+	  font-family: iconfont;
+	  font-weight: normal;
+	  font-style: normal;
+	  src: url('https://at.alicdn.com/t/font_1175170_aj1nrsrq6q4.ttf') format('truetype')
+	}
+	.icon {
+	  font-size: 28px;
+	  color: #000;
+	  font-family: iconfont;
+	}
