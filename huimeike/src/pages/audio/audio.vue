@@ -1,11 +1,184 @@
 <template>
 	<view class="audio">
-
+		<view class="top">
+			<view class="container">
+				<image :src="imgUrl2 + audioList.jspic"></image>
+				<text>{{audioList.title}}</text>
+			</view>
+			<view class="lineBar">
+				<view class="time star">{{nowmiaoForc}}</view>
+					<slider class="line" :value="nowmiao" min="0" :max="allmiao" @change="sliderChange" block-size="15" activeColor="#55A532" />
+				<view class="time end">{{allmiaoForc}}</view>
+			</view>	
+		</view>
+		<view class="bottom">
+			<!-- 明天来改样式 -->
+			<view @tap="audioWayFunc" class="pattern">
+				<image v-if="audioWay==0" class="iconbtn" src="../../static/images/audio/xunhuanbofang.png"></image>
+				<image v-if="audioWay==2" class="iconbtn" src="../../static/images/audio/danquxunhuan.png"></image>
+				<image v-if="audioWay==1" class="iconbtn" src="../../static/images/audio/suijibofang.png"></image>
+			</view>
+			<view class="box">
+				<view class="on"></view>
+				<view class="play" @tap="play">
+					<image v-if="!playState" class="iconbtn play" src="../../static/images/audio/play.png"></image>
+					<image v-if="playState" class="iconbtn play" src="../../static/images/audio/suspended.png"></image>
+				</view>
+				<view class="next"></view>
+			</view>
+			<view class="tabBar">
+				<view class="liebiao">
+					<text class="icon">&#xe634;</text>
+					<text>1/1</text>
+				</view>
+				<view class="liebiao">
+					<text class="icon">&#xe601;</text>
+					<text>文稿</text>
+				</view>
+				<view class="liebiao">
+					<text class="icon">&#xe608;</text>
+					<text>收藏</text>
+				</view>
+				<view class="liebiao">
+					<text class="icon">&#xe823;</text>
+					<text>下载</text>
+				</view>
+				<view class="liebiao">
+					<text class="icon small">&#xe603;</text>
+					<text>分享</text>
+				</view>
+			</view>			
+		</view>
 	</view>
 </template>
 
 <script>
+	let innerAudioContext = ''
+	export default {
+		data() {
+			return {
+				//全屏显示开关
+				show: false,
+				placeholderSrc: '../../static/images/common/abc.png',
+				imgUrl2: this.$imgUrl.imgUrl2,
+				nowmiao:0,//当前时间
+				allmiao:0,//全部时间
+				lineBarWid:520,//进度条的宽度跟css一只
+				playState:0,//播放状态
+				audioCont:'',
+				audioList:{},
+				audioPlaySrc:0,//当前播放的歌曲index
+				audioWay:0,//播放方式 0顺序播放 1随机播放 2单曲循环
+				collect:0,//是否收藏
 
+			}
+		},
+		computed: {
+			width:function (){
+				return 'width:' + this.nowmiao/this.allmiao * this.lineBarWid + 'upx'
+			},
+			playWidth:function () {
+				return 'transform:translate3d(' + (this.nowmiao / this.allmiao) * this.lineBarWid + 'upx,0,0);'
+			},
+			nowmiaoForc:function (){
+				return this.$pubFuc.secondFormact(this.nowmiao)
+			},
+			allmiaoForc:function(){
+				return this.$pubFuc.secondFormact(this.allmiao)
+			}		
+		},
+		mounted:function() {
+			this.audioPlaySrc = 0
+			this.audioInit()
+		},		
+		onLoad(options) {
+			this.id = options.id;
+		},
+		methods: {
+			//点击导航栏 buttons 时触发
+			onNavigationBarButtonTap(e) {
+				const index = e.index;
+				if (index === 0) {
+					this.$msg("您点击了扫码")
+				}
+			},
+			audioInit(){
+				/* 获取播放请求 */
+				this.$request.play({
+					id: this.id
+				}).then(res =>{
+					res = JSON.parse(res);
+					this.audioList = res;
+					
+					console.log(this.audioList.url)
+					let src = this.audioList.url
+					if(innerAudioContext){
+						innerAudioContext.destroy()
+						innerAudioContext = ''
+						//销毁====================
+					}
+					innerAudioContext = uni.createInnerAudioContext();
+					innerAudioContext.src = src
+					innerAudioContext.autoplay = true
+					//获取时长
+					let dura = setInterval(()=>{
+						this.allmiao = Math.floor(innerAudioContext.duration)
+						console.log(this.allmiao)
+						if(this.allmiao){
+							clearInterval(dura)
+						}
+					})
+					//监听事件
+					innerAudioContext.onPlay(()=>{
+						this.playFunc()
+					})
+					innerAudioContext.onPause(()=>{
+						this.pauseFunc()
+					})
+					innerAudioContext.onTimeUpdate((e)=>{
+						this.nowmiao = Math.floor(innerAudioContext.currentTime)
+						console.log(this.nowmiao)
+					})
+				},err =>{
+					console.log(err)
+				})
+
+			},
+			playFunc(){
+				this.playState=1
+			},
+			pauseFunc(){
+				this.playState= 0
+			},
+			sliderChange(e) {
+				this.nowmiao = e.detail.value
+				innerAudioContext.seek(this.nowmiao)
+			},
+			play(){
+				if(this.playState){
+					//暂停
+					innerAudioContext.pause()
+				}else{
+					//播放
+					innerAudioContext.play()
+				}
+			},
+			audioWayFunc(){
+				if(this.audioWay>1){
+					this.audioWay = 0
+				}else{
+					this.audioWay = this.audioWay+1
+				}
+			},
+			collectFunc(){
+				this.collect = !this.collect
+			},															
+		},
+		destroyed(){
+			innerAudioContext.destroy()
+			innerAudioContext = ''
+		}				
+	}
 </script>
 
 <style lang="less">

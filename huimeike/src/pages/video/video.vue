@@ -2,8 +2,7 @@
 	<view class="video">
 		<view class="top">
 			<view class="container">
-				 <video id="myVideo" :src="videoData.url"
-                    @error="videoErrorCallback" controls></video>
+				 <video id="myVideo" :src="videoData.url" controls></video>
 			</view>
 		</view>
 		<view class="bottom">
@@ -17,8 +16,9 @@
 					<text class="icon">&#xe601;</text>
 					<text>文稿</text>
 				</view>
-				<view class="liebiao">
-					<text class="icon">&#xe608;</text>
+				<view class="liebiao" @tap="collectFunc">
+					<text class="icon" v-if="!collect">&#xe608;</text>
+					<text class="icon" v-if="collect">&#xe755;</text>
 					<text>收藏</text>
 				</view>
 				<view class="liebiao">
@@ -43,7 +43,9 @@
 				placeholderSrc: '../../static/images/common/abc.png',
 				imgUrl: this.$imgUrl.imgUrl,
 				id: '',
-				videoData: {}
+				videoData: {},
+				//收藏状态
+				collect:0
 			}
 		},
 		computed: {
@@ -66,7 +68,9 @@
 				})
 		},
 		methods: {
-														
+			collectFunc(){
+				this.collect = !this.collect
+			}											
 		}
 				
 	}
@@ -93,11 +97,12 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 300upx;
+				margin-top: 88upx;
 				video {
-					width: 90%;
+					width: 100%;
 					height: 500upx;
 					margin: 0 auto;
+					box-sizing: border-box;
 				}
 			}
 			.lineBar{
