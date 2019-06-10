@@ -1,5 +1,5 @@
 <template>
-	<view class="audio">
+	<view class="audio" v-show="show">
 		<view class="top">
 			<view class="container">
 				<image :src="imgUrl2 + audioList.jspic"></image>
@@ -57,28 +57,26 @@
 	export default {
 		data() {
 			return {
-				//全屏显示开关
-				show: false,
-				placeholderSrc: '../../static/images/common/abc.png',
-				imgUrl2: this.$imgUrl.imgUrl2,
 				nowmiao:0,//当前时间
 				allmiao:0,//全部时间
-				lineBarWid:520,//进度条的宽度跟css一只
+				lineBarWid:520,//进度条的宽度跟css一致
 				playState:0,//播放状态
 				audioCont:'',
 				audioList:{},
 				audioPlaySrc:0,//当前播放的歌曲index
 				audioWay:0,//播放方式 0顺序播放 1随机播放 2单曲循环
-				collect:0,//是否收藏
+				collect:0,//是否收藏	
+				//全屏显示开关
+				show: false,
+				placeholderSrc: '../../static/images/common/abc.png',
+				imgUrl2: this.$imgUrl.imgUrl2,
+				src: 'http://cdnringbd.shoujiduoduo.com/ringres/userv1/a48/556/66405556.aac'
 
 			}
 		},
 		computed: {
 			width:function (){
 				return 'width:' + this.nowmiao/this.allmiao * this.lineBarWid + 'upx'
-			},
-			playWidth:function () {
-				return 'transform:translate3d(' + (this.nowmiao / this.allmiao) * this.lineBarWid + 'upx,0,0);'
 			},
 			nowmiaoForc:function (){
 				return this.$pubFuc.secondFormact(this.nowmiao)
@@ -90,94 +88,95 @@
 		mounted:function() {
 			this.audioPlaySrc = 0
 			this.audioInit()
-		},		
-		onLoad(options) {
-			this.id = options.id;
 		},
 		methods: {
-			//点击导航栏 buttons 时触发
-			onNavigationBarButtonTap(e) {
-				const index = e.index;
-				if (index === 0) {
-					this.$msg("您点击了扫码")
-				}
-			},
 			audioInit(){
-				/* 获取播放请求 */
-				this.$request.play({
-					id: this.id
-				}).then(res =>{
-					res = JSON.parse(res);
-					this.audioList = res;
-					
-					console.log(this.audioList.url)
-					let src = this.audioList.url
-					if(innerAudioContext){
-						innerAudioContext.destroy()
-						innerAudioContext = ''
-						//销毁====================
+				let src = this.src;
+				if(innerAudioContext){
+					innerAudioContext.destroy()
+					innerAudioContext = ''
+					//销毁====================
+				}
+				innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.src = src
+				innerAudioContext.autoplay = true
+				//获取时长
+				let dura = setInterval(()=>{
+					this.allmiao = Math.floor(innerAudioContext.duration)
+					if(this.allmiao){
+						clearInterval(dura)
 					}
-					innerAudioContext = uni.createInnerAudioContext();
-					innerAudioContext.src = src
-					innerAudioContext.autoplay = true
-					//获取时长
-					let dura = setInterval(()=>{
-						this.allmiao = Math.floor(innerAudioContext.duration)
-						console.log(this.allmiao)
-						if(this.allmiao){
-							clearInterval(dura)
-						}
-					})
-					//监听事件
-					innerAudioContext.onPlay(()=>{
-						this.playFunc()
-					})
-					innerAudioContext.onPause(()=>{
-						this.pauseFunc()
-					})
-					innerAudioContext.onTimeUpdate((e)=>{
-						this.nowmiao = Math.floor(innerAudioContext.currentTime)
-						console.log(this.nowmiao)
-					})
-				},err =>{
-					console.log(err)
 				})
-
-			},
-			playFunc(){
-				this.playState=1
-			},
-			pauseFunc(){
-				this.playState= 0
-			},
-			sliderChange(e) {
-				this.nowmiao = e.detail.value
-				innerAudioContext.seek(this.nowmiao)
-			},
-			play(){
-				if(this.playState){
-					//暂停
-					innerAudioContext.pause()
-				}else{
-					//播放
-					innerAudioContext.play()
-				}
-			},
-			audioWayFunc(){
-				if(this.audioWay>1){
-					this.audioWay = 0
-				}else{
-					this.audioWay = this.audioWay+1
-				}
-			},
-			collectFunc(){
-				this.collect = !this.collect
-			},															
+				//监听事件
+				innerAudioContext.onPlay(()=>{
+					this.playFunc()
+				})
+				innerAudioContext.onPause(()=>{
+					this.pauseFunc()
+				})
+				innerAudioContext.onTimeUpdate((e)=>{
+					this.nowmiao = Math.floor(innerAudioContext.currentTime)
+					console.log(this.nowmiao)
+				})
+					
+				},
+				playFunc(){
+					this.playState=1
+				},
+				pauseFunc(){
+					this.playState= 0
+				},
+				sliderChange(e) {
+					this.nowmiao = e.detail.value
+					innerAudioContext.seek(this.nowmiao)
+				},
+				play(){
+					if(this.playState){
+						//暂停
+						innerAudioContext.pause()
+					}else{
+						//播放
+						innerAudioContext.play()
+					}
+				},
+				audioWayFunc(){
+					if(this.audioWay>1){
+						this.audioWay = 0
+					}else{
+						this.audioWay = this.audioWay+1
+					}
+				},
+				collectFunc(){
+					this.collect = !this.collect
+				}															
 		},
 		destroyed(){
 			innerAudioContext.destroy()
 			innerAudioContext = ''
-		}				
+		},
+		//点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			if (index === 0) {
+				this.$msg("您点击了扫码")
+			}
+		},			
+		onLoad(options) {
+			this.id = options.id;
+			/* 获取播放请求 */
+			this.$request.play({
+				id: this.id
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.audioList = res;
+				this.show = true;
+			},err =>{
+				console.log(err)
+			})			
+		}
+	
+					
 	}
 </script>
 
@@ -233,7 +232,7 @@
 				}
 				.line{
 					margin: 0;
-					width: 70%;
+					width: 520upx;
 					
 				}
 			}
@@ -347,4 +346,3 @@
 	}
 	
 </style>
-
