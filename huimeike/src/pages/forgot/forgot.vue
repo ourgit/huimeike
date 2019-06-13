@@ -184,8 +184,9 @@
 		}
 		.form {
 			width: 606upx;
-			height: 600upx;
+			height: 650upx;
 			position: absolute;
+			overflow: hidden;
 			top: 330upx;
 			left: 50%;
 			margin-left: -303upx;
@@ -204,27 +205,26 @@
 				}
 			}
 			.input {
-				display: flex;
+				height: 79upx;
 				position: relative;
+				padding: 5upx 0;
 				padding-left: 66upx;
-				box-sizing: border-box;
+				display: flex;
+				align-items: center;
 				border-bottom: 2upx solid #f2f2f2;
+				
 				.icon {
 					position: absolute;
 					left: 13upx;
-					top: 19upx;
+					top: 24upx;
 					font-size: 35upx;
-					color: #666;
 				}
 				.bold {
-					font-weight: 700;
+					font-weight: bold;
 				}
 				input {
 					width: 100%;
-					height: 79upx;
-					line-height: 79upx;
 					font-size: 30upx;
-					 
 				}
 				.yzm {
 					width: 200upx;

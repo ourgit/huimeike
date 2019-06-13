@@ -13,16 +13,11 @@
 		</view>
 		<view class="bottom">
 			<!-- 明天来改样式 -->
-			<view @tap="audioWayFunc" class="pattern">
-				<image v-if="audioWay==0" class="iconbtn" src="../../static/images/audio/xunhuanbofang.png"></image>
-				<image v-if="audioWay==2" class="iconbtn" src="../../static/images/audio/danquxunhuan.png"></image>
-				<image v-if="audioWay==1" class="iconbtn" src="../../static/images/audio/suijibofang.png"></image>
-			</view>
 			<view class="box">
 				<view class="on"></view>
 				<view class="play" @tap="play">
 					<image v-if="!playState" class="iconbtn play" src="../../static/images/audio/play.png"></image>
-					<image v-if="playState" class="iconbtn play" src="../../static/images/audio/suspended.png"></image>
+					<image v-if="playState" class="iconbtn play" src="../../static/images/audio/pause.png"></image>
 				</view>
 				<view class="next"></view>
 			</view>
@@ -31,15 +26,16 @@
 					<text class="icon">&#xe634;</text>
 					<text>1/1</text>
 				</view>
-				<view class="liebiao">
+				<view class="liebiao" @click="wengao">
 					<text class="icon">&#xe601;</text>
 					<text>文稿</text>
 				</view>
-				<view class="liebiao">
-					<text class="icon">&#xe608;</text>
+				<view class="liebiao" @click="collectFunc">
+					<text class="icon no" v-if="!collect">&#xe608;</text>
+					<text class="icon red" v-if="collect">&#xe635;</text>
 					<text>收藏</text>
 				</view>
-				<view class="liebiao">
+				<view class="liebiao" @click="download">
 					<text class="icon">&#xe823;</text>
 					<text>下载</text>
 				</view>
@@ -59,19 +55,23 @@
 			return {
 				nowmiao:0,//当前时间
 				allmiao:0,//全部时间
-				lineBarWid:520,//进度条的宽度跟css一致
+				cur: '',
+				dec: '',
+				timer: null,
+				lineBarWid:520,//进度条的宽度跟css一只
 				playState:0,//播放状态
 				audioCont:'',
-				audioList:{},
 				audioPlaySrc:0,//当前播放的歌曲index
 				audioWay:0,//播放方式 0顺序播放 1随机播放 2单曲循环
+				audioList:{},
 				collect:0,//是否收藏	
 				//全屏显示开关
 				show: false,
 				placeholderSrc: '../../static/images/common/abc.png',
 				imgUrl2: this.$imgUrl.imgUrl2,
-				src: 'http://cdnringbd.shoujiduoduo.com/ringres/userv1/a48/556/66405556.aac'
-
+				id: '',
+				jsid: '',
+				yplx: ''
 			}
 		},
 		computed: {
@@ -79,32 +79,69 @@
 				return 'width:' + this.nowmiao/this.allmiao * this.lineBarWid + 'upx'
 			},
 			nowmiaoForc:function (){
-				return this.$pubFuc.secondFormact(this.nowmiao)
+					var sec = this.nowmiao % 60;
+					var min = Math.floor(this.nowmiao / 60);
+					if(min.toString().length < 2){
+						min = '0' + min;
+					}
+					if(sec.toString().length < 2){
+						sec = '0' + sec;
+					}
+					return min+':' + sec
 			},
 			allmiaoForc:function(){
-				return this.$pubFuc.secondFormact(this.allmiao)
-			}		
+				var sec = this.allmiao % 60;
+				var min = Math.floor(this.allmiao / 60);
+				if(min.toString().length < 2){
+					min = '0' + min;
+				}
+				if(sec.toString().length < 2){
+					sec = '0' + sec;
+				}
+				return min+':' + sec
+			}
 		},
-		mounted:function() {
-			this.audioPlaySrc = 0
-			this.audioInit()
+		onReady() {
+
+			
 		},
+		onLoad(options) {
+			
+			this.id = options.id;
+			this.jsid = options.jsid;
+			this.yplx = options.ypls;
+			/* 获取播放请求 */
+			this.$request.play({
+				id: this.id
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.audioList = res;
+				this.show = true;
+				this.audioInit()
+				if(this.audioList.sczt) {
+					this.collect = this.audioList.sczt
+				}
+				console.log(this.cur)
+			},err =>{
+				console.log(err)
+			})			
+		},		
 		methods: {
 			audioInit(){
-				let src = this.src;
 				if(innerAudioContext){
 					innerAudioContext.destroy()
 					innerAudioContext = ''
 					//销毁====================
 				}
 				innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = src
+				innerAudioContext.src = 'http://psamupqu5.bkt.clouddn.com/薛之谦.mp3';
 				innerAudioContext.autoplay = true
 				//获取时长
-				let dura = setInterval(()=>{
+				this.timer = setInterval(()=>{
 					this.allmiao = Math.floor(innerAudioContext.duration)
 					if(this.allmiao){
-						clearInterval(dura)
+						clearInterval(this.timer)
 					}
 				})
 				//监听事件
@@ -116,68 +153,103 @@
 				})
 				innerAudioContext.onTimeUpdate((e)=>{
 					this.nowmiao = Math.floor(innerAudioContext.currentTime)
-					console.log(this.nowmiao)
 				})
-					
-				},
-				playFunc(){
-					this.playState=1
-				},
-				pauseFunc(){
-					this.playState= 0
-				},
-				sliderChange(e) {
-					this.nowmiao = e.detail.value
-					innerAudioContext.seek(this.nowmiao)
-				},
-				play(){
-					if(this.playState){
-						//暂停
-						innerAudioContext.pause()
-					}else{
-						//播放
-						innerAudioContext.play()
+			},
+			playFunc(){
+				this.playState=1
+			},
+			pauseFunc(){
+				this.playState= 0
+			},
+			sliderChange(e) {
+				this.nowmiao = e.detail.value
+				innerAudioContext.seek(this.nowmiao)
+			},
+			play(){
+				if(this.playState){
+					//暂停
+					innerAudioContext.pause()
+				}else{
+					//播放
+					innerAudioContext.play()
+				}
+			},
+			collectFunc(){
+				this.collect = !this.collect
+				/* 获取收藏接口请求 */
+				this.$request.collect({
+					id: this.id,
+					zt: this.collect
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+				},err =>{
+					console.log(err)
+				})
+			},
+			//点击导航栏 buttons 时触发
+			onNavigationBarButtonTap(e) {
+				const index = e.index;
+				if (index === 0) {
+					this.$msg("您点击了扫码")
+				}
+			},
+			//文稿跳转
+			wengao() {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${this.id}`
+				})
+			},
+			download() {
+				/* 获取下载接口 */
+				this.$request.download({
+					id: this.id,
+					jsid: this.jsid,
+					yplx: this.ypls,
+					url: this.audioList.url
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+					if(res.code === 1) {
+						uni.downloadFile({
+							url: this.audioList.url, //仅为示例，并非真实的资源
+							success: (res) => {								
+								if (res.statusCode === 200) {
+									console.log("下载成功！")
+									var tempFilePath = res.tempFilePath
+									console.log(tempFilePath)
+									uni.saveFile({
+										tempFilePath: tempFilePath,
+										success: function (res) {
+											console.log(res.savedFilePath)
+											var savedFilePath = res.savedFilePath;
+											
+										}
+									});
+								}
+							}
+						});
+						this.$msg(res.msg);
+					}else {
+						this.$msg(res.msg);
 					}
-				},
-				audioWayFunc(){
-					if(this.audioWay>1){
-						this.audioWay = 0
-					}else{
-						this.audioWay = this.audioWay+1
-					}
-				},
-				collectFunc(){
-					this.collect = !this.collect
-				}															
+				},err =>{
+					console.log(err)
+				})	
+
+				
+			}
 		},
 		destroyed(){
 			innerAudioContext.destroy()
 			innerAudioContext = ''
 		},
-		//点击导航栏 buttons 时触发
-		onNavigationBarButtonTap(e) {
-			const index = e.index;
-			if (index === 0) {
-				this.$msg("您点击了扫码")
-			}
-		},			
-		onLoad(options) {
-			this.id = options.id;
-			/* 获取播放请求 */
-			this.$request.play({
-				id: this.id
-			}).then(res =>{
-				res = JSON.parse(res);
-				console.log(res)
-				this.audioList = res;
-				this.show = true;
-			},err =>{
-				console.log(err)
-			})			
-		}
-	
-					
+		onUnload(){ 
+			clearInterval(this.timer);  
+			this.timer = null;		 
+		} 
 	}
+ 
 </script>
 
 <style lang="less">
@@ -305,6 +377,13 @@
 					.icon {
 						font-size: 40upx;
 						margin-bottom: 10upx;
+					}
+					.no {
+						.iconfont;
+						content: '\e608';
+					}
+					.red {
+						color: #ff2400;
 					}
 					&:first-child {
 						margin-left: 39upx;

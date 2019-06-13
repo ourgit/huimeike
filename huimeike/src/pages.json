@@ -248,7 +248,7 @@
 				// #endif 
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent",
+						"type": "default",
 						"buttons": [
 							{
 								"fontSrc": "/static/iconfont/iconfont.ttf",

@@ -44,7 +44,7 @@
 				<text class="hui">修改</text>				
 			</view>
 		</view>
-		<view class="out">退出登录</view>
+		<view class="out" @click="out">退出登录</view>
 	</view>
 </template>
 
@@ -93,7 +93,12 @@
 				uni.reLaunch({
 					url: '/pages/Modify/Modify'
 				})
-			}			
+			},
+			out() {
+				uni.redirectTo({
+					url: '/pages/login/login'
+				})
+			}
 		}
 	}
 </script>

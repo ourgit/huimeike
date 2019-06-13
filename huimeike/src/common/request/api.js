@@ -58,14 +58,29 @@ export default {
 		let response = await request.Fetch(requestURL.cloudClass,prams,'POST',true)
 		return response;		
 	},
-	//云课堂接口
+	//云课堂未购买接口
 	NotPurchased: async function (prams) {
 		let response = await request.Fetch(requestURL.NotPurchased,prams,'POST',true)
 		return response;		
 	},
-	//云课堂接口
+	//音频视频播放接口
 	play: async function (prams) {
 		let response = await request.Fetch(requestURL.play,prams,'POST',true)
 		return response;		
-	}	
+	},
+	//收藏接口
+	collect: async function (prams) {
+		let response = await request.Fetch(requestURL.collect,prams,'POST',true)
+		return response;		
+	},
+	//下载接口
+	download: async function (prams) {
+		let response = await request.Fetch(requestURL.download,prams,'POST',true)
+		return response;		
+	},
+	//下载接口
+	focus: async function (prams) {
+		let response = await request.Fetch(requestURL.focus,prams,'POST',true)
+		return response;		
+	}
 }

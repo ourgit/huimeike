@@ -79,7 +79,6 @@
 			/* 获取云课堂请求 */
 			this.$request.cloudClass().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.resData = res;
 				this.show = true;
 			},err =>{

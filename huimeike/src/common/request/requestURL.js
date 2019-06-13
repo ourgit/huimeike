@@ -27,5 +27,11 @@ export default {
 	//未购买
 	NotPurchased: `${baseurl}/YktApi/yktwgm`,
 	//播放视频或音频
-	play: `${baseurl}/Yktapi/bf`
+	play: `${baseurl}/Yktapi/bf`,
+	//收藏接口
+	collect: `${baseurl}/Yktapi/sc`,
+	//音频/视频下载
+	download: `${baseurl}/Yktapi/xz`,
+	//关注讲师
+	focus: `${baseurl}/teacher/js_focus`
 }

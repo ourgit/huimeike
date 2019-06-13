@@ -31,14 +31,14 @@
 			</view>
 		</view>
 		<view class="diploma">
-			<text>我的学员证</text>
-			<view>
-				<text class="icon hui">&#xe646;</text>
-				<text class="icon hui" @click="certificate">&#xe656;</text>
+			<text style="font-size: 30upx;">我的学员证</text>
+			<view style="display: flex;">
+				<view class="icon hui">&#xe646;</view>
+				<view class="icon hui" @click="certificate">&#xe656;</view>
 			</view>
 		</view>
 		<view class="account">
-			<text class="account-text">我的账户</text>
+			<text class="account-text"  style="font-size: 30upx;">我的账户</text>
 			<view class="account_nav">
 				<view @click="coupons">
 					<text class="ico ico1"></text>
@@ -63,7 +63,7 @@
 			</view>								
 		</view>
 		<view class="account">
-			<text class="account-text">我的学习</text>
+			<text class="account-text" style="font-size: 30upx;">我的学习</text>
 			<view class="account_nav">
 				<view @click="collection">
 					<text class="ico ico5"></text>
@@ -98,17 +98,17 @@
 			</view>								
 		</view>
 		<view class="diploma" @click="contacts">
-			<text>我的人脉</text>
-			<view>
-				<text class="icon hui" style="font-size: 21upx;">立即查看</text>
-				<text class="icon hui" style="font-size: 21upx;">&#xe656;</text>
+			<text style="font-size: 30upx;">我的人脉</text>
+			<view style="display: flex;">
+				<view class="icon hui" style="font-size: 21upx;">立即查看</view>
+				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
 			</view>
 		</view>
 		<view class="diploma">
-			<text>推荐给好友</text>
-			<view>
-				<text class="icon hui" style="font-size: 21upx;">立即邀请</text>
-				<text class="icon hui" style="font-size: 21upx;">&#xe656;</text>
+			<text style="font-size: 30upx;">推荐给好友</text>
+			<view style="display: flex;">
+				<view class="icon hui" style="font-size: 21upx;">立即邀请</view>
+				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
 			</view>
 		</view>		
 	</view>
@@ -200,11 +200,18 @@
 				display: flex;
 				image {
 					width: 160upx;
-					height: 160upx;					
+					height: 160upx;
+					margin-left: 10upx;
+					margin-top: 10upx;
 				}
 				.box {
+					height: 160upx;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					justify-content: center;
 					margin-left: 26upx;
-					margin-top: 40upx;
+					overflow: hidden;
 					view {
 						display: flex;
 						.text1 {
@@ -212,16 +219,18 @@
 							color: #ed824a;							
 						}
 						.text2 {
-							padding: 8upx 22upx;
+							padding: 4upx 30upx;
+							box-sizing: border-box;
 							background-color: #f5af1a;
 							color: #fff;
 							font-size: 16upx;
-							border-radius: 10upx;
+							border-radius: 15upx;
 							margin-left: 8upx;
 						}
 						
 					}
 					.autograph {
+						margin-top: 10upx;
 						font-size: 24upx;
 						color: #b3b3b3;
 					}
@@ -249,13 +258,15 @@
 			}
 		}
 		.diploma {
+			height: 98upx;
+			line-height: 98upx;
 			display: flex;
 			background-color: #fff;
 			justify-content: space-between;
 			align-items: center;
-			margin-top: 8upx;
+			margin-top: 22upx;
 			border-radius: 10upx;
-			padding: 24upx 32upx;
+			padding: 0 32upx;
 			color: #ed824a;
 			.hui {
 				color: #b2b2b2;

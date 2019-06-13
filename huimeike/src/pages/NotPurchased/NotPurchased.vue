@@ -14,8 +14,9 @@
 						<text class="t2">{{js.time}}</text>						
 					</view>
 				</view>
-				<view class="v2">
-					<text class="icon t3">&#xe61a;</text>
+				<view class="v2" @click="collectFunc">
+					<text class="icon t3" v-if="!collect">&#xe61a;</text>
+					<text class="icon t3 yellow" v-if="collect">&#xe642;</text>
 					<text class="t4">关注</text>
 				</view>
 			</view>
@@ -77,7 +78,7 @@
 			</view>
 			<view class="tabBar" v-if="1 === 1">
 				<text class="yzd">99.9颜值豆</text>
-				<text class="mianfei">免费试听</text>
+				<text class="mianfei" @click="play">免费试听</text>
 				<button @click="buy">购买</button>
 			</view>
 			<view class="tabBar" v-else>
@@ -124,7 +125,9 @@
 				xqxx: {},
 				//讲师信息
 				js: {},
-				xxxd: []
+				xxxd: [],
+				collect:0,//是否收藏	,
+				gzzt: ''
 				
 			}
 		},
@@ -136,10 +139,14 @@
 				{id: this.id}
 			).then(res =>{
 				res = JSON.parse(res);
-				console.log(res);
+				console.log(res)
 				this.xqxx = res.xqxx;
 				this.js = res.js;
 				this.xxxd = res.xxxd;
+				this.gzzt = res.gzzt;
+				if(this.gzzt) {
+					this.collect = this.gzzt
+				}
 			},err =>{
 				console.log(err)
 			})
@@ -172,15 +179,29 @@
 			play() {
 				if(this.xqxx.yplx === 0) {
 					uni.navigateTo({
-						url: `/pages/audio/audio?id=${this.id}`
+						url: `/pages/audio/audio?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}`
 					})
 				}
 				else if(this.xqxx.yplx === 1) {
 					uni.navigateTo({
-						url: `/pages/video/video?id=${this.id}`
+						url: `/pages/video/video?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}`
 					})					
 				}
-
+			},
+			collectFunc(){
+				this.collect = !this.collect
+				/* 获取未购买课程请求 */
+				this.$request.focus(
+					{
+						id: this.js.id,
+						zt: this.collect
+					}
+				).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+				},err =>{
+					console.log(err)
+				})
 			}
 		}
 	}
@@ -268,6 +289,9 @@
 					}
 					.t3 {
 						font-size: 35upx;
+					}
+					.yellow {
+						color: orange;
 					}
 					.t4 {
 						font-size: 32upx;

@@ -12,16 +12,16 @@
 					<text class="icon">&#xe634;</text>
 					<text>1/1</text>
 				</view>
-				<view class="liebiao">
+				<view class="liebiao" @click="wengao">
 					<text class="icon">&#xe601;</text>
 					<text>文稿</text>
 				</view>
-				<view class="liebiao" @tap="collectFunc">
-					<text class="icon" v-if="!collect">&#xe608;</text>
-					<text class="icon" v-if="collect">&#xe755;</text>
+				<view class="liebiao" @click="collectFunc">
+					<text class="icon no" v-if="!collect">&#xe608;</text>
+					<text class="icon red" v-if="collect">&#xe635;</text>
 					<text>收藏</text>
 				</view>
-				<view class="liebiao">
+				<view class="liebiao" @click="download">
 					<text class="icon">&#xe823;</text>
 					<text>下载</text>
 				</view>
@@ -63,6 +63,9 @@
 					res = JSON.parse(res);
 					console.log(res)
 					this.videoData = res;
+					if(this.videoData.sczt) {
+						this.collect = this.videoData.sczt
+					}
 				},err =>{
 					console.log(err)
 				})
@@ -70,7 +73,62 @@
 		methods: {
 			collectFunc(){
 				this.collect = !this.collect
-			}											
+				/* 获取收藏接口请求 */
+				this.$request.collect({
+					id: this.id,
+					zt: this.collect
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+				},err =>{
+					console.log(err)
+				})
+			},
+			//文稿跳转
+			wengao() {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${this.id}`
+				})
+			},
+			download() {
+				/* 获取下载接口 */
+				this.$request.download({
+					id: this.id,
+					jsid: this.jsid,
+					yplx: this.ypls,
+					url: this.videoData.url
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+					if(res.code === 1) {
+						uni.downloadFile({
+							url: this.videoData.url, //仅为示例，并非真实的资源
+							success: (res) => {								
+								if (res.statusCode === 200) {
+									console.log("下载成功！")
+									var tempFilePath = res.tempFilePath
+									console.log(tempFilePath)
+									uni.saveFile({
+										tempFilePath: tempFilePath,
+										success: function (res) {
+											console.log(res.savedFilePath)
+											var savedFilePath = res.savedFilePath;
+											
+										}
+									});
+								}
+							}
+						});
+						this.$msg(res.msg);
+					}else {
+						this.$msg(res.msg);
+					}
+				},err =>{
+					console.log(err)
+				})	
+
+				
+			}																
 		}
 				
 	}
@@ -86,7 +144,6 @@
 	.video {
 		width: 100%;
 		height: 100%;
-		background: url("~@/static/images/audio/bg.jpg") center no-repeat;
 		background-size: 100% 100%;
 		.top {
 			display: flex;
@@ -97,7 +154,6 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 88upx;
 				video {
 					width: 100%;
 					height: 500upx;
@@ -192,6 +248,9 @@
 					text {
 						font-size: 19upx;
 						color: #878787;
+					}
+					.red {
+						color: #ff2400;
 					}
 					.icon {
 						font-size: 40upx;
