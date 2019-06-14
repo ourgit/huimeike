@@ -36,7 +36,8 @@
 					<text>收藏</text>
 				</view>
 				<view class="liebiao" @click="download">
-					<text class="icon">&#xe823;</text>
+					<text class="icon" v-if="!xiazai">&#xe823;</text>
+					<text class="icon green" v-if="xiazai">&#xe61b;</text>
 					<text>下载</text>
 				</view>
 				<view class="liebiao">
@@ -71,7 +72,9 @@
 				imgUrl2: this.$imgUrl.imgUrl2,
 				id: '',
 				jsid: '',
-				yplx: ''
+				yplx: '',
+				//下载状态
+				xiazai: 0				
 			}
 		},
 		computed: {
@@ -211,6 +214,7 @@
 					res = JSON.parse(res);
 					console.log(res)
 					if(res.code === 1) {
+						this.xiazai = true;
 						uni.downloadFile({
 							url: this.audioList.url, //仅为示例，并非真实的资源
 							success: (res) => {								
@@ -384,6 +388,9 @@
 					}
 					.red {
 						color: #ff2400;
+					}
+					.green {
+						color: green;
 					}
 					&:first-child {
 						margin-left: 39upx;

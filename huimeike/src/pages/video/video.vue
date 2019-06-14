@@ -2,7 +2,7 @@
 	<view class="video">
 		<view class="top">
 			<view class="container">
-				 <video id="myVideo" :src="videoData.url" controls></video>
+				 <video id="Video" :src="videoData.banner" @ended="ended" controls autoplay></video>
 			</view>
 		</view>
 		<view class="bottom">
@@ -22,7 +22,8 @@
 					<text>收藏</text>
 				</view>
 				<view class="liebiao" @click="download">
-					<text class="icon">&#xe823;</text>
+					<text class="icon" v-if="!xiazai">&#xe823;</text>
+					<text class="icon green" v-if="xiazai">&#xe61b;</text>
 					<text>下载</text>
 				</view>
 				<view class="liebiao">
@@ -45,7 +46,9 @@
 				id: '',
 				videoData: {},
 				//收藏状态
-				collect:0
+				collect:0,
+				//下载状态
+				xiazai: 0
 			}
 		},
 		computed: {
@@ -69,6 +72,10 @@
 				},err =>{
 					console.log(err)
 				})
+		},
+		onReady() {
+			this.videoContext = uni.createVideoContext('myVideo')
+			console.log(this.videoContext)
 		},
 		methods: {
 			collectFunc(){
@@ -101,11 +108,17 @@
 					res = JSON.parse(res);
 					console.log(res)
 					if(res.code === 1) {
+						uni.showLoading({
+							title: '下载中，请勿退出！'
+						})
+						
 						uni.downloadFile({
 							url: this.videoData.url, //仅为示例，并非真实的资源
 							success: (res) => {								
 								if (res.statusCode === 200) {
-									console.log("下载成功！")
+									uni.hideLoading()
+									this.xiazai = true;
+									this.$msg("下载成功！")
 									var tempFilePath = res.tempFilePath
 									console.log(tempFilePath)
 									uni.saveFile({
@@ -125,10 +138,18 @@
 					}
 				},err =>{
 					console.log(err)
-				})	
-
-				
-			}																
+				})					
+			},
+			//末尾判断下一个是否为正片
+			ended() {
+				this.videoContext.autoplay = true;
+				//这里要改成购买状态字段
+				if(this.videoData.sczt == true) {
+					this.$msg("请先购买视频")
+				}else {
+					this.videoData.banner = this.videoData.url
+				}
+			}
 		}
 				
 	}
@@ -251,6 +272,9 @@
 					}
 					.red {
 						color: #ff2400;
+					}
+					.green {
+						color: green;
 					}
 					.icon {
 						font-size: 40upx;

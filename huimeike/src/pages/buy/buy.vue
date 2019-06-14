@@ -112,11 +112,14 @@
 				view {
 					width: 80%;
 					margin-left: 15upx;
+					display: flex;
+					flex-direction: column;
 					.t1 {
 						font-size: 29upx;
 					}
 					.t2 {
-						font-size: 22upx;
+						margin-top: 10upx;
+						font-size: 30upx;
 						color: #f86e25;
 					}
 				}

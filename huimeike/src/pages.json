@@ -230,7 +230,7 @@
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue600",
 								"fontSize": "27",
-								"color": "#303133",
+								"color": "#FFFFFF",
 								"background": "rgba(0,0,0,0)"
 							}
 						]
@@ -254,7 +254,7 @@
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue600",
 								"fontSize": "27",
-								"color": "#303133",
+								"color": "#FFFFFF",
 								"background": "rgba(0,0,0,0)"
 							}
 						]
