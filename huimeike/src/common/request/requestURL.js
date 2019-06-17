@@ -33,5 +33,7 @@ export default {
 	//音频/视频下载
 	download: `${baseurl}/Yktapi/xz`,
 	//关注讲师
-	focus: `${baseurl}/teacher/js_focus`
+	focus: `${baseurl}/teacher/js_focus`,
+	//个人中心
+	my: `${baseurl}/Personal/grzs`
 }

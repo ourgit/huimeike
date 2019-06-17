@@ -2,30 +2,27 @@
 	<view class="my">
 		<view class="info">
 			<view class="top">
-				<image src="../../static/images/my/headImg.png"></image>
+				<image :src="imgUrl2 + user.head_img"></image>
 				<view class="box">
 					<view>
-						<text class="text1">StarSky</text>
-						<text class="text2">Lv.9</text>
+						<text class="text1">{{user.nickname}}</text>
+						<text class="text2">{{user.dj}}</text>
 					</view>
-					<text class="autograph">如果有一个霸气的个性签名，会给你加分哦</text>
+					<text class="autograph" v-if="user.gxqm">{{user.gxqm}}</text>
+					<text class="autograph" v-else>如果有一个霸气的个性签名，会给你加分哦</text>
 				</view>
 			</view>
 			<view class="bottom">
 				<view>
-					<text class="ed824a">168</text>
+					<text class="ed824a">{{gzcount}}</text>
 					<text class="b3b3b3">关注</text>
 				</view>
 				<view>
-					<text class="ed824a">85</text>
-					<text class="b3b3b3">粉丝</text>
-				</view>
-				<view>
-					<text class="ed824a">9625</text>
+					<text class="ed824a">{{user.money}}</text>
 					<text class="b3b3b3">颜值豆</text>
 				</view>
 				<view>
-					<text class="ed824a">42</text>
+					<text class="ed824a">{{user.integral}}</text>
 					<text class="b3b3b3">积分</text>
 				</view>
 			</view>
@@ -43,7 +40,8 @@
 				<view @click="coupons">
 					<text class="ico ico1"></text>
 					<text class="text3">卡券</text>
-					<text class="text4">0张</text>
+					<text class="text4" v-if="user.ksq">{{user.ksq}}张</text>
+					<text class="text4" v-else>{{user.ksq}}0张</text>
 				</view>
 				<view @click="order">
 					<text class="ico ico2"></text>
@@ -53,12 +51,12 @@
 				<view>
 					<text class="ico ico3"></text>
 					<text class="text3">颜值豆</text>
-					<text class="text4">9642</text>
+					<text class="text4">{{user.money}}</text>
 				</view>
 				<view>
 					<text class="ico ico4"></text>
 					<text class="text3">积分</text>
-					<text class="text4">42</text>
+					<text class="text4">{{user.integral}}</text>
 				</view>	
 			</view>								
 		</view>
@@ -68,12 +66,12 @@
 				<view @click="collection">
 					<text class="ico ico5"></text>
 					<text class="text3">收藏</text>
-					<text class="text4">0个</text>
+					<text class="text4">{{sccount}}个</text>
 				</view>
 				<view>
 					<text class="ico ico6"></text>
 					<text class="text3">心得</text>
-					<text class="text4">0条</text>
+					<text class="text4">{{xdcount}}条</text>
 				</view>
 				<view>
 					<text class="ico ico7"></text>
@@ -83,7 +81,7 @@
 				<view>
 					<text class="ico ico8"></text>
 					<text class="text3">证书</text>
-					<text class="text4">0个</text>
+					<text class="text4">{{zs}}个</text>
 				</view>
 				<view>
 					<text class="ico ico9"></text>
@@ -93,7 +91,7 @@
 				<view @click="download">
 					<text class="ico ico10"></text>
 					<text class="text3">下载</text>
-					<text class="text4">0个</text>
+					<text class="text4">{{downloadNum}}个</text>
 				</view>					
 			</view>								
 		</view>
@@ -119,11 +117,42 @@
 	export default {
 		data() {
 			return {
-
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
+				//用户信息
+				user: {},
+				//关注
+				gzcount: '',
+				//收藏
+				sccount: '',
+				//学习心得
+				xdcount: '',
+				//证书
+				zs: '',
+				//下载个数
+				downloadNum: ''
 			}
 		},
 		onLoad() {
-			
+			/* 获取首页请求 */
+			this.$request.my().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.user = res.user;
+				//关注
+				this.gzcount = res.gzcount;
+				//收藏
+				this.sccount = res.sccount;
+				//学习心得
+				this.xdcount = res.xdcount;
+				//证书
+				this.zs = res.zs;
+				//下载个数
+				this.downloadNum = res.download;
+				
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			set() {
@@ -203,6 +232,7 @@
 					height: 160upx;
 					margin-left: 10upx;
 					margin-top: 10upx;
+					border-radius: 50%;
 				}
 				.box {
 					height: 160upx;
@@ -216,14 +246,14 @@
 						display: flex;
 						.text1 {
 							font-size: 30upx;
-							color: #ed824a;							
+							color: #ed824a;
 						}
 						.text2 {
 							padding: 4upx 30upx;
 							box-sizing: border-box;
 							background-color: #f5af1a;
 							color: #fff;
-							font-size: 16upx;
+							font-size: 30upx;
 							border-radius: 15upx;
 							margin-left: 8upx;
 						}

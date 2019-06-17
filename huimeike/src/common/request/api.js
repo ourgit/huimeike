@@ -82,5 +82,10 @@ export default {
 	focus: async function (prams) {
 		let response = await request.Fetch(requestURL.focus,prams,'POST',true)
 		return response;		
+	},
+	//个人中心
+	my: async function (prams) {
+		let response = await request.Fetch(requestURL.my,prams,'POST',true)
+		return response;		
 	}
 }
