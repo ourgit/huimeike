@@ -5,21 +5,12 @@
 				<image :src="imgUrl2 + audioList.jspic"></image>
 				<text>{{audioList.title}}</text>
 			</view>
-			<view class="lineBar">
-				<view class="time star">{{nowmiaoForc}}</view>
-					<slider class="line" :value="nowmiao" min="0" :max="allmiao" @change="sliderChange" block-size="15" activeColor="#55A532" />
-				<view class="time end">{{allmiaoForc}}</view>
-			</view>	
 		</view>
 		<view class="bottom">
 			<!-- 明天来改样式 -->
 			<view class="box">
-				<view class="on"></view>
-				<view class="play" @tap="play">
-					<image v-if="!playState" class="iconbtn play" src="../../static/images/audio/play.png"></image>
-					<image v-if="playState" class="iconbtn play" src="../../static/images/audio/pause.png"></image>
-				</view>
-				<view class="next"></view>
+				<imt-audio continue :src="audioList.url" :duration="dur" @prev="prev"
+				 @next="next" :autoplay="autoplay"></imt-audio>
 			</view>
 			<view class="tabBar">
 				<view class="liebiao">
@@ -50,20 +41,16 @@
 </template>
 
 <script>
-	let innerAudioContext = ''
+	import imtAudio from '../../components/imt-audio/imt-audio'
 	export default {
+		components: {
+			imtAudio
+		},
 		data() {
 			return {
-				nowmiao:0,//当前时间
-				allmiao:0,//全部时间
-				cur: '',
-				dec: '',
-				timer: null,
-				lineBarWid:520,//进度条的宽度跟css一只
-				playState:0,//播放状态
-				audioCont:'',
-				audioPlaySrc:0,//当前播放的歌曲index
-				audioWay:0,//播放方式 0顺序播放 1随机播放 2单曲循环
+				dur: null,
+				now: 0,
+				autoplay: true,
 				audioList:{},
 				collect:0,//是否收藏	
 				//全屏显示开关
@@ -77,38 +64,9 @@
 				xiazai: 0				
 			}
 		},
-		computed: {
-			width:function (){
-				return 'width:' + this.nowmiao/this.allmiao * this.lineBarWid + 'upx'
-			},
-			nowmiaoForc:function (){
-					var sec = this.nowmiao % 60;
-					var min = Math.floor(this.nowmiao / 60);
-					if(min.toString().length < 2){
-						min = '0' + min;
-					}
-					if(sec.toString().length < 2){
-						sec = '0' + sec;
-					}
-					return min+':' + sec
-			},
-			allmiaoForc:function(){
-				var sec = this.allmiao % 60;
-				var min = Math.floor(this.allmiao / 60);
-				if(min.toString().length < 2){
-					min = '0' + min;
-				}
-				if(sec.toString().length < 2){
-					sec = '0' + sec;
-				}
-				return min+':' + sec
-			}
-		},
-		onReady() {
 
-			
-		},
 		onLoad(options) {
+			
 			
 			this.id = options.id;
 			this.jsid = options.jsid;
@@ -120,62 +78,30 @@
 				res = JSON.parse(res);
 				console.log(res)
 				this.audioList = res;
+				this.dur = res.duration;
 				this.show = true;
-				this.audioInit()
 				if(this.audioList.sczt) {
 					this.collect = this.audioList.sczt
 				}
-				console.log(this.cur)
 			},err =>{
 				console.log(err)
-			})			
+			})	
+					
 		},		
 		methods: {
-			audioInit(){
-				if(innerAudioContext){
-					innerAudioContext.destroy()
-					innerAudioContext = ''
-					//销毁====================
-				}
-				innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.src = 'http://psamupqu5.bkt.clouddn.com/薛之谦.mp3';
-				innerAudioContext.autoplay = true
-				//获取时长
-				this.timer = setInterval(()=>{
-					this.allmiao = Math.floor(innerAudioContext.duration)
-					if(this.allmiao){
-						clearInterval(this.timer)
-					}
-				})
-				//监听事件
-				innerAudioContext.onPlay(()=>{
-					this.playFunc()
-				})
-				innerAudioContext.onPause(()=>{
-					this.pauseFunc()
-				})
-				innerAudioContext.onTimeUpdate((e)=>{
-					this.nowmiao = Math.floor(innerAudioContext.currentTime)
-				})
+			//上一首
+			prev() {
+				// this.now = this.now === 0?this.audio.length-1:this.now-1
+				this.$msg("目前只支持单曲播放！")
 			},
-			playFunc(){
-				this.playState=1
+			//播放当前
+			play() {
+				this.now = this.key
 			},
-			pauseFunc(){
-				this.playState= 0
-			},
-			sliderChange(e) {
-				this.nowmiao = e.detail.value
-				innerAudioContext.seek(this.nowmiao)
-			},
-			play(){
-				if(this.playState){
-					//暂停
-					innerAudioContext.pause()
-				}else{
-					//播放
-					innerAudioContext.play()
-				}
+			//下一首
+			next() {
+				// this.now = this.now === this.audio.length-1?0:this.now+1
+				this.$msg("目前只支持单曲播放！")
 			},
 			collectFunc(){
 				this.collect = !this.collect
@@ -243,15 +169,7 @@
 
 				
 			}
-		},
-		destroyed(){
-			innerAudioContext.destroy()
-			innerAudioContext = ''
-		},
-		onUnload(){ 
-			clearInterval(this.timer);  
-			this.timer = null;		 
-		} 
+		}
 	}
  
 </script>
@@ -332,33 +250,8 @@
 				}
 			}
 			.box {
-				width: 358upx;
-				margin: 0 auto;
-				height: 188upx;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				view {
-					width: 50upx;
-					height: 50upx;
-				}
-				.on {
-					background: url("~@/static/images/audio/on.png") no-repeat;
-					background-size: 100% 100%;
-					
-				}
-				.play {
-					width: 134upx;
-					height: 134upx;
-					image {
-						width: 134upx;
-						height: 134upx;
-					}
-				}
-				.next {
-					background: url("~@/static/images/audio/next.png") no-repeat;
-					background-size: 100% 100%;
-				}
+
+
 			}
 			.tabBar {
 				width: 100%;

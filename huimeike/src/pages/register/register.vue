@@ -191,7 +191,7 @@
 		}
 		.form {
 			width: 606upx;
-			height: 750upx;
+			height: 770upx;
 			position: absolute;
 			overflow: hidden;
 			top: 330upx;

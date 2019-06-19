@@ -4,26 +4,26 @@
 		<view class="headImg">
 			<text>头像</text>
 			<view>
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558671924035&di=7378ee4d080f57b2e109a2c6f5d13bb9&imgtype=0&src=http%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FLibwdZlwIumNibOqpqWrKzFOjlHUFScsYULHrMibS9ACZ1cjCMWAiaWsz1rfR5pZsGBqNBJcDghSu3cJx0cqp8EbMw%2F640%3Fwx_fmt%3Djpeg"></image>
+				<image :src="imgUrl2 + userInfo.head_img"></image>
 				<text class="icon">&#xe656;</text>				
 			</view>
 		</view>
 		<view class="item">
 			<view>
 				<text>姓名</text>
-				<text class="hui" @click="revise">{{itemData.name}}</text>
+				<text class="hui" @click="revise">{{userInfo.nickname}}</text>
 			</view>
 		</view>
 		<view class="item">
 			<view>
 				<text>职位</text>
-				<text class="hui" @click="revise">{{itemData.job}}</text>				
+				<text class="hui" @click="revise">{{userInfo.group_id}}</text>				
 			</view>
 		</view>
 		<view class="item">
 			<view>
 				<text>电话</text>
-				<text class="hui" @click="revise">{{itemData.phone}}</text>
+				<text class="hui" @click="revise">{{userInfo.account}}</text>
 			</view>
 		</view>
 		<view class="item">
@@ -53,16 +53,20 @@
 	export default {
 		data() {
 			return {
+				imgUrl2: this.$imgUrl.imgUrl2,
 				placeholderSrc: '../../static/images/common/abc.png',
-				itemData: {
-					"name": "StarSky",
-					"job": "店长",
-					"phone": "17710595507"										
-				}
+				userInfo: {}
 			}
 		},
 		onLoad() {
-			
+			/* 设置接口请求 */
+			this.$request.set().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.userInfo = res;
+			},err =>{
+				console.log(err)
+			})			
 		},
 		methods: {
 			goback() {
@@ -81,7 +85,6 @@
 				const index = e.index;
 				if (index === 0) {
 					this.$msg("您点击了扫码")
-
 				}
 			},
 			revise() {
@@ -95,9 +98,17 @@
 				})
 			},
 			out() {
-				uni.redirectTo({
-					url: '/pages/login/login'
-				})
+				uni.showModal({
+					title: '提示',
+					content: '确定退出登录？',
+					success: function (res) {
+						if (res.confirm) {
+							uni.redirectTo({
+								url: '/pages/login/login'
+							})
+						}
+					}
+				});
 			}
 		}
 	}

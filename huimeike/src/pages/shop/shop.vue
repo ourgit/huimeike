@@ -28,7 +28,7 @@
 		data() {
 			return {
 				TabCur: 0,
-				tabList: [{ name: '精美书籍' }, { name: '顾问案' },{ name: '医美项目' },{ name: '商务礼品' },{ name: '最新课程' },{ name: '技术支持' },{ name: '电话咨询' }],
+				tabList: [{ name: '美业书籍' }, { name: '顾问方案' },{ name: '生美项目' },{ name: '医美项目' },{ name: '商务礼品' }],
 				placeholderSrc: '../../static/images/common/abc.png',
 			}
 		},

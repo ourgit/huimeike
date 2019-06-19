@@ -14,18 +14,60 @@
 	export default {
 		data() {
 			return {
-				placeholderSrc: '../../static/images/common/abc.png',
-				itemData: {
-					"name": "StarSky",
-					"job": "店长",
-					"phone": "17710595507"										
-				}
+				password: '',
+				newpassword: '',
+				true_new: ''
 			}
 		},
 		onLoad() {
 			
 		},
 		methods: {
+						//点击导航栏 buttons 时触发
+			onNavigationBarButtonTap(e) {
+				const index = e.index;
+				if (index === 0) {
+					if(this.newpassword === this.true_new) {
+						/* 修改密码请求 */
+						this.$request.Modify({
+							ysmm: this.$md5(this.password),
+							password: this.$md5(this.newpassword)
+						}).then(res =>{
+							res = JSON.parse(res);
+							console.log(res)
+							this.$msg(res.msg)
+							this.show = true
+							setTimeout(() => {
+								uni.showLoading({
+									title: '请稍后...'							
+								})
+							}, 1500);
+
+							setTimeout(() => {
+								uni.hideLoading();
+								uni.redirectTo({
+									url: '/pages/login/login',
+									animationType: 'none'
+								})
+							}, 3000);
+
+							
+						},err =>{
+							console.log(err)
+						})
+
+					}else if(!this.password) {
+						this.$msg('内容不能为空！')
+					}else if(!this.newpassword) {
+						this.$msg('内容不能为空！')
+					}else if(!this.true_new) {
+						this.$msg('内容不能为空！')
+					}else {
+						this.$msg('新密码与确认密码不一致！')
+					}					
+					
+				}
+			},
 			forget() {
 				uni.navigateTo({
 					url: "/pages/forgot/forgot"

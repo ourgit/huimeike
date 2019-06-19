@@ -43,9 +43,9 @@
 		<view class="NewCurriculum">
 			<view class="title3">
 				<text class="headline">最新课程</text>
-				<text class="icon more">更多</text>
+				<text class="icon more" @click="zuixinmore">更多</text>
 			</view>
-			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index">
+			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index" @click="zx(item.id)">
 				<view class="img"><lazy-image :realSrc="'http://hmk.qhd58.net/uploads/images/' + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="view">{{$tools.cutString(item.title,21)}}</view>
 				<text class="icon font">&#xe656;</text>
@@ -54,9 +54,9 @@
 		<view class="NewCurriculum">
 			<view class="title3">
 				<text class="headline">顾问案</text>
-				<text class="icon more">更多</text>
+				<text class="icon more" @click="gwmore">更多</text>
 			</view>
-			<view class="CurriculumItem" v-for="(item, index) in guwenan" :key="index">
+			<view class="CurriculumItem" v-for="(item, index) in guwenan" :key="index" @click="gw">
 				<view class="img"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="flexC">
 					<text class="f30">《{{item.title}}》</text>
@@ -79,14 +79,14 @@
 			<view class="NewCurriculum">
 				<view class="title3">
 					<text class="headline">{{item.scname}}</text>
-					<text class="icon more">更多</text>
+					<text class="icon more" @click="commonmore">更多</text>
 				</view>	
 			</view>
 			<view class="commonItem" >
-				<view v-for="(items,index2) in item.list" :key="index2" class="view-box">
+				<view v-for="(items,index2) in item.list" :key="index2" class="view-box" @click="ym">
 					<view class="img2"><lazy-image :realSrc="imgUrl + items.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 					<text class="biaoti">《{{items.title}}》</text>
-					<text class="duanluo">{{$tools.cutString(items.abstract,32)}}</text>
+					<text class="duanluo" style="font-size: 22upx;">{{$tools.cutString(items.abstract,20)}}</text>
 					<text class="f26" v-if="items.gmsl !== undefined">{{items.gmsl}}颜值豆</text>
 				</view>
 			</view>
@@ -95,7 +95,7 @@
 			<view class="NewCurriculum">
 				<view class="title3">
 					<text class="headline">精彩分享</text>
-					<text class="icon more">更多</text>
+					<text class="icon more" @click="jcmore">更多</text>
 				</view>	
 				<view></view>
 			</view>
@@ -117,17 +117,17 @@
 			<view class="NewCurriculum">
 				<view class="title3">
 					<text class="headline">往期课程</text>
-					<text class="icon more">更多</text>
+					<text class="icon more" @click="wqmore">更多</text>
 				</view>	
 				<view></view>
 			</view>	
 			<view class="ul-box">
-				<view class="li-box" v-for="(item,index) in wqkc" :key="index">
+				<view class="li-box" v-for="(item,index) in wqkc" :key="index" @click="wq(item.id)">
 					<image :src="imgUrl + item.photo">
 					</image>
 					<text class="text1">{{item.bmrs}}人加入学习</text>
 					<text class="text2">{{item.title}}</text>
-					<text class="text3">{{item.szzd}}</text>
+					<text class="text3">{{$tools.cutString(item.szzd,30)}}</text>
 					<view>
 						<text class="text4">{{item.gmsl}}颜值豆</text>
 						<text class="text5">{{item.bmrs}}人学习</text>
@@ -147,16 +147,16 @@
 				<view>
 					<text class="user2">{{item.title}}</text>
 					<text class="time2">{{parseInt(item.create_time)*1000 | time}}</text>
-					<text class="ed824a2">{{item.remark}}</text>					
+					<text class="ed824a2">{{$tools.cutString(item.remark,30)}}</text>					
 				</view>
 			</view>
 		</view>
 		<view class="NewCurriculum" style="margin-top: 30upx;">
 			<view class="title3">
-				<text class="headline">最新课程</text>
-				<text class="icon more">更多</text>
+				<text class="headline">精品推荐</text>
+				<text class="icon more" @click="jpmore">更多</text>
 			</view>
-			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index">
+			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index" @click="jp(item.id)">
 				<view class="img"><lazy-image :realSrc="'http://hmk.qhd58.net/uploads/images/' + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="view">{{$tools.cutString(item.title,21)}}</view>
 				<text class="icon font">&#xe656;</text>
@@ -218,6 +218,7 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
+				console.log(res);
 				this.zxkc  = res.zxkc;
 				this.guwenan = res.gwa;
 				this.jcfx = res.jcfx;
@@ -300,7 +301,74 @@
 						url: '/pages/my/my'
 					})
 				}
-			}			
+			},
+			//点击单个最新课程
+			zx(id) {
+				console.log(id)
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})
+			},
+			//最新课程更多
+			zuixinmore() {
+				uni.navigateTo({
+					url: '/pages/classroom/classroom'
+				})
+			},
+			//点击单个顾问案
+			gw() {
+				uni.navigateTo({
+					url: '/pages/shopDetail/shopDetail'
+				})
+			},
+			//顾问案更多
+			gwmore() {
+				uni.navigateTo({
+					url: '/pages/guwenan/guwenan'
+				})
+			},
+			//点击单个医美项目
+			ym() {
+				uni.navigateTo({
+					url: '/pages/shopDetail/shopDetail'
+				})
+			},
+			//医美、生美、商务更多
+			commonmore() {
+				uni.switchTab({
+					url: '/pages/shop/shop'
+				})
+			},
+			//精彩分享更多
+			jcmore() {
+				uni.navigateTo({
+					url: '/pages/StudentSharing/StudentSharing'
+				})				
+			},
+			//点击单个往期课程
+			wq(id) {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})
+			},
+			//往期课程更多
+			wqmore() {
+				uni.navigateTo({
+					url: '/pages/classroom/classroom'
+				})				
+			},
+			//点击单个精品推荐
+			jp(id) {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})				
+			},
+			//精品推荐更多
+			jpmore() {
+				uni.navigateTo({
+					url: '/pages/classroom/classroom'
+				})				
+			}
 		}
 	}
 </script>
@@ -322,7 +390,6 @@
 	
 	.home {
 		width: 100%;
-		padding-bottom: 100upx;
 		box-sizing: border-box;
 		.header {
 			width: 100%;
@@ -618,6 +685,7 @@
 			}
 			.bottom {
 				margin-left: 120upx;
+				margin-right: 60upx;
 				font-size: 22upx;
 				.ed824a {
 					color: #ed824a;
@@ -667,10 +735,10 @@
 						text-indent: 6upx;
 					}
 					.text3 {
+						padding: 0 10upx;
 						font-size: 22upx;
 						line-height: 34upx;
 						color: #838383;
-						text-indent: 6upx;
 					}
 					view {
 						display: flex;

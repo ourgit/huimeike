@@ -45,10 +45,14 @@
 			//返回prev事件
 			prev() {
 				this.$emit('prev')
+				audio.play()
+				this.paused = true;
 			},
 			//返回next事件
 			next() {
 				this.$emit('next')
+				audio.play()
+				this.paused = true;
 			},
 			//格式化时长
 			format(num) {
@@ -57,10 +61,12 @@
 			},
 			//播放/暂停操作
 			operation() {
-				if (audio.paused) {
+				if (this.paused) {
 					audio.play()
-					this.loading = true
+					this.paused = false;
+					this.loading = true;
 				} else {
+					this.paused = true;
 					audio.pause()
 				}
 			},
@@ -73,7 +79,8 @@
 			audio.src = this.src
 			this.current = 0
 			this.durationTime = this.format(this.duration)
-			audio.obeyMuteSwitch = false
+			//静音了音乐照常开启
+			audio.obeyMuteSwitch = true
 			audio.autoplay = this.autoplay
 			//音频进度更新事件
 			audio.onTimeUpdate(() => {

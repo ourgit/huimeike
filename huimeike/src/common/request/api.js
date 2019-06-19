@@ -87,5 +87,15 @@ export default {
 	my: async function (prams) {
 		let response = await request.Fetch(requestURL.my,prams,'POST',true)
 		return response;		
+	},
+	//忘记密码
+	Modify: async function (prams) {
+		let response = await request.Fetch(requestURL.Modify,prams,'POST',true)
+		return response;		
+	},
+	//设置
+	set: async function (prams) {
+		let response = await request.Fetch(requestURL.set,prams,'POST',true)
+		return response;		
 	}
 }

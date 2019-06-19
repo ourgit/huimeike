@@ -335,7 +335,7 @@
 					}
 				}
 			}
-		},
+		},						
 		{
 			//每周预约课
 			"path":"pages/Course/Course",

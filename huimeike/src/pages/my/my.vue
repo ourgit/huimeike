@@ -1,5 +1,5 @@
 <template>
-	<view class="my">
+	<view class="my" v-show="show">
 		<view class="info">
 			<view class="top">
 				<image :src="imgUrl2 + user.head_img"></image>
@@ -40,8 +40,8 @@
 				<view @click="coupons">
 					<text class="ico ico1"></text>
 					<text class="text3">卡券</text>
-					<text class="text4" v-if="user.ksq">{{user.ksq}}张</text>
-					<text class="text4" v-else>{{user.ksq}}0张</text>
+					<text class="text4" v-if="user.ksq !== null">{{user.ksq}}张</text>
+					<text class="text4" v-else>0张</text>
 				</view>
 				<view @click="order">
 					<text class="ico ico2"></text>
@@ -130,11 +130,13 @@
 				//证书
 				zs: '',
 				//下载个数
-				downloadNum: ''
+				downloadNum: '',
+				//全屏显示开关
+				show: false
 			}
 		},
 		onLoad() {
-			/* 获取首页请求 */
+			/* 获取个人中心请求 */
 			this.$request.my().then(res =>{
 				res = JSON.parse(res);
 				console.log(res)
@@ -149,6 +151,7 @@
 				this.zs = res.zs;
 				//下载个数
 				this.downloadNum = res.download;
+				this.show = true
 				
 			},err =>{
 				console.log(err)

@@ -35,5 +35,9 @@ export default {
 	//关注讲师
 	focus: `${baseurl}/teacher/js_focus`,
 	//个人中心
-	my: `${baseurl}/Personal/grzs`
+	my: `${baseurl}/Personal/grzs`,
+	//修改密码
+	Modify: `${baseurl}/xgmm/xgmm`,
+	//设置
+	set: `${baseurl}/Personal/sz`
 }
