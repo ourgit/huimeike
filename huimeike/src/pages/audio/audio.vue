@@ -10,7 +10,7 @@
 			<!-- 明天来改样式 -->
 			<view class="box">
 				<imt-audio continue :src="audioList.url" :duration="dur" @prev="prev"
-				 @next="next" :autoplay="autoplay"></imt-audio>
+				 @next="next" @End="end" :autoplay="autoplay"></imt-audio>
 			</view>
 			<view class="tabBar">
 				<view class="liebiao">
@@ -61,16 +61,17 @@
 				jsid: '',
 				yplx: '',
 				//下载状态
-				xiazai: 0				
+				xiazai: 0,
+				gmzt: ''
 			}
 		},
 
 		onLoad(options) {
-			
-			
+						
 			this.id = options.id;
 			this.jsid = options.jsid;
 			this.yplx = options.ypls;
+			this.gmzt = options.gmzt;
 			/* 获取播放请求 */
 			this.$request.play({
 				id: this.id
@@ -102,6 +103,14 @@
 			next() {
 				// this.now = this.now === this.audio.length-1?0:this.now+1
 				this.$msg("目前只支持单曲播放！")
+			},
+			end() {
+				if(this.gmzt == -1) {
+					setTimeout(() => {
+						this.$msg("目前为试看，建议购买完整音频！")
+					},2000);
+						
+				}	
 			},
 			collectFunc(){
 				this.collect = !this.collect

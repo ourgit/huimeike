@@ -74,7 +74,12 @@
 		.nav {
 			width: 100%;
 			box-sizing: border-box;
-			top: 0;
+			/*  #ifdef H5  */
+			top: 88upx;
+			/*  #endif  */
+			/*  #ifdef APP-PLUS  */
+			top: 0upx;
+			/*  #endif  */
 			left: 0;
 			z-index: 9;
 			position: fixed;
@@ -92,9 +97,7 @@
 			color: #919191;
 		}
 		.content {
-			/*  #ifdef APP-PLUS */
 			margin-top: 88upx;
-			/*  #endif */
 			padding: 27upx 36upx;
 			padding-bottom: 120upx;
 			.ul {

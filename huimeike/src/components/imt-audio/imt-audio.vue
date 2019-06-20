@@ -46,13 +46,13 @@
 			prev() {
 				this.$emit('prev')
 				audio.play()
-				this.paused = true;
+				this.paused = false;
 			},
 			//返回next事件
 			next() {
 				this.$emit('next')
 				audio.play()
-				this.paused = true;
+				this.paused = false;
 			},
 			//格式化时长
 			format(num) {
@@ -99,6 +99,7 @@
 			})
 			//音频结束事件
 			audio.onEnded(() => {
+				this.$emit('End',"123")
 				if (this.continue) {
 					this.next()
 				} else {

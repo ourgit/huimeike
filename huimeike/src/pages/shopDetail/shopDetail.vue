@@ -32,8 +32,6 @@
 		data() {
 			return {
 				placeholderSrc: '../../static/images/common/abc.png',
-				Heiban: this.$base64.Heiban,
-				Heiban2: this.$base64.Heiban2,
 			}
 		},
 		onLoad() {

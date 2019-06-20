@@ -11,7 +11,7 @@
 					<image :src="imgUrl2 + js.portrait"></image>
 					<view>
 						<text class="t1">{{js.name}}</text>
-						<text class="t2">{{js.time}}</text>						
+						<text class="t2" style="font-size: 24upx;">{{js.time}}</text>						
 					</view>
 				</view>
 				<view class="v2" @click="collectFunc">
@@ -22,12 +22,12 @@
 			</view>
 			<view class="mp3-box">
 				<view class="mp3">
-					<image src="../../static/images/NotPurchased/play.png" @click="play"></image>
+					<image src="../../static/images/NotPurchased/play.png" @click="play(gmzt)"></image>
 					<view class="view1">
 						<view class="biaoti2">{{xqxx.title}}</view>
 						<view class="biaoti3">
-							<text>11:10</text>
-							<text style="margin-left: 33upx;">15.32MB</text>							
+							<text style="font-size: 24upx;">{{duration}}</text>
+							<text style="margin-left: 33upx;font-size: 24upx;">{{xqxx.size}}</text>							
 						</view>						
 					</view>
 				</view>				
@@ -76,12 +76,7 @@
 				</view>
 				<view class="tubiao"></view>
 			</view>
-			<view class="tabBar" v-if="1 === 1">
-				<text class="yzd">99.9颜值豆</text>
-				<text class="mianfei" @click="play">免费试听</text>
-				<button @click="buy">购买</button>
-			</view>
-			<view class="tabBar" v-else>
+			<view class="tabBar"  v-if="gmzt===1">
 				<view class="liebiao">
 					<text class="icon">&#xe661;</text>
 					<text>写心得</text>
@@ -102,6 +97,11 @@
 					<text class="icon">&#xe667;</text>
 					<text>分享</text>
 				</view>
+			</view>			
+			<view class="tabBar" v-else>
+				<text class="yzd">{{xqxx.gmsl}}颜值豆</text>
+				<text class="mianfei" @click="play">免费试听</text>
+				<button @click="buy">购买</button>
 			</view>
 		</view>
 		<view class="end">
@@ -122,13 +122,14 @@
 				Heiban: heiban,
 				Heiban2: heiban2,
 				id: '',
+				gmzt: '',
 				xqxx: {},
 				//讲师信息
 				js: {},
 				xxxd: [],
 				collect:0,//是否收藏	,
-				gzzt: ''
-				
+				gzzt: '',
+				duration: null
 			}
 		},
 		onLoad(options) {
@@ -140,9 +141,11 @@
 			).then(res =>{
 				res = JSON.parse(res);
 				console.log(res)
+				this.gmzt = res.gmzt;
 				this.xqxx = res.xqxx;
 				this.js = res.js;
 				this.xxxd = res.xxxd;
+				this.duration = this.format(this.xqxx.duration)
 				this.gzzt = res.gzzt;
 				if(this.gzzt) {
 					this.collect = this.gzzt
@@ -152,6 +155,11 @@
 			})
 		},
 		methods: {
+			//格式化时长
+			format(num) {
+				return '0'.repeat(2 - String(Math.floor(num / 60)).length) + Math.floor(num / 60) + ':' + '0'.repeat(2 - String(
+					Math.floor(num % 60)).length) + Math.floor(num % 60)
+			},
 			goback() {
 				uni.navigateBack({
 					delta: 1
@@ -176,15 +184,15 @@
 			navigate(href, e) {
 				// do something
 			},
-			play() {
+			play(gmzt) {
 				if(this.xqxx.yplx === 0) {
 					uni.navigateTo({
-						url: `/pages/audio/audio?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}`
+						url: `/pages/audio/audio?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}&gmzt=${gmzt}`
 					})
 				}
 				else if(this.xqxx.yplx === 1) {
 					uni.navigateTo({
-						url: `/pages/video/video?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}`
+						url: `/pages/video/video?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}&gmzt=${gmzt}`
 					})					
 				}
 			},

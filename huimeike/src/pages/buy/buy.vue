@@ -23,7 +23,7 @@
 			<view class="money">
 				<view>
 					<text class="t5">余额：</text>
-					<text class="t6">99.8颜值豆（不足支付）</text>
+					<text class="t6" style="font-size: 35upx;">99.8颜值豆（不足支付）</text>
 				</view>
 				<button @click="recharge">充值</button>
 			</view>

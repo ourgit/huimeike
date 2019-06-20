@@ -48,7 +48,9 @@
 				//收藏状态
 				collect:0,
 				//下载状态
-				xiazai: 0
+				xiazai: 0,
+				//购买状态
+				gmzt: ''
 			}
 		},
 		computed: {
@@ -59,6 +61,7 @@
 		},		
 		onLoad(options) {
 			this.id = options.id;
+			this.gmzt = options.gmzt;
 				/* 获取播放请求 */
 				this.$request.play({
 					id: this.id
@@ -143,11 +146,11 @@
 			//末尾判断下一个是否为正片
 			ended() {
 				this.videoContext.autoplay = true;
-				//这里要改成购买状态字段
-				if(this.videoData.sczt == true) {
-					this.$msg("请先购买视频")
-				}else {
+				if(this.videoData.url) {
 					this.videoData.banner = this.videoData.url
+					if(this.gmzt == -1) {
+						this.$msg("目前为试听，建议购买完整视频！")
+					}
 				}
 			}
 		}

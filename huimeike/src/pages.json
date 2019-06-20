@@ -90,13 +90,6 @@
 						"buttons": [
 							{
 								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue766",
-								"fontSize": "27",
-								"float": "left",
-								"color": "#fff"
-							},
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue600",
 								"fontSize": "20",
 								"float": "right",
