@@ -378,8 +378,23 @@
 			}			
 		},
 		{
-			//添加地址
+			//地址管理
 			"path":"pages/address/address",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "地址管理",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "地址管理"
+					}
+				}
+			}							
+		},
+		{
+			//新增地址
+			"path":"pages/Newaddress/Newaddress",
 			"style": {
 				// #ifdef MP 
 				"navigationBarTitleText": "添加地址",				
@@ -393,8 +408,8 @@
 			}							
 		},
 		{
-			//新增地址
-			"path":"pages/Newaddress/Newaddress",
+			//编辑地址
+			"path":"pages/editaddr/editaddr",
 			"style": {
 				// #ifdef MP 
 				"navigationBarTitleText": "编辑地址",				
@@ -406,7 +421,7 @@
 					}
 				}
 			}							
-		},
+		},		
 		{
 			//充值
 			"path":"pages/pay/pay",

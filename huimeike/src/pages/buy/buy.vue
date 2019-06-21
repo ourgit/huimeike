@@ -11,8 +11,8 @@
 					</view>					
 				</view>
 				<view class="bottom">
-					<text class="t3">优惠券</text>
-					<text class="t4">5</text>
+					<text class="t3">课时券</text>
+					<text class="t4">5张</text>
 				</view>
 			</view>
 			
@@ -23,7 +23,7 @@
 			<view class="money">
 				<view>
 					<text class="t5">余额：</text>
-					<text class="t6" style="font-size: 35upx;">99.8颜值豆（不足支付）</text>
+					<text class="t6" style="font-size: 30upx;">99.8颜值豆（不足支付）</text>
 				</view>
 				<button @click="recharge">充值</button>
 			</view>

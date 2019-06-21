@@ -1,5 +1,5 @@
 <template>
-	<view class="address">
+	<view class="editaddr">
 
 		<view class="container">
 			<view class="input">
@@ -10,11 +10,10 @@
 				<text>联系电话</text>
 				<input type="number" />
 			</view>
-			<view class="input" @click="openPicker">
+			<view class="input">
 				<text>所在地区</text>
 				<text class="right">请选择</text>
 			</view>
-			<lotus-address v-on:choseVal="choseValue" :lotusAddressData="lotusAddressData"></lotus-address>
 			<view class="input">
 				<text>详细地址</text>
 				<input type="text" />
@@ -29,20 +28,11 @@
 </template>
 
 <script>
-	import lotusAddress  from "../../components/Winglau14-lotusAddress.vue";	
+	
 	export default {
-		components: {
-			"lotus-address":lotusAddress
-		},		
 		data() {
 			return {
-				lotusAddressData:{
-					visible:false,
-					provinceName:'广东省',
-					cityName:'广州市',
-					townName:'天河区',
-				},
-				region:''
+				
 			}
 		},
 		onLoad() {
@@ -53,24 +43,7 @@
 				uni.navigateBack({
 					delta: 1
 				});
-			},
-        //打开picker
-        openPicker() {
-            this.lotusAddressData.visible = true;
-        },
-        //回传已选的省市区的值
-        choseValue(res){
-            //res数据源包括已选省市区与省市区code
-            console.log(res);
-            this.lotusAddressData.visible = res.visible;//visible为显示与关闭组件标识true显示false隐藏
-            //res.isChose = 1省市区已选 res.isChose = 0;未选
-            if(res.isChose){
-                this.lotusAddressData.provinceName = res.provice;//省
-                this.lotusAddressData.cityName = res.city;//市
-                this.lotusAddressData.townName = res.town;//区
-                this.region = `${res.provice} ${res.city} ${res.town}`; //region为已选的省市区的值
-            }
-        }			
+			}
 		}
 	}
 </script>

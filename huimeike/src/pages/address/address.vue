@@ -21,14 +21,14 @@
 				</view>
 			</view>
 			<view class="Newaddress">
-				<button @click="edit">添加新地址</button>
+				<button @click="Newaddress">添加新地址</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	
+
 	export default {
 		data() {
 			return {
@@ -46,9 +46,14 @@
 			},
 			edit() {
 				uni.navigateTo({
-					url: '/pages/Newaddress/Newaddress'
+					url: '/pages/editaddr/editaddr'
 				})
-			}			
+			},
+			Newaddress() {
+				uni.navigateTo({
+					url: '/pages/Newaddress/Newaddress'
+				})				
+			}
 		}
 	}
 </script>
