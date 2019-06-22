@@ -97,5 +97,15 @@ export default {
 	set: async function (prams) {
 		let response = await request.Fetch(requestURL.set,prams,'POST',true)
 		return response;		
+	},
+	//添加地址
+	AddAddress: async function (prams) {
+		let response = await request.Fetch(requestURL.AddAddress,prams,'POST',true)
+		return response;		
+	},
+	//地址列表
+	AddressList: async function (prams) {
+		let response = await request.Fetch(requestURL.AddressList,prams,'POST',true)
+		return response;		
 	}
 }

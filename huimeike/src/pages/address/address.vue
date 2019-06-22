@@ -1,17 +1,18 @@
 <template>
 	<view class="address">
 		<view class="container">
-			<view class="item" v-for="(item,index) in 4" :key="index">
+			<view class="item" v-for="(item,index) in addressList" :key="index">
 				<view class="top">
 					<view class="name-box">
-						<text>张三</text>
-						<text>17710595507</text>
+						<text>{{item.name}}</text>
+						<text>{{item.phone}}</text>
 					</view>
-					<view class="dizhi">秦皇岛市海港区建设大街166号</view>
+					<view class="dizhi">{{item.province}}{{item.city}}{{item.area}}{{item.address_detailed}}</view>
 				</view>
 				<view class="bottom">
-					<view class="default">
-						<text class="icon">&#xe623;</text>
+					<view class="default" @click="defaultAddress">
+						<text class="icon" v-if="item.state == isDefault">&#xe77c;</text>
+						<text class="icon" v-else>&#xe623;</text>
 						<text>设为默认</text>
 					</view>
 					<view class="operate">
@@ -32,11 +33,29 @@
 	export default {
 		data() {
 			return {
-				
+				addressList: [],
+				isDefault: 0
 			}
 		},
 		onLoad() {
-			
+			/* 添加地址请求 */
+			this.$request.AddressList().then(res =>{
+				res = JSON.parse(res);
+				this.addressList = res;
+				this.isShow = true
+				let a = []
+				this.addressList.map((item) => {
+					if(item.state == 1) {
+						this.addressList[this.isDefault].state = item.state
+						
+					}else {
+						this.isDefault = false;
+					}
+					
+				})
+			},err =>{
+				console.log(err)
+			})			
 		},
 		methods: {
 			goback() {
@@ -53,7 +72,10 @@
 				uni.navigateTo({
 					url: '/pages/Newaddress/Newaddress'
 				})				
-			}
+			},
+			defaultAddress() {
+				this.isDefault = !this.isDefault;	
+			}			
 		}
 	}
 </script>

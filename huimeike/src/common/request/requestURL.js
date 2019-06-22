@@ -39,5 +39,9 @@ export default {
 	//修改密码
 	Modify: `${baseurl}/xgmm/xgmm`,
 	//设置
-	set: `${baseurl}/Personal/sz`
+	set: `${baseurl}/Personal/sz`,
+	//添加地址
+	AddAddress: `${baseurl}/dzapi/add_address`,
+	//地址管理列表
+	AddressList: `${baseurl}/Dzapi/dzlist`
 }
