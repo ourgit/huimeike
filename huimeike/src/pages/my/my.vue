@@ -40,7 +40,7 @@
 				<view @click="coupons">
 					<text class="ico ico1"></text>
 					<text class="text3">卡券</text>
-					<text class="text4" v-if="user.ksq !== null">{{user.ksq}}张</text>
+					<text class="text4" v-if="user.ksq">{{user.ksq}}张</text>
 					<text class="text4" v-else>0张</text>
 				</view>
 				<view @click="order">

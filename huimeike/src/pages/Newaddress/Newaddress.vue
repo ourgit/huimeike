@@ -49,9 +49,6 @@
 				region:''
 			}
 		},
-		onLoad() {
-			
-		},
 		methods: {
 			goback() {
 				uni.navigateBack({
@@ -76,11 +73,13 @@
 				}
 			},
 			//是否设为默认地址
-			switch1Change: function (e) {
+			switch1Change(e) {
 				if(e.target.value) {
 					this.DefaultAddress = e.target.value = 1;
+					console.log(this.DefaultAddress)
 				}else {
 					this.DefaultAddress = e.target.value = 0;
+					console.log(this.DefaultAddress)
 				}
 			},
 			//添加地址
@@ -107,6 +106,9 @@
 						res = JSON.parse(res);
 						console.log(res);
 						this.$msg(res.msg)
+						uni.navigateTo({
+							url: '/pages/address/address'
+						});
 					},err =>{
 						console.log(err)
 					})					

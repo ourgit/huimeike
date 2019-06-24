@@ -43,5 +43,11 @@ export default {
 	//添加地址
 	AddAddress: `${baseurl}/dzapi/add_address`,
 	//地址管理列表
-	AddressList: `${baseurl}/Dzapi/dzlist`
+	AddressList: `${baseurl}/Dzapi/dzlist`,
+	//获取单个地址
+	GetAddress: `${baseurl}/dzapi/address_find`,
+	//编辑地址
+	EditAddress: `${baseurl}/dzapi/editor_address`,
+	//删除地址
+	DelAddress: `${baseurl}/dzapi/del_address`
 }

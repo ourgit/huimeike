@@ -18,10 +18,10 @@
 			</view>
 			<view class="commonTitle">
 				<text class="text">{{resData.yunytitle}}</text>
-				<text class="icon more">更多</text>
+				<text class="icon more" @click="more">更多</text>
 			</view>
 			<view class="NewCurriculum">
-				<view class="CurriculumItem" v-for="(item, index) in resData.yunylist" :key="index">
+				<view class="CurriculumItem" v-for="(item, index) in resData.yunylist" :key="index" @click="yunying(item.id)">
 					<view class="img" style="border-radius: 50%;"><lazy-image style="border-radius: 50%;"  :realSrc="imgUrl + item.photo"></lazy-image></view>
 					<view class="view">{{$tools.cutString(item.szzd,25)}}</view>
 					<text class="icon font">&#xe656;</text>
@@ -29,9 +29,9 @@
 			</view>
 			<view class="commonTitle">
 				<text class="text">{{resData.yytitle}}</text>
-				<text class="icon more">更多</text>
+				<text class="icon more" @click="more2">更多</text>
 			</view>
-			<view class="CurriculumItem" v-for="(item, index) in resData.yylis" :key="index">
+			<view class="CurriculumItem" v-for="(item, index) in resData.yylis" :key="index" @click="yingxiao(item.id)">
 				<view class="img"><lazy-image :realSrc="imgUrl + item.photo"></lazy-image></view>
 				<view class="flexC">
 					<text class="f30">{{item.title}}</text>
@@ -41,17 +41,17 @@
 			</view>
 			<view class="commonTitle">
 				<text class="text">{{resData.tdtitle}}</text>
-				<text class="icon more">更多</text>
+				<text class="icon more" @click="more3">更多</text>
 			</view>
 			<view class="NewList">
-				<view class="NewLi" v-for="(item,index) in resData.tdlist" :key="index">
+				<view class="NewLi" v-for="(item,index) in resData.tdlist" :key="index" @click="team(item.id)">
 					<image :src="imgUrl + item.photo"></image>
 					<text class="text1">{{item.bmrs}}</text>
 					<text class="text2">{{item.title}}</text>
 					<text class="text3">{{$tools.cutString(item.szzd,25)}}</text>
 					<view>
-						<text class="text4">18颜值豆</text>
-						<text class="text5">25698人学习</text>
+						<text class="text4">{{item.gmsl}}颜值豆</text>
+						<text class="text5">{{item.bmrs}}人学习</text>
 					</view>
 				</view>
 			</view>
@@ -80,6 +80,7 @@
 			this.$request.cloudClass().then(res =>{
 				res = JSON.parse(res);
 				this.resData = res;
+				console.log(this.resData)
 				this.show = true;
 			},err =>{
 				console.log(err)
@@ -95,7 +96,43 @@
 				uni.navigateTo({
 					url: `/pages/NotPurchased/NotPurchased?id=${id}`
 				})
-			}			
+			},
+			//运营
+			yunying(id) {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})
+			},
+			//营销
+			yingxiao(id) {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})
+			},
+			//团队
+			team(id) {
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})				
+			},
+			//运营更多
+			more() {
+				uni.navigateTo({
+					url: '/pages/more/MoreCourses'
+				})				
+			},
+			//营销更多
+			more2() {
+				uni.navigateTo({
+					url: '/pages/more/MoreCourses2'
+				})				
+			},
+			//团队更多
+			more3() {
+				uni.navigateTo({
+					url: '/pages/more/MoreCourses3'
+				})				
+			},						
 		},
 		//点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {

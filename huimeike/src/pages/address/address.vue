@@ -10,14 +10,14 @@
 					<view class="dizhi">{{item.province}}{{item.city}}{{item.area}}{{item.address_detailed}}</view>
 				</view>
 				<view class="bottom">
-					<view class="default" @click="defaultAddress">
-						<text class="icon" v-if="item.state == isDefault">&#xe77c;</text>
+					<view class="default">
+						<text class="icon" v-if="item.state">&#xe77c;</text>
 						<text class="icon" v-else>&#xe623;</text>
 						<text>设为默认</text>
 					</view>
 					<view class="operate">
-						<text class="edit" @click="edit">编辑</text>
-						<text class="delate">删除</text>
+						<text class="edit" @click="edit(item.id)">编辑</text>
+						<text class="delate" @click="del(item.id,index)">删除</text>
 					</view>
 				</view>
 			</view>
@@ -43,16 +43,6 @@
 				res = JSON.parse(res);
 				this.addressList = res;
 				this.isShow = true
-				let a = []
-				this.addressList.map((item) => {
-					if(item.state == 1) {
-						this.addressList[this.isDefault].state = item.state
-						
-					}else {
-						this.isDefault = false;
-					}
-					
-				})
 			},err =>{
 				console.log(err)
 			})			
@@ -63,19 +53,27 @@
 					delta: 1
 				});
 			},
-			edit() {
-				uni.navigateTo({
-					url: '/pages/editaddr/editaddr'
-				})
-			},
 			Newaddress() {
 				uni.navigateTo({
 					url: '/pages/Newaddress/Newaddress'
 				})				
 			},
-			defaultAddress() {
-				this.isDefault = !this.isDefault;	
-			}			
+			edit(id) {
+				uni.navigateTo({
+					url: `/pages/editaddr/editaddr?id=${id}`
+				})
+			},
+			del(id,index) {
+				this.$request.DelAddress({
+					id: id
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res);
+					this.addressList.splice(index, 1);
+				},err =>{
+					console.log(err)
+				})	
+			}
 		}
 	}
 </script>

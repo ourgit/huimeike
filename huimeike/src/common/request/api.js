@@ -107,5 +107,20 @@ export default {
 	AddressList: async function (prams) {
 		let response = await request.Fetch(requestURL.AddressList,prams,'POST',true)
 		return response;		
-	}
+	},
+	//获取地址
+	GetAddress: async function (prams) {
+		let response = await request.Fetch(requestURL.GetAddress,prams,'POST',true)
+		return response;		
+	},
+	//编辑地址
+	EditAddress: async function (prams) {
+		let response = await request.Fetch(requestURL.EditAddress,prams,'POST',true)
+		return response;		
+	},
+	//删除地址
+	DelAddress: async function (prams) {
+		let response = await request.Fetch(requestURL.DelAddress,prams,'POST',true)
+		return response;		
+	}	
 }

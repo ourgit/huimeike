@@ -22,7 +22,7 @@
 				<text>设为默认</text>
 				<switch @change="switch1Change" style="transform:scale(0.7)" />
 			</view>
-			<button>保存</button>
+			<button @click="sava">保存</button>
 		</view>
 	</view>
 </template>
@@ -32,17 +32,47 @@
 	export default {
 		data() {
 			return {
-				
+				id: ''
 			}
 		},
-		onLoad() {
-			
+		onLoad(options) {
+			this.id = options.id;
+			console.log(this.id)
+			/* 获取单个地址报500错误 */
+			this.$request.GetAddress({
+				id: this.id
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res);
+			},err =>{
+				console.log(err)
+			})							
 		},
 		methods: {
 			goback() {
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			//是否设为默认地址
+			switch1Change(e) {
+				if(e.target.value) {
+					this.DefaultAddress = e.target.value = 1;
+					console.log(this.DefaultAddress)
+				}else {
+					this.DefaultAddress = e.target.value = 0;
+					console.log(this.DefaultAddress)
+				}
+			},
+			//保存
+			sava() {
+				/* 编辑地址请求 */
+				this.$request.EditAddress().then(res =>{
+					res = JSON.parse(res);
+					console.log(res);
+				},err =>{
+					console.log(err)
+				})				
 			}
 		}
 	}

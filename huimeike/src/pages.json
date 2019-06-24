@@ -184,6 +184,84 @@
 			}			
 		},
 		{
+			//运营更多课程
+			"path":"pages/more/MoreCourses",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程列表",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
+			//营销更多课程
+			"path":"pages/more/MoreCourses2",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程列表",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
+			//团队更多课程
+			"path":"pages/more/MoreCourses3",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "课程列表",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "课程列表",
+						//需要改这里，检测图标是否更新
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue600",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+								
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
 			//未购买/已购买课程
 			"path":"pages/NotPurchased/NotPurchased",
 			"style": {
@@ -504,6 +582,12 @@
 						"type": "default",
 						"titleText": "修改密码",
 						"buttons": [
+							{
+								"text": "取消",
+								"fontSize": "16",
+								"float": "left",
+								"color": "#fff"
+							},
 							{
 								"text": "完成",
 								"fontSize": "16",

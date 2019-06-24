@@ -3,7 +3,7 @@
 
 		<view class="headImg">
 			<text>头像</text>
-			<view>
+			<view @click="ModifyAvatar">
 				<image :src="imgUrl2 + userInfo.head_img"></image>
 				<text class="icon">&#xe656;</text>				
 			</view>
@@ -69,6 +69,10 @@
 			})			
 		},
 		methods: {
+			//修改头像
+			ModifyAvatar() {
+				
+			},
 			goback() {
 				uni.navigateBack({
 					delta: 1
@@ -77,7 +81,7 @@
 			//查看收货地址
 			look() {
 				uni.navigateTo({
-					url: ''
+					url: '/pages/address/address'
 				})
 			},
 			//点击导航栏 buttons 时触发

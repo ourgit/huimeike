@@ -27,6 +27,14 @@
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
 				if (index === 0) {
+					uni.navigateTo({
+						url: '/pages/set/set',
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+				if (index === 1) {
 					if(this.newpassword === this.true_new) {
 						/* 修改密码请求 */
 						this.$request.Modify({
