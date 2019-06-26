@@ -49,5 +49,7 @@ export default {
 	//编辑地址
 	EditAddress: `${baseurl}/dzapi/editor_address`,
 	//删除地址
-	DelAddress: `${baseurl}/dzapi/del_address`
+	DelAddress: `${baseurl}/dzapi/del_address`,
+	//修改用户头像
+	ModifyAvatar: `${baseurl}/Personal/photo`
 }

@@ -42,9 +42,9 @@
 				DefaultAddress: 0,
 				lotusAddressData:{
 					visible:false,
-					provinceName:'',
-					cityName:'',
-					townName:''
+					provinceName:'123',
+					cityName:'323',
+					townName:'4534'
 				},
 				region:''
 			}

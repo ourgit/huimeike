@@ -2,7 +2,8 @@
 	<view class="my" v-show="show">
 		<view class="info">
 			<view class="top">
-				<image :src="imgUrl2 + user.head_img"></image>
+				<image v-if="Avatar" :src="imgUrl2 + Avatar"></image>
+				<image v-else :src="imgUrl2 + user.head_img"></image>				
 				<view class="box">
 					<view>
 						<text class="text1">{{user.nickname}}</text>
@@ -108,12 +109,12 @@
 				<view class="icon hui" style="font-size: 21upx;">立即邀请</view>
 				<view class="icon hui" style="font-size: 21upx;">&#xe656;</view>
 			</view>
-		</view>		
+		</view>
 	</view>
 </template>
 
 <script>
-	
+	import {mapState,mapMutations} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -135,7 +136,10 @@
 				show: false
 			}
 		},
-		onLoad() {
+		computed: {
+			...mapState(['Avatar'])
+		},
+		onShow() {
 			/* 获取个人中心请求 */
 			this.$request.my().then(res =>{
 				res = JSON.parse(res);
@@ -155,9 +159,13 @@
 				
 			},err =>{
 				console.log(err)
-			})
+			})			
+		},
+		onLoad() {
+
 		},
 		methods: {
+			...mapMutations(['SetAvatar']),
 			set() {
 				uni.navigateTo({
 					url: '/pages/set/set'
@@ -170,7 +178,6 @@
 					this.$msg('点击了扫描');
 					
 				}else if (index === 1) {
-					this.$msg("您点击了设置")
 					uni.navigateTo({
 						url: '/pages/set/set'
 					})

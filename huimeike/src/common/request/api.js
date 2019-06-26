@@ -122,5 +122,10 @@ export default {
 	DelAddress: async function (prams) {
 		let response = await request.Fetch(requestURL.DelAddress,prams,'POST',true)
 		return response;		
+	},
+	//修改用户头像
+	ModifyAvatar: async function (prams) {
+		let response = await request.Fetch(requestURL.ModifyAvatar,prams,'POST',true)
+		return response;		
 	}	
 }

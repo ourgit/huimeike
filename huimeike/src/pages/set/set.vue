@@ -3,10 +3,20 @@
 
 		<view class="headImg">
 			<text>头像</text>
-			<view @click="ModifyAvatar">
-				<image :src="imgUrl2 + userInfo.head_img"></image>
+			<view>
+				<avatar 
+					selWidth="200px"
+					selHeight="400upx"
+					@upload="ModifyAvatar"
+					:avatarSrc="imgUrl2 + userInfo.head_img"
+					avatarStyle="width:80upx;height:80upx;"
+					inner="true"
+					canRotate="false"
+				>
+				</avatar>
 				<text class="icon">&#xe656;</text>				
 			</view>
+
 		</view>
 		<view class="item">
 			<view>
@@ -49,8 +59,16 @@
 </template>
 
 <script>
-	
+	/* 引入头像组件 */
+	import avatar from "@/components/yq-avatar.vue";
+	/* 利用vuex同步更新其他页面头像 */
+	import {mapState,mapMutations} from 'vuex';
+	/* 压缩base64 */
+	import { pathToBase64, base64ToPath } from '@/common/image-tools/index.js'
 	export default {
+		components: {
+            avatar
+        },
 		data() {
 			return {
 				imgUrl2: this.$imgUrl.imgUrl2,
@@ -58,21 +76,46 @@
 				userInfo: {}
 			}
 		},
+		computed: {
+			...mapState(['Avatar'])
+		},
 		onLoad() {
 			/* 设置接口请求 */
 			this.$request.set().then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
 				this.userInfo = res;
+				this.$store.commit('SetAvatar', this.userInfo.head_img)
 			},err =>{
 				console.log(err)
 			})			
 		},
+		onBackPress() {  
+			console.log("你返回了")
+		},  
 		methods: {
 			//修改头像
-			ModifyAvatar() {
-				
+			ModifyAvatar(rsp) {
+				pathToBase64(rsp.path)
+				.then(base64 => {
+					/* 修改头像请求 */
+					this.$request.ModifyAvatar({
+						image: base64
+					}).then(res =>{
+						res = JSON.parse(res);
+						uni.redirectTo({
+							url: '/pages/set/set'
+						})
+					},err =>{
+						console.log(err)
+					}).catch(err => {
+						console.log(err)
+					})					
+				})
+				.catch(error => {
+					console.error(error);
+				})
 			},
+			...mapMutations(['SetAvatar']),
 			goback() {
 				uni.navigateBack({
 					delta: 1
@@ -102,17 +145,18 @@
 				})
 			},
 			out() {
-				uni.showModal({
-					title: '提示',
-					content: '确定退出登录？',
-					success: function (res) {
-						if (res.confirm) {
-							uni.redirectTo({
-								url: '/pages/login/login'
-							})
-						}
-					}
-				});
+				uni.showModal({  
+					title: '提示',  
+					content: '是否退出登陆？',  
+					success: function(res) {  
+						if (res.confirm) {  
+							// 退出当前应用，该方法只在App中生效  
+							plus.runtime.quit();  
+						} else if (res.cancel) {  
+							console.log('用户点击取消');  
+						}  
+					}  
+				});    
 			}
 		}
 	}
