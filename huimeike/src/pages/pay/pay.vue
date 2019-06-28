@@ -18,7 +18,7 @@
 					<text>6元</text>
 				</view>
 			</view>
-			<button>确认支付</button>
+			<button @click="Confirm">确认支付</button>
 			<view class="mark">
 				<text>1.颜值豆可用于直接购买APP内的商品；</text>
 				<text class="last">2.颜值豆为虚拟币，充值后的颜值豆不会过期，但无法提现或转赠他人；</text>
@@ -56,7 +56,25 @@
 					this.$msg("您点击了扫码")
 
 				}
-			}			
+			},
+			//确认支付
+			Confirm() {
+				this.$request.WXZF({
+					total_fee: 1
+				}).then(res =>{
+					res = JSON.parse(res);
+					console.log(res.code)
+					if(res.code === 1) {
+						// #ifdef H5
+						window.location.href = res.msg
+						// #endif
+					}else if(res.code === 2) {
+						this.$msg(res.msg)
+					}
+				},err =>{
+					console.log(err)
+				})
+			}
 		}
 	}
 </script>

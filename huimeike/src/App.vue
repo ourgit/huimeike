@@ -31,5 +31,17 @@
 	.swiper .uni-swiper-dots-horizontal  .uni-swiper-dot-active {
 		background: #ff802b;
 	}
-
+	/*  #ifdef H5  */
+	/* 去掉输入框默认黄色背景 */
+	input:-webkit-autofill {
+		transition:background-color 5000s ease-in-out 0s;
+		background-color: #FAFFBD;
+		background-image: none;
+		color: #000;
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}
+	input{
+		background-color:rgba(255,255,255,0.6);
+	}
+	/*  #endif  */
 </style>

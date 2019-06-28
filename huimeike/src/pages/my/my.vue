@@ -175,12 +175,10 @@
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
 				if (index === 0) {
-					this.$msg('点击了扫描');
-					
-				}else if (index === 1) {
 					uni.navigateTo({
 						url: '/pages/set/set'
 					})
+					
 				}
 			},
 			certificate() {

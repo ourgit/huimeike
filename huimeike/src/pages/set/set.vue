@@ -131,7 +131,7 @@
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
 				if (index === 0) {
-					this.$msg("您点击了扫码")
+					
 				}
 			},
 			revise() {
@@ -151,7 +151,12 @@
 					success: function(res) {  
 						if (res.confirm) {  
 							// 退出当前应用，该方法只在App中生效  
-							plus.runtime.quit();  
+							/*  #ifdef  APP-PLUS  */
+							plus.runtime.quit(); 
+							/*  #endif  */
+							uni.navigateTo({
+								url: '/pages/login/login'
+							})
 						} else if (res.cancel) {  
 							console.log('用户点击取消');  
 						}  
@@ -266,6 +271,6 @@
 		text-align: center;
 		font-size: 28upx;
 		color: #ff5400;
-		margin-top: 103upx;
+		margin-top: 30upx;
 	}
 </style>

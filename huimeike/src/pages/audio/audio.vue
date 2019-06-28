@@ -7,9 +7,8 @@
 			</view>
 		</view>
 		<view class="bottom">
-			<!-- 明天来改样式 -->
-			<view class="box">
-				<imt-audio continue :src="audioList.url" :duration="dur" @prev="prev"
+			<view class="box" v-if="audioList.url">
+				<imt-audio continue :src="audioList.url" :duration="audioList.duration" @prev="prev"
 				 @next="next" @End="end" :autoplay="autoplay"></imt-audio>
 			</view>
 			<view class="tabBar">
@@ -48,6 +47,7 @@
 		},
 		data() {
 			return {
+				url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3',
 				dur: null,
 				now: 0,
 				autoplay: true,
@@ -65,9 +65,7 @@
 				gmzt: ''
 			}
 		},
-
 		onLoad(options) {
-						
 			this.id = options.id;
 			this.jsid = options.jsid;
 			this.yplx = options.ypls;
@@ -79,7 +77,7 @@
 				res = JSON.parse(res);
 				console.log(res)
 				this.audioList = res;
-				this.dur = res.duration;
+				console.log(this.audioList.duration)
 				this.show = true;
 				if(this.audioList.sczt) {
 					this.collect = this.audioList.sczt
@@ -204,7 +202,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 300upx;
+				margin-top: 10%;
 				image {
 					width: 478upx;
 					margin: 0 auto;				
@@ -216,6 +214,12 @@
 					margin-top: 38upx;
 					text-align: center;
 				}
+			}
+			.box {
+				width: 100%;
+				background-color: #fff;
+				margin: 0 auto;
+				
 			}
 			.lineBar{
 				margin: 0 auto;				
@@ -257,10 +261,6 @@
 					margin:0 auto;
 					
 				}
-			}
-			.box {
-
-
 			}
 			.tabBar {
 				width: 100%;

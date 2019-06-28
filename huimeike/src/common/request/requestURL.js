@@ -1,7 +1,7 @@
 /**
  * 基础的页面请求地址
  */
-const baseurl = "http://hmk.qhd58.net/api";
+const baseurl = "http://hmk.qmwhcb.cn/api";
 
 export default {
     // 获取短信验证码接口
@@ -51,5 +51,7 @@ export default {
 	//删除地址
 	DelAddress: `${baseurl}/dzapi/del_address`,
 	//修改用户头像
-	ModifyAvatar: `${baseurl}/Personal/photo`
+	ModifyAvatar: `${baseurl}/Personal/photo`,
+	//微信支付
+	WXZF: `${baseurl}/Wxh/Wxh`
 }

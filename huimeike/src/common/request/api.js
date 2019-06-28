@@ -127,5 +127,11 @@ export default {
 	ModifyAvatar: async function (prams) {
 		let response = await request.Fetch(requestURL.ModifyAvatar,prams,'POST',true)
 		return response;		
+	},
+	//微信支付
+	//修改用户头像
+	WXZF: async function (prams) {
+		let response = await request.Fetch(requestURL.WXZF,prams,'POST',true)
+		return response;		
 	}	
 }

@@ -86,16 +86,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "商城",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}
-						]
+						"titleText": "商城"
 					}
 				}
 			}			
@@ -110,18 +101,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "商品详情",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "商品详情"
 					}
 				}
 			}
@@ -138,13 +118,6 @@
 						"type": "default",
 						"titleText": "个人中心",
 						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "27",
-								"float": "left",
-								"color": "#fff"
-							},
 							{
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue607",
@@ -167,18 +140,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "云课堂",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "云课堂"
 					}
 				}
 			}			
@@ -193,18 +155,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "课程列表",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "课程列表"
 					}
 				}
 			}			
@@ -219,18 +170,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "课程列表",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "课程列表"
 					}
 				}
 			}			
@@ -245,18 +185,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "课程列表",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "课程列表"
 					}
 				}
 			}			
@@ -295,16 +224,8 @@
 				// #endif 
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "27",
-								"color": "#FFFFFF",
-								"background": "rgba(0,0,0,0)"
-							}
-						]
+						"type": "default",
+						"titleText": "音频"
 					}
 				}
 			}							
@@ -319,16 +240,7 @@
 				// #endif 
 				"app-plus": {
 					"titleNView": {
-						"type": "default",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "27",
-								"color": "#FFFFFF",
-								"background": "rgba(0,0,0,0)"
-							}
-						]
+						"type": "default"
 					}
 				}
 			}							
@@ -367,18 +279,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "学员分享",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "学员分享"
 					}
 				}
 			}						
@@ -393,16 +294,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "顾问案",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "27",
-								"float": "right",
-								"color": "#fff"
-							}
-						]
+						"titleText": "顾问案"
 					}
 				}
 			}
@@ -441,16 +333,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "结算台",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}
-						]
+						"titleText": "结算台"
 					}
 				}
 			}			
@@ -510,18 +393,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "商品详情",
-						//需要改这里，检测图标是否更新
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-								
-							}
-						]
+						"titleText": "商品详情"
 					}
 				}
 			}			
@@ -535,16 +407,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "设置",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}
-						]
+						"titleText": "设置"
 					}
 				}
 			}			
@@ -608,16 +471,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "学员证",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "学员证"
 					}
 				}
 			}			
@@ -631,16 +485,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "订单",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "订单"
 					}
 				}
 			}			
@@ -654,16 +499,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "优惠券",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "优惠券"
 					}
 				}
 			}			
@@ -677,16 +513,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "记录",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "记录"
 					}
 				}
 			}			
@@ -700,16 +527,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "人脉",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "人脉"
 					}
 				}
 			}			
@@ -723,16 +541,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "收藏",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "收藏"
 					}
 				}
 			}			
@@ -746,16 +555,7 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "下载",
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue600",
-								"fontSize": "20",
-								"float": "right",
-								"color": "#fff"
-							}							
-						]
+						"titleText": "下载"
 					}
 				}
 			}			

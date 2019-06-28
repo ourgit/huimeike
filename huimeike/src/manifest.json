@@ -99,6 +99,17 @@
     },
     /* SDK配置 */
     "quickapp" : {},
+    "h5" : {
+        "router" : {
+            "base" : "/html5/",
+            "mode" : "hash"
+        },
+        "domain" : "http://hmk.qmwhcb.cn",
+        "title" : "汇美客",
+        "devServer" : {
+            "https" : false
+        }
+    },
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 微信小程序特有相关 */
@@ -123,3 +134,7 @@
         }
     }
 }
+//hmk.qhd58.net/api',
+// 需要跨域的域名
+//匹配请求路径里面有 /api 替换成 https://testapi.kemiandan.com
+

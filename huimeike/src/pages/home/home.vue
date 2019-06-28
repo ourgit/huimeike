@@ -218,7 +218,6 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
-				console.log(res);
 				this.zxkc  = res.zxkc;
 				this.guwenan = res.gwa;
 				this.jcfx = res.jcfx;
@@ -239,15 +238,6 @@
 			})					
 		},
 		methods: {
-			//点击扫码
-			Sweepcode() {
-				uni.scanCode({
-					success: function (res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
-					}
-				});
-			},
 			//点击进入云课堂
 			classroom() {
 				uni.navigateTo({
@@ -287,16 +277,14 @@
 			},
 			// 标题栏input搜索框点击(请在真机上测试)
 			onNavigationBarSearchInputConfirmed: async function(e) {
-				this.$msg("您点击了搜索")
+				this.$msg("搜索功能暂未开放")
 			},
 			//点击导航栏 buttons 时触发
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
 				if (index === 0) {
-					this.$msg('点击了扫描');
-					
+					this.$msg('请在APP个人点击中心扫码');
 				}else if (index === 1) {
-					this.$msg("您点击了个人中心")
 					uni.switchTab({
 						url: '/pages/my/my'
 					})
