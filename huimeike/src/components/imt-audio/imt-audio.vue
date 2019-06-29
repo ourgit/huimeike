@@ -1,3 +1,4 @@
+<!-- 自定义播放器组件 -->
 <template>
 	<view class="imt-audio">
 		<view class="audio-wrapper">

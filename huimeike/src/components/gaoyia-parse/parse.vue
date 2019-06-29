@@ -8,6 +8,7 @@
  * 优化 by gaoyia@qq.com  https://github.com/gaoyia/parse
  */-->
 
+<!-- 富文本解析组件 -->
 <template>
 	<!--基础元素-->
 	<div class="wxParse" :class="className" :style="'user-select:' + userSelect">

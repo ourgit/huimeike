@@ -1,4 +1,4 @@
-//文本省略号封装
+//文本省略号封装轮子
 const cutString = (str, len) => {
 	if(str.length >= len) {
 		return str.substring(0,len) + "...";
@@ -6,7 +6,6 @@ const cutString = (str, len) => {
 		return str;
 	}
 }
-
 
 export default {
 	cutString

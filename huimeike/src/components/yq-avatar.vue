@@ -1,3 +1,4 @@
+<!-- 头像上传组件 -->
 <template name="yq-avatar">
 	<view>
 		<image :src="imgSrc.imgSrc" @click="fSelect" :style="[ imgStyle ]" class="my-avatar"></image>

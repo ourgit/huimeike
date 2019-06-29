@@ -2,17 +2,17 @@
 	<view class="StudentSharing">
 
 		<view class="box">
-			<view class="classItem" v-for="(item,index) in 2" :key="index">
+			<view class="classItem" v-for="(item,index) in listData" :key="index">
 				<view class="top">
-					<image src="http://b-ssl.duitang.com/uploads/item/201706/22/20170622131955_h4eZS.thumb.700_0.jpeg"></image>
+					<image :src="imgUrl2 + item.head_img"></image>
 					<view>
-						<text class="user">StarSky</text>
-						<text class="time">2019-07-11 11:35</text>
+						<text class="user">{{item.nickname}}</text>
+						<text class="time">{{item.time}}</text>
 					</view>
 				</view>
 				<view class="bottom">
 					<text class="ed824a">学习心得：</text>
-					<text>这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</text>
+					<text>{{item.plxd}}</text>
 				</view>
 			</view>				
 		</view>
@@ -28,12 +28,20 @@
 	export default {
 		data() {
 			return {
-				placeholderSrc: '../../static/images/common/abc.png'
-
+				placeholderSrc: '../../static/images/common/abc.png',
+				imgUrl2: this.$imgUrl.imgUrl2,				
+				listData: []
 			}
 		},
 		onLoad() {
-			
+			/* 获取单个地址请求 */
+			this.$request.StudentSharing().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.listData = res;
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			goback() {

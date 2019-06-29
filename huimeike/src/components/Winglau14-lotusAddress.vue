@@ -1,3 +1,4 @@
+<!-- 三级省市区选择组件 -->
 <template>
 	<!--地址picker-->
 	<view :status="checkStatus" v-if="lotusAddressData.visible" class="lotus-address-mask">

@@ -1,6 +1,7 @@
 <template>
 	<view class="revise">
-		<input type="text" v-model="name" />
+		<textarea class="text" maxlength="30" v-model="qm" />
+		<text class="numberV">{{qm.length}}/30</text>
 	</view>
 </template>
 
@@ -8,11 +9,11 @@
 	export default {
 		data() {
 			return {
-				name: ''
+				qm: ''
 			}
 		},
-		onLoad(options) {
-			this.name = options.name
+		onLoad() {
+
 		},
 		methods: {
 			//点击导航栏 buttons 时触发
@@ -20,8 +21,8 @@
 				const index = e.index;
 				if (index === 0) {
 					/* 修改姓名接口请求 */
-					this.$request.ModifyName({
-						name: this.name
+					this.$request.ReviseSignature({
+						qm: this.qm
 					}).then(res =>{
 						res = JSON.parse(res);
 						this.$msg(res.msg)
@@ -42,13 +43,19 @@
 
 <style lang="less">
 	.revise {
-		height: 115upx;
 		background-color: #fff;
-		input {
+		position: relative;
+		.text {
 			width: 100%;
-			height: 100%;
+			height: 200upx;
 			box-sizing: border-box;
-			padding-left: 40upx;
+			padding: 40upx;
+		}
+		.numberV {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			font-size: 30upx;
 		}
 	}
 

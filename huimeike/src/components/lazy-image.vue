@@ -1,3 +1,4 @@
+<!-- 图片懒加载组件 -->
 <template>
 	<view class="lazy-image">
 		<image class="real-image" @load="onLoaded" :src="realSrc"></image>

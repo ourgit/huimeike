@@ -284,6 +284,16 @@
 				const index = e.index;
 				if (index === 0) {
 					this.$msg('请在APP个人点击中心扫码');
+					// #ifdef  APP-PLUS
+					uni.scanCode({
+						onlyFromCamera: true,
+						success: function (res) {
+							// let [...all] = res.result;
+							// console.log(all)
+							
+						}
+					});
+					//#endif
 				}else if (index === 1) {
 					uni.switchTab({
 						url: '/pages/my/my'

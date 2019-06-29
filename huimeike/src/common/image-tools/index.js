@@ -1,3 +1,4 @@
+/* 图片转base64轮子 */
 export function pathToBase64(path) {
     return new Promise(function(resolve, reject) {
         if (typeof window === 'object' && 'document' in window) {

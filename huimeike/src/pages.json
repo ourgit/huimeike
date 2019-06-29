@@ -146,6 +146,30 @@
 			}			
 		},
 		{
+			//讲师介绍
+			"path":"pages/LecturerDetails/LecturerDetails",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "讲师介绍",				
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "讲师介绍",
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text": "\ue603",
+								"fontSize": "20",
+								"float": "right",
+								"color": "#fff"
+							}
+						]
+					}
+				}
+			}			
+		},
+		{
 			//运营更多课程
 			"path":"pages/more/MoreCourses",
 			"style": {
@@ -412,7 +436,7 @@
 				}
 			}			
 		},
-		{	//修改姓名电话等
+		{	//修改姓名
 			"path":"pages/revise/revise",
 			"style": {
 				// #ifdef MP 
@@ -434,6 +458,50 @@
 				}
 			}			
 		},
+		{	//修改电话
+			"path":"pages/revise/revise3",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},
+		{	//修改个性签名
+			"path":"pages/revise/revise4",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "修改",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "修改",
+						"buttons": [
+							{
+								"text": "完成",
+								"fontSize": "16",
+								"float": "right",
+								"color": "#fff"
+							}							
+						]
+					}
+				}
+			}			
+		},						
 		{	//修改密码
 			"path":"pages/Modify/Modify",
 			"style": {

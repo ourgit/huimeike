@@ -1,6 +1,6 @@
 <template>
 	<view class="revise">
-		<input type="text" v-model="name" />
+		<input type="text" v-model="account" />
 	</view>
 </template>
 
@@ -8,11 +8,12 @@
 	export default {
 		data() {
 			return {
-				name: ''
+				account: ''
 			}
 		},
 		onLoad(options) {
-			this.name = options.name
+			this.account = options.account;
+			console.log(this.account)
 		},
 		methods: {
 			//点击导航栏 buttons 时触发
@@ -20,8 +21,8 @@
 				const index = e.index;
 				if (index === 0) {
 					/* 修改姓名接口请求 */
-					this.$request.ModifyName({
-						name: this.name
+					this.$request.RevisePhone({
+						xinphone: this.account
 					}).then(res =>{
 						res = JSON.parse(res);
 						this.$msg(res.msg)
@@ -30,6 +31,7 @@
 								url: '/pages/set/set'
 							})
 						},1500)
+
 					},err =>{
 						console.log(err)
 					})

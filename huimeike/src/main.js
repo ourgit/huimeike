@@ -62,10 +62,6 @@ Vue.prototype.$msg = msg;
 import uParse from './components/gaoyia-parse/parse.vue';
 Vue.component('uParse',uParse);
 
-//公共js
-import PubFuc from'./common/publicjs/common.js';
-//挂载
-Vue.prototype.$pubFuc = PubFuc;
 
 
 

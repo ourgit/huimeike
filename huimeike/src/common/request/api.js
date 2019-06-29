@@ -133,5 +133,30 @@ export default {
 	WXZF: async function (prams) {
 		let response = await request.Fetch(requestURL.WXZF,prams,'POST',true)
 		return response;		
-	}	
+	},
+	//学员分享
+	StudentSharing: async function (prams) {
+		let response = await request.Fetch(requestURL.StudentSharing,prams,'POST',true)
+		return response;		
+	},
+	//修改姓名
+	ModifyName: async function (prams) {
+		let response = await request.Fetch(requestURL.ModifyName,prams,'POST',true)
+		return response;		
+	},
+	//修改职位
+	ReviseJob: async function (prams) {
+		let response = await request.Fetch(requestURL.ReviseJob,prams,'POST',true)
+		return response;		
+	},	
+	//修改手机号
+	RevisePhone: async function (prams) {
+		let response = await request.Fetch(requestURL.RevisePhone,prams,'POST',true)
+		return response;
+	},
+	//修改个性签名
+	ReviseSignature: async function (prams) {
+		let response = await request.Fetch(requestURL.ReviseSignature,prams,'POST',true)
+		return response;
+	}
 }

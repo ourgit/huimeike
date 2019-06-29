@@ -1,3 +1,4 @@
+<!-- 倒计时组件 -->
 <template>
   <text :endTime="endTime" :callback="callback" :endText="endText">
     <slot>

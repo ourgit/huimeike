@@ -14,32 +14,42 @@
 					canRotate="false"
 				>
 				</avatar>
-				<text class="icon">&#xe656;</text>				
+				<text class="icon">&#xe656;</text>
 			</view>
 
 		</view>
 		<view class="item">
-			<view>
+			<view class="view">
 				<text>姓名</text>
-				<text class="hui" @click="revise">{{userInfo.nickname}}</text>
+				<view>
+					<text class="hui" @click="revise(userInfo.nickname)">{{userInfo.nickname}}</text>
+					<text class="icon">&#xe656;</text>
+				</view>
 			</view>
 		</view>
 		<view class="item">
-			<view>
+			<view class="view">
 				<text>职位</text>
-				<text class="hui" @click="revise">{{userInfo.group_id}}</text>				
+				<picker @change="bindPickerChange" :value="index" :range="array" range-key="group_name" v-if="array.length">
+					<view class="id">
+						<view>修改身份：{{userInfo.group_id}} <text class="icon">&#xe656;</text></view>
+					</view>
+				</picker>				
 			</view>
 		</view>
 		<view class="item">
-			<view>
+			<view class="view">
 				<text>电话</text>
-				<text class="hui" @click="revise">{{userInfo.account}}</text>
+				<view><text class="hui" @click="revise3(userInfo.account)">{{userInfo.account}}</text><text class="icon">&#xe656;</text></view>
 			</view>
 		</view>
 		<view class="item">
-			<view>
+			<view class="view">
 				<text>密码</text>
-				<text class="hui" @click="modify">修改</text>				
+				<view>
+					<text class="hui" @click="modify">修改</text>
+					<text class="icon">&#xe656;</text>
+				</view>
 			</view>
 		</view>
 		<view class="address">
@@ -51,7 +61,7 @@
 		<view class="signature">
 			<view>
 				<text>个性签名</text>
-				<text class="hui">修改</text>				
+				<text class="hui" @click="revise4(userInfo.account)">修改</text>				
 			</view>
 		</view>
 		<view class="out" @click="out">退出登录</view>
@@ -73,21 +83,34 @@
 			return {
 				imgUrl2: this.$imgUrl.imgUrl2,
 				placeholderSrc: '../../static/images/common/abc.png',
-				userInfo: {}
+				userInfo: {},
+				/* 选择身份 */
+				array: [],
+				index: 0,
+				//存一个选中身份的id，留着发给后台
+				id: ''
 			}
 		},
 		computed: {
 			...mapState(['Avatar'])
 		},
 		onLoad() {
+			/* 获取身份请求 */
+			this.$request.getid().then(res =>{
+				this.array = JSON.parse(res);
+			},err =>{
+				console.log(err)
+			})
 			/* 设置接口请求 */
 			this.$request.set().then(res =>{
 				res = JSON.parse(res);
 				this.userInfo = res;
+				console.log(this.userInfo)
 				this.$store.commit('SetAvatar', this.userInfo.head_img)
+				
 			},err =>{
 				console.log(err)
-			})			
+			})
 		},
 		onBackPress() {  
 			console.log("你返回了")
@@ -134,9 +157,22 @@
 					
 				}
 			},
-			revise() {
+			//修改姓名
+			revise(name) {
 				uni.navigateTo({
-					url: '/pages/revise/revise'
+					url: `/pages/revise/revise?name=${name}`
+				})
+			},
+			//修改手机号
+			revise3(account) {
+				uni.navigateTo({
+					url: `/pages/revise/revise3?account=${account}`
+				})
+			},
+			//修改个性签名
+			revise4() {
+				uni.navigateTo({
+					url: '/pages/revise/revise4'
 				})
 			},
 			modify() {
@@ -162,6 +198,24 @@
 						}  
 					}  
 				});    
+			},
+			//点击选择身份
+			bindPickerChange: function(e) {
+				this.index = e.target.value;
+				this.id = this.array[this.index].id;
+				console.log(this.id)
+				/* 修改职位接口请求 */
+				this.$request.ReviseJob({
+					group_id: this.id
+				}).then(res =>{
+					res = JSON.parse(res);
+					this.$msg(res.msg)
+					uni.redirectTo({
+						url: '/pages/set/set'
+					})
+				},err =>{
+					console.log(err)
+				})
 			}
 		}
 	}
@@ -201,13 +255,13 @@
 		background-color: #fff;
 		margin-bottom: 20upx;
 		text {
-			font-size: 32upx;
+			font-size: 28upx;
 		}
 		view {
 			display: flex;
 			align-items: center;
 			text {
-				font-size: 32upx;
+				font-size: 28upx;
 			}
 			image {
 				width: 80upx;
@@ -223,13 +277,26 @@
 		border-top: none;
 		margin-bottom: 0;
 		padding: 0 32upx;
-		view {
+		.view {
 			width: 100%;
 			height: 100%;
 			padding: 36upx 0;
 			display: flex;
 			justify-content: space-between;
 			border-bottom: 1upx solid #f8f8f8;
+		}
+		.id {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			font-size: 30upx;
+			box-sizing: border-box;
+			height: 79upx;
+			line-height: 79upx;
+			position: relative;
+			text {
+				font-size: 30upx;
+			}
 			.hui {
 				font-size: 26upx;
 				color: #696868;
@@ -240,7 +307,7 @@
 					margin-left: 15upx;
 				}
 			}
-		}
+		}		
 	}
 	.address, .signature {
 		.item;
@@ -254,7 +321,6 @@
 			border-bottom: 1upx solid #f8f8f8;
 			.hui {
 				font-size: 26upx;
-				color: #696868;
 				::after {
 					.iconfont;
 					content: '\e656';

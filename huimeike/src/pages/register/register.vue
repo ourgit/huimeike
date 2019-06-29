@@ -23,7 +23,6 @@
 					<view class="id" style="margin-top: 15px;" >
 						<view class="icon left">&#xe64d;</view><view>身份选择：{{array[index].group_name}}</view><view class="icon right">&#xe617;</view>	
 					</view>
-									
 				</picker>	
 			<button class="submit" @click="register" :disabled="isDisable">注册</button>
 		</view>

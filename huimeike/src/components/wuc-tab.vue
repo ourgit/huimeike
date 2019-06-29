@@ -1,3 +1,4 @@
+<!-- 横向选项卡组件 -->
 <template>
   <scroll-view class="wuc-tab" :class="tabClass" :style="tabStyle" scroll-with-animation scroll-x :scroll-left="scrollLeft">
     <view v-if="!textFlex">

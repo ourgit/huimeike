@@ -7,7 +7,7 @@
 		<view class="content">
 			<view class="dabiaoti">{{xqxx.title}}</view>
 			<view class="box1">
-				<view class="v1">
+				<view class="v1" @click="jsdetail(js.id)">
 					<image :src="imgUrl2 + js.portrait"></image>
 					<view>
 						<text class="t1">{{js.name}}</text>
@@ -195,6 +195,12 @@
 						url: `/pages/video/video?id=${this.id}&jsid=${this.js.id}&yplx=${this.xqxx.yplx}&gmzt=${gmzt}`
 					})					
 				}
+			},
+			//跳转到讲师详情
+			jsdetail(id) {
+				uni.navigateTo({
+					url: `/pages/LecturerDetails/LecturerDetails?id=${id}`
+				})
 			},
 			collectFunc(){
 				this.collect = !this.collect
