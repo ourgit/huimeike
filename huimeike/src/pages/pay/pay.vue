@@ -63,7 +63,6 @@
 					total_fee: 1
 				}).then(res =>{
 					res = JSON.parse(res);
-					console.log(res.code)
 					if(res.code === 1) {
 						// #ifdef H5
 						window.location.href = res.msg

@@ -46,7 +46,7 @@
 				<text class="icon more" @click="zuixinmore">更多</text>
 			</view>
 			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index" @click="zx(item.id)">
-				<view class="img"><lazy-image :realSrc="'http://hmk.qhd58.net/uploads/images/' + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
+				<view class="img"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="view">{{$tools.cutString(item.title,21)}}</view>
 				<text class="icon font">&#xe656;</text>
 			</view>
@@ -157,13 +157,18 @@
 				<text class="icon more" @click="jpmore">更多</text>
 			</view>
 			<view class="CurriculumItem" v-for="(item, index) in zxkc" :key="index" @click="jp(item.id)">
-				<view class="img"><lazy-image :realSrc="'http://hmk.qhd58.net/uploads/images/' + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
+				<view class="img"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="view">{{$tools.cutString(item.title,21)}}</view>
 				<text class="icon font">&#xe656;</text>
 			</view>
 		</view>
 		<view class="end">
 			<text>—— 我是有底线的 ——</text>
+		</view>
+		<view class="mask" v-show="mask">
+			<view class="pop_up">
+				<button class="pop_up-btn" @click="pop_up_btn"></button>
+			</view> 
 		</view>
 	</view>
 </template>
@@ -198,10 +203,14 @@
 				//行业动态
 				hydt: [],
 				//全屏显示开关
-				show: false
+				show: false,
+				//遮罩层
+				mask: false
 			}
 		},
 		onLoad() {
+			this.mask = false;
+			
 			uni.showLoading({
 				title: '加载中...',
 				mask: true
@@ -238,6 +247,24 @@
 			})					
 		},
 		methods: {
+			pop_up_btn() {
+				this.mask = false;
+				uni.showTabBar()
+				this.$request.WXZF({
+					total_fee: 1
+				}).then(res =>{
+					res = JSON.parse(res);
+					if(res.code === 1) {
+						// #ifdef H5
+						window.location.href = res.msg
+						// #endif
+					}else if(res.code === 2) {
+						this.$msg(res.msg)
+					}
+				},err =>{
+					console.log(err)
+				})
+			},
 			//点击进入云课堂
 			classroom() {
 				uni.navigateTo({
@@ -385,7 +412,7 @@
 		padding-top: 0;
 		color: #919191;
 	}
-	
+
 	.home {
 		width: 100%;
 		box-sizing: border-box;
@@ -426,9 +453,11 @@
 		.swiper {
 			/* #ifdef APP-PLUS */
 			padding-top: 162upx;
+			height: 470upx;
 			/* #endif  */
 			/* #ifdef MP || H5 */
 			padding-top: 100upx;
+			height: 410upx;
 			/* #endif  */
 			.swiper-item {
 				image {
@@ -786,6 +815,39 @@
 				}
 			}
 		}
-		
+		.mask {
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, .5);
+			position: fixed;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 9;
+			.pop_up {
+				width: 750upx;
+				height: 741upx;
+				background: url('~@/static/images/common/pop_up.png') no-repeat;
+				background-size: 100% 100%;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				z-index: 10;
+				margin-left: -375upx;
+				margin-top: -370.5upx;
+				.pop_up-btn {
+					width: 370upx;
+					height: 85upx;
+					position: absolute;
+					bottom: 50upx;
+					left: 50%;
+					margin-left: -185upx;
+					z-index: 10;
+					background: url('~@/static/images/common/pop_up-btn.png') no-repeat;
+					background-size: 100% 100%;
+				}
+			}
+		}
 	}
 </style>

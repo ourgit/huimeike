@@ -62,21 +62,9 @@ Vue.prototype.$msg = msg;
 import uParse from './components/gaoyia-parse/parse.vue';
 Vue.component('uParse',uParse);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//引入弹窗组件
+import jlPopup from './components/popup.vue';
+Vue.component('jlPopup',jlPopup )
 
 const app = new Vue({
 	...App

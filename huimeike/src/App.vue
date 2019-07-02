@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			// uni.hideTabBar()
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -17,6 +18,9 @@
 	@import "./static/iconfont/iconfont.css";
 	//公共富文本样式
 	@import url("/components/gaoyia-parse/parse.css");
+	//colorUI样式
+	@import "./static/colorUI/main.css";
+	@import "./static/colorUI/icon.css";
 	page {
 		width: 100%;
 		height: 100%;
@@ -44,4 +48,7 @@
 		background-color:rgba(255,255,255,0.6);
 	}
 	/*  #endif  */
+	.uni-page-head-search-input {
+		border-radius: 40upx;
+	}
 </style>

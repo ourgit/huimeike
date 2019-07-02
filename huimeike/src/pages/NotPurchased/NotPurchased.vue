@@ -1,5 +1,5 @@
 <template>
-	<view class="NotPurchased">
+	<view class="NotPurchased" v-show="isShow">
 		<view class="banner">
 			<image :src="imgUrl + xqxx.photo"></image>
 			<view>{{xqxx.bmrs}}人学习</view>
@@ -116,6 +116,7 @@
 	export default {
 		data() {
 			return {
+				isShow: false,
 				placeholderSrc: '../../static/images/common/abc.png',
 				imgUrl: this.$imgUrl.imgUrl,
 				imgUrl2: this.$imgUrl.imgUrl2,
@@ -147,6 +148,7 @@
 				this.xxxd = res.xxxd;
 				this.duration = this.format(this.xqxx.duration)
 				this.gzzt = res.gzzt;
+				this.isShow = true;
 				if(this.gzzt) {
 					this.collect = this.gzzt
 				}

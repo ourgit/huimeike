@@ -1,8 +1,12 @@
 <template>
 	<view class="shopDetail">
-
 		<view class="banner">
-			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558701625215&di=bf8d35f8dda15e847bcd7c86e4ffaa79&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0134a057df98fd0000012e7ed00234.jpg"></image>
+			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
+			 :autoplay="true" interval="5000" duration="500">
+				<swiper-item v-for="(item,index) in swiperList" :key="index">
+					<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
+				</swiper-item>
+			</swiper>
 		</view>
 		<view class="info">
 			<text class="price">¥99.9</text>
@@ -13,11 +17,11 @@
 			<image src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3469209669,3124796523&fm=26&gp=0.jpg"></image>
 		</view>
 		<view class="footer">
-			<view class="t">
+			<view class="t" @click="gohome">
 				<text class="icon">&#xe636;</text>
 				<text>首页</text>
 			</view>
-			<view class="t2">
+			<view class="t2" @click="gome">
 				<text class="icon">&#xe64f;</text>
 				<text>我的</text>				
 			</view>
@@ -32,6 +36,45 @@
 		data() {
 			return {
 				placeholderSrc: '../../static/images/common/abc.png',
+				//轮播图的组件
+				indicatorDots: true,
+				autoplay: true,
+				interval: 3000,
+				duration: 500,
+				circular: true,				
+				banner: [],
+				cardCur: 0,
+				swiperList: [{
+					id: 0,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+				}, {
+					id: 1,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg',
+				}, {
+					id: 2,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+				}, {
+					id: 3,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+				}, {
+					id: 4,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
+				}, {
+					id: 5,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
+				}, {
+					id: 6,
+					type: 'image',
+					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
+				}],
+				dotStyle: false,
+				towerStart: 0
 			}
 		},
 		onLoad() {
@@ -42,6 +85,18 @@
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			//去首页
+			gohome() {
+				uni.switchTab({
+					url: '/pages/home/home'
+				})
+			},
+			//去个人中心
+			gome() {
+				uni.switchTab({
+					url: '/pages/my/my'
+				})				
 			}
 		}
 	}
@@ -82,11 +137,14 @@
 	.shopDetail {
 		.banner {
 			width: 100%;
-			height: 700upx;
+			overflow: hidden;
 			box-sizing: border-box;			
 			image {
 				width: 100%;
 				height: 100%;
+			}
+			.screen-swiper {
+				height: 500upx;
 			}
 		}
 		.info {

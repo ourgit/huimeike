@@ -1,23 +1,25 @@
 <template>
-	<view class="shop">
+	<view class="shop" v-show="isShow">
 		<view class="nav">
-			<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" style="font-size: 35upx;"></wuc-tab>
+			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
+				<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item,index) in ShopList" :key="index" @tap="tabSelect" :data-id="index">
+					{{item.scfl}}
+				</view>
+			</scroll-view>
 		</view>	
 		<view class="content">
-			<view class="ul">
-				<view class="li" v-for="(item, index) in 20" :key="index" @click="shopDetail">
-					<lazy-image realSrc="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558428196660&di=eefe6366a6731a7423684c752674b739&imgtype=0&src=http%3A%2F%2Fpic12.nipic.com%2F20110221%2F177770_101451530140_2.jpg" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
-					<text class="title2">《努力到无能为力》</text>
-					<text class="content2">介绍说明介绍说明介绍说明介绍说明介绍说明介绍说明介绍说明</text>
-					<text class="yzd">99颜值豆</text>
+			<view v-for="(item,index2) in ShopList" :key="index2" v-if="index2==TabCur" class="ul">
+				<view class="li" v-for="(items, index3) in item.list" :key="index3" @click="shopDetail">
+					<lazy-image :realSrc="imgUrl + items.photo" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
+					<text class="title2">《{{items.title}}》</text>
+					<text class="content2">{{$tools.cutString(items.abstract,20)}}</text>
+					<text class="yzd">{{items.gmsl}}颜值豆</text>
 				</view>
-			</view>	
+			</view>
 			<view class="end">
 				<text>—— 我是有底线的 ——</text>
 			</view>
 		</view>	
-
-
 	</view>
 	
 </template>
@@ -27,21 +29,35 @@
 	export default {
 		data() {
 			return {
+				isShow: false,
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
 				TabCur: 0,
-				tabList: [{ name: '美业书籍' }, { name: '顾问方案' },{ name: '生美项目' },{ name: '医美项目' },{ name: '商务礼品' }],
+				tabList: [],
 				placeholderSrc: '../../static/images/common/abc.png',
+				ShopList: [],
+				scrollLeft: 0
 			}
 		},
 		onLoad() {
-			
+			/* 添加地址请求 */
+			this.$request.shop().then(res =>{
+				res = JSON.parse(res);
+				this.ShopList = res;
+				console.log(this.ShopList)
+				this.isShow = true;
+				// let [...all] = this.ShopList.map((item) => {
+				// 	return item.scfl;
+				// })
+				// this.tabList = Array.from(all, item => {return {name: item}})
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
-			tabChange(index) {
-				this.TabCur = index;
-			},
-			swiperChange(e) {
-				let { current } = e.target;
-				this.TabCur = current;
+			tabSelect(e) {
+				this.TabCur = e.currentTarget.dataset.id;
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 			},
 			goback() {
 				uni.switchTab({
@@ -127,6 +143,7 @@
 						margin-top: 10upx;
 					}
 					.content2 {
+						margin-top: 10upx;
 						width: 280upx;
 						font-size: 18upx;
 						color: #919191;

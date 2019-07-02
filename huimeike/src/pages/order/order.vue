@@ -8,7 +8,7 @@
 			</view>
         </view>
         <view class="list" v-show="idx==1">
-			<view class="li">
+			<view class="li" v-for="(item,index) in 4" :key="index">
 				<view class="top">
 					<text class="success">购买成功</text>
 					<text class="time">2019-02-02 09:31</text>
@@ -16,17 +16,41 @@
 				<view class="bottom">
 					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559656231&di=bd6ac1e709f982fc3888b3ee333a6729&imgtype=jpg&er=1&src=http%3A%2F%2Fimg1.gtimg.com%2Ffashion%2Fpics%2Fhv1%2F219%2F73%2F2302%2F149706384.jpg"></image>
 					<view>
-						<text>对新领域保持好奇，多结交新朋友</text>
-						<text>实付：99.9颜值豆</text>
+						<text class="bag">对新领域保持好奇，多结交新朋友</text>
+						<text class="small">实付：<text class="y">99.9颜值豆</text></text>
 					</view>
 				</view>
 			</view>
         </view>
 		<view class="list" v-show="idx==2">
-			<text>课程</text>
+			<view class="li" v-for="(item,index) in 4" :key="index">
+				<view class="top">
+					<text class="success">购买成功</text>
+					<text class="time">2019-02-02 09:31</text>
+				</view>
+				<view class="bottom">
+					<image src="http://img5.imgtn.bdimg.com/it/u=3635035686,2454358821&fm=26&gp=0.jpg"></image>
+					<view>
+						<text class="bag">对新领域保持好奇，多结交新朋友</text>
+						<text class="small">实付：<text class="y">99.9颜值豆</text></text>
+					</view>
+				</view>
+			</view>
 		</view>
 		<view class="list" v-show="idx==3">
-			<text>商城</text>
+			<view class="li" v-for="(item,index) in 4" :key="index">
+				<view class="top">
+					<text class="success">购买成功</text>
+					<text class="time">2019-02-02 09:31</text>
+				</view>
+				<view class="bottom">
+					<image src="http://b-ssl.duitang.com/uploads/item/201706/11/20170611115104_tSZHx.jpeg"></image>
+					<view>
+						<text class="bag">对新领域保持好奇，多结交新朋友</text>
+						<text class="small">实付：<text class="y">99.9颜值豆</text></text>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -104,6 +128,39 @@
 					&:before {
 						.iconfont;
 						content: '\e658';
+						font-size: 26upx;
+						color: #7cbf79;
+						font-weight: bold;
+						margin-right: 10upx;
+					}
+				}
+			}
+			.bottom {
+				margin-top: 30upx;
+				display: flex;
+				image {
+					width: 113upx;
+					height: 113upx;
+					border-radius: 10upx;
+				}
+				view {
+					margin-left: 20upx;
+					display: flex;
+					flex-direction: column;
+					.bag {
+						font-size: 32upx;
+						font-weight: 700;
+						margin-bottom: 20upx;
+						margin-top: 10upx;
+					}
+					.small {
+						font-size: 26upx;
+						color: #979797;
+						font-weight: 700;
+						.y {
+							font-size: 24upx;
+							color: #fd9938;
+						}
 					}
 				}
 			}

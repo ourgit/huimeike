@@ -202,7 +202,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				margin-top: 10%;
+				margin-top: 15%;
 				image {
 					width: 478upx;
 					margin: 0 auto;				

@@ -63,5 +63,7 @@ export default {
 	//修改手机号
 	RevisePhone: `${baseurl}/Personal/mod_phone`,
 	//修改个性签名
-	ReviseSignature: `${baseurl}/Personal/mod_signature`
+	ReviseSignature: `${baseurl}/Personal/mod_signature`,
+	//商城接口
+	shop: `${baseurl}/Shopapi/sc`
 }

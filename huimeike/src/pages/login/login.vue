@@ -14,18 +14,19 @@
 				<input type="password" placeholder="请输入密码" placeholder-style="color:#b2b2b2" v-model="password" value="password" autocomplete="password" />
 			</view>
 			<view class="between">
-		        <view>		       
+		        <view class="align-center">		       
 		            <checkbox-group @change="checkboxChange">
-		                <checkbox
-		                    id="chkRem"
-		                    type="checkbox"
-		                    :checked="rememberPsw"
-		                    @tap="rememberPsw = !rememberPsw"
-		                >
-		                    记住密码
-		                </checkbox>
-		                <!-- <lable for="chkRem" class="RememberPass">记住密码</lable> -->
+						<view class="cu-form-group" style="padding: 0; margin-right: 12upx;">
+							<checkbox id="chkRem" :class="rememberPsw?'checked':''" :checked="rememberPsw?true:false" @tap="rememberPsw = !rememberPsw" style="transform:scale(0.7)"></checkbox>
+						</view>
 		            </checkbox-group>
+					<text class="chkRem">记住密码</text>
+					
+
+					
+					
+					
+					
 		        </view>
 				<view>
 					<text @click="forgot">忘记密码？</text>
@@ -226,6 +227,10 @@
 				font-size: 30upx;
 				color: #b2b2b2;
 				margin-top: 15upx;
+				.align-center {
+					display: flex;
+					align-items: center;
+				}
 			}		
 			.submit {
 				margin-top: 39upx;

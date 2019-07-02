@@ -129,7 +129,6 @@ export default {
 		return response;		
 	},
 	//微信支付
-	//修改用户头像
 	WXZF: async function (prams) {
 		let response = await request.Fetch(requestURL.WXZF,prams,'POST',true)
 		return response;		
@@ -157,6 +156,11 @@ export default {
 	//修改个性签名
 	ReviseSignature: async function (prams) {
 		let response = await request.Fetch(requestURL.ReviseSignature,prams,'POST',true)
+		return response;
+	},
+	//商城接口
+	shop: async function (prams) {
+		let response = await request.Fetch(requestURL.shop,prams,'POST',true)
 		return response;
 	}
 }

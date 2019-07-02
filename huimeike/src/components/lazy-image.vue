@@ -50,7 +50,6 @@
 			left: 0;
 			height: 100%;
 			width: 100%;
-
 			transition: opacity 0.4s linear;
 			image{
 				width: 100%;
