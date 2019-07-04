@@ -10,7 +10,7 @@ export default {
      */
     // 获取短信验证码接口请求
     getcode: async function (prams) {
-        let response = await request.Fetch(requestURL.getcode,prams,'POST',false)
+        let response = await request.Fetch(requestURL.getcode,prams,'POST',false,false)
         return response;
     },
 	//选择身份接口
@@ -20,7 +20,7 @@ export default {
 	},
 	//点击注册接口
 	register: async function (prams) {
-        let response = await request.Fetch(requestURL.register,prams,'POST',false)
+        let response = await request.Fetch(requestURL.register,prams,'POST',false,false)
         return response;		
 	},
 	//点击登陆接口
@@ -35,7 +35,7 @@ export default {
 	},
 	//忘记密码获取验证码接口
 	forgotcode: async function (prams) {
-	    let response = await request.Fetch(requestURL.forgotcode,prams,'POST',true)
+	    let response = await request.Fetch(requestURL.forgotcode,prams,'POST',true,false)
 	    return response;		
 	},
 	//两个轮播图接口
@@ -161,6 +161,26 @@ export default {
 	//商城接口
 	shop: async function (prams) {
 		let response = await request.Fetch(requestURL.shop,prams,'POST',true)
+		return response;
+	},
+	//行业动态详情接口
+	IndustryDetails: async function (prams) {
+		let response = await request.Fetch(requestURL.IndustryDetails,prams,'POST',true)
+		return response;
+	},
+	//行业动态更多接口
+	IndustryMore: async function (prams) {
+		let response = await request.Fetch(requestURL.IndustryMore,prams,'POST',true)
+		return response;
+	},
+	//讲师介绍接口
+	lecturer: async function (prams) {
+		let response = await request.Fetch(requestURL.lecturer,prams,'POST',true)
+		return response;
+	},
+	//扫码接口
+	SweepCode: async function (prams) {
+		let response = await request.Fetch(requestURL.SweepCode,prams,'POST',true)
 		return response;
 	}
 }

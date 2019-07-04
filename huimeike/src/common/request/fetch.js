@@ -45,7 +45,6 @@
 						resolve(res.data);
 					if(JSON.parse(res.data).code === 1) {
 
-
 						uni.showToast({
 							title: `${JSON.parse(res.data).msg}`,
 							icon: "none"

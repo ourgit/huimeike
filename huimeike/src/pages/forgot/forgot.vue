@@ -111,7 +111,7 @@
 						yzm: this.code
 					}).then(res =>{
 						res = JSON.parse(res)
-						console.log(res.code)
+						console.log(res)
 
 						if(res.code === -2) {
 							this.$msg(res.msg);

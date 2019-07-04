@@ -97,11 +97,10 @@
 					<text class="headline">精彩分享</text>
 					<text class="icon more" @click="jcmore">更多</text>
 				</view>	
-				<view></view>
 			</view>
 			<view class="classItem" v-for="(item,index) in jcfx" :key="index">
 				<view class="top">
-					<image :src="imgUrl2 + item.head_img"></image>
+					<lazy-image class="img" :realSrc="imgUrl2 + item.head_img" :placeholdSrc="placeholderSrc"></lazy-image>
 					<view>
 						<text class="user">{{item.nickname}}</text>
 						<text class="time">{{item.time}}</text>
@@ -123,14 +122,17 @@
 			</view>	
 			<view class="ul-box">
 				<view class="li-box" v-for="(item,index) in wqkc" :key="index" @click="wq(item.id)">
-					<image :src="imgUrl + item.photo">
-					</image>
-					<text class="text1">{{item.bmrs}}人加入学习</text>
-					<text class="text2">{{item.title}}</text>
-					<text class="text3">{{$tools.cutString(item.szzd,30)}}</text>
-					<view>
-						<text class="text4">{{item.gmsl}}颜值豆</text>
-						<text class="text5">{{item.bmrs}}人学习</text>
+					<view class="top">
+						<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image>
+						<text class="text1">{{item.bmrs}}人加入学习</text>
+					</view>
+					<view class="bottom">
+						<text class="text2">{{item.title}}</text>
+						<text class="text3">{{$tools.cutString(item.szzd,30)}}</text>
+						<view>
+							<text class="text4">{{item.gmsl}}颜值豆</text>
+							<text class="text5">{{item.bmrs}}人学习</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -139,11 +141,11 @@
 			<view class="NewCurriculum">
 				<view class="title3">
 					<text class="headline">行业动态</text>
-					<text class="icon more">更多</text>
+					<text class="icon more" @click="IndustryMore">更多</text>
 				</view>	
 				<view></view>
 			</view>
-			<view class="classItem2" v-for="(item,index) in hydt" :key="index">
+			<view class="classItem2" v-for="(item,index) in hydt" :key="index" @click="IndustryDetails(item.id)">
 				<view>
 					<text class="user2">{{item.title}}</text>
 					<text class="time2">{{parseInt(item.create_time)*1000 | time}}</text>
@@ -179,6 +181,7 @@
 		data() {
 			return {
 				placeholderSrc: '../../static/images/common/abc.png',
+				placeholderSrc2: '../../static/images/common/loading.gif',
 				imgUrl: this.$imgUrl.imgUrl,
 				imgUrl2: this.$imgUrl.imgUrl2,
 				//轮播图的组件
@@ -227,6 +230,7 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
+				// console.log(res);
 				this.zxkc  = res.zxkc;
 				this.guwenan = res.gwa;
 				this.jcfx = res.jcfx;
@@ -310,14 +314,19 @@
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
 				if (index === 0) {
+					// #ifdef  H5
 					this.$msg('请在APP个人点击中心扫码');
+					//#endif
+					
 					// #ifdef  APP-PLUS
 					uni.scanCode({
 						onlyFromCamera: true,
 						success: function (res) {
-							// let [...all] = res.result;
-							// console.log(all)
-							
+							let url = res.result;
+							let [a,b,c,d] = url.match(/(hyid).*/gi)[0].split('/')
+							uni.navigateTo({
+								url: `/pages/signIn/signIn?hyid=${b}&ccid=${d}`
+							})
 						}
 					});
 					//#endif
@@ -393,6 +402,18 @@
 				uni.navigateTo({
 					url: '/pages/classroom/classroom'
 				})				
+			},
+			//行业动态详情页
+			IndustryDetails(id) {
+				uni.navigateTo({
+					url: `/pages/IndustryDetails/IndustryDetails?id=${id}`
+				})
+			},
+			//行业更多
+			IndustryMore() {
+				uni.navigateTo({
+					url: '/pages/IndustryMore/IndustryMore'
+				})
 			}
 		}
 	}
@@ -688,7 +709,7 @@
 			border-bottom: 1upx solid #f2f2f2;
 			.top {
 				display: flex;
-				image {
+				.img {
 					width: 75upx;
 					height: 75upx;
 					border-radius: 50%;
@@ -703,14 +724,17 @@
 						font-size: 24upx;
 					}
 					.user {
+						margin-top: 8upx;
 						font-weight: bold;
 					}
 					.time {
+						margin-top: 10upx;
 						color: #b2b2b2;
 					}
 				}
 			}
 			.bottom {
+				margin-top: 10upx;
 				margin-left: 120upx;
 				margin-right: 60upx;
 				font-size: 22upx;
@@ -722,9 +746,12 @@
 		.wqkc {
 			margin-top: 30upx;
 			.ul-box {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-around;				
+				// display: flex;
+				// flex-wrap: wrap;
+				// justify-content: space-around;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				justify-items: center;
 				box-sizing: border-box;
 				padding: 0 20upx;
 				.li-box {
@@ -733,55 +760,58 @@
 					background-color: #fff;
 					position: relative;
 					margin-bottom: 21upx;
-					display: flex;
-					flex-direction: column;
 					padding-bottom: 19upx;
-					
-					image {
-					width: 335upx;
-					height: 189upx;
-					border-top-left-radius: 20upx;
-					border-top-right-radius: 20upx;
-					}
-					.text1 {
-						display: block;
-						width: 335upx;
-						height: 36upx;
-						background: rgba(82, 93, 100, .5);
-						font-size: 15upx;
-						color: #fff;
-						position: absolute;
-						top: 150upx;
-						text-indent: 6upx;
-						border-bottom: 1upx solid #6f757b;
-					}
-					.text2 {
-						font-size: 26upx;
-						font-weight: bold;
-						margin: 15upx 0;
-						text-indent: 6upx;
-					}
-					.text3 {
-						padding: 0 10upx;
-						font-size: 22upx;
-						line-height: 34upx;
-						color: #838383;
-					}
-					view {
-						display: flex;
-						justify-content: space-between;
-						padding: 9upx;
-						box-sizing: border-box;
-						.text4 {
-							font-size: 26upx;
-							color: #ff802b;
+					.top {
+						height: 94.5px;
+						position: relative;
+						lazy-image {
+							width: 100%;
+							height: 100%;
+							border-top-left-radius: 20upx;
+							border-top-right-radius: 20upx;
 						}
-						.text5 {
-							font-size: 16upx;
-							color: #a1a1a1;
-						}					
+						.text1 {
+							width: 335upx;
+							height: 36upx;
+							background: rgba(82, 93, 100, .5);
+							font-size: 15upx;
+							color: #fff;
+							position: absolute;
+							top: 150upx;
+							text-indent: 6upx;
+							border-bottom: 1upx solid #6f757b;
+						}						
 					}
-
+					.bottom {
+						display: flex;
+						flex-direction: column;
+						.text2 {
+							font-size: 26upx;
+							font-weight: bold;
+							margin: 15upx 0;
+							text-indent: 6upx;
+						}
+						.text3 {
+							padding: 0 10upx;
+							font-size: 22upx;
+							line-height: 34upx;
+							color: #838383;
+						}
+						view {
+							display: flex;
+							justify-content: space-between;
+							padding: 9upx;
+							box-sizing: border-box;
+							.text4 {
+								font-size: 26upx;
+								color: #ff802b;
+							}
+							.text5 {
+								font-size: 16upx;
+								color: #a1a1a1;
+							}					
+						}
+					}
 				}
 			}
 		}

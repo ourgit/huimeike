@@ -16,7 +16,6 @@
 				</avatar>
 				<text class="icon">&#xe656;</text>
 			</view>
-
 		</view>
 		<view class="item">
 			<view class="view">

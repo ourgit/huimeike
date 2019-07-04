@@ -65,5 +65,13 @@ export default {
 	//修改个性签名
 	ReviseSignature: `${baseurl}/Personal/mod_signature`,
 	//商城接口
-	shop: `${baseurl}/Shopapi/sc`
+	shop: `${baseurl}/Shopapi/sc`,
+	//行业动态详情
+	IndustryDetails: `${baseurl}/Index/htdtxq`,
+	//行业动态更多
+	IndustryMore: `${baseurl}/Index/htdt`,
+	//讲师介绍
+	lecturer: `${baseurl}/teacher/taecher_details`,
+	//扫码接口
+	SweepCode: `${baseurl}/hycc/hyxx/`
 }

@@ -1,14 +1,14 @@
 <template>
 	<view class="NotPurchased" v-show="isShow">
 		<view class="banner">
-			<image :src="imgUrl + xqxx.photo"></image>
+			<image v-if="xqxx.photo" :src="imgUrl + xqxx.photo"></image>
 			<view>{{xqxx.bmrs}}人学习</view>
 		</view>
 		<view class="content">
 			<view class="dabiaoti">{{xqxx.title}}</view>
 			<view class="box1">
 				<view class="v1" @click="jsdetail(js.id)">
-					<image :src="imgUrl2 + js.portrait"></image>
+					<image v-if="js.portrait" :src="imgUrl2 + js.portrait"></image>
 					<view>
 						<text class="t1">{{js.name}}</text>
 						<text class="t2" style="font-size: 24upx;">{{js.time}}</text>						
@@ -64,7 +64,7 @@
 			</view>
 			<view class="classItem" v-for="(item,index) in xxxd" :key="index">
 				<view class="top">
-					<image :src="imgUrl2 + item.head_img"></image>
+					<image v-if="item.head_img" :src="imgUrl2 + item.head_img"></image>
 					<view>
 						<text class="user">{{item.nickname}}</text>
 						<text class="time">{{item.time}}</text>

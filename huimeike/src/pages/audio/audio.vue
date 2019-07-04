@@ -2,7 +2,7 @@
 	<view class="audio" v-show="show">
 		<view class="top">
 			<view class="container">
-				<image :src="imgUrl2 + audioList.jspic"></image>
+				<image v-if="audioList.jspic" :src="imgUrl2 + audioList.jspic"></image>
 				<text>{{audioList.title}}</text>
 			</view>
 		</view>

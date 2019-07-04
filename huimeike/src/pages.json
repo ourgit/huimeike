@@ -627,7 +627,49 @@
 					}
 				}
 			}			
-		}								
+		},
+		{	//行业详情
+			"path":"pages/IndustryDetails/IndustryDetails",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "行业动态",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "行业动态"
+					}
+				}
+			}			
+		},
+		{	//行业动态更多
+			"path":"pages/IndustryMore/IndustryMore",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "行业列表",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "行业列表"
+					}
+				}
+			}			
+		},
+		{	//签到
+			"path":"pages/signIn/signIn",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "签到",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "签到"
+					}
+				}
+			}			
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
