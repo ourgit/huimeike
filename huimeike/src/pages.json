@@ -669,6 +669,20 @@
 					}
 				}
 			}			
+		},
+		{	//我的学习心得
+			"path":"pages/StudyNotes/StudyNotes",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "学习心得",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "学习心得"
+					}
+				}
+			}			
 		}
 	],
 	"globalStyle": {

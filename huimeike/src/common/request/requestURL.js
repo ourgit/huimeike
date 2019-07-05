@@ -73,5 +73,7 @@ export default {
 	//讲师介绍
 	lecturer: `${baseurl}/teacher/taecher_details`,
 	//扫码接口
-	SweepCode: `${baseurl}/hycc/hyxx/`
+	SweepCode: `${baseurl}/hycc/hyxx/`,
+	// 线下课详情
+	OfflineCourse: `${baseurl}/Hyapi/hyxq`
 }

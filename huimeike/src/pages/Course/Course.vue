@@ -48,7 +48,7 @@
 			}
 		},
 		onLoad() {
-			
+
 		},
 		methods: {
 			goback() {

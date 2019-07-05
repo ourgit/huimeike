@@ -48,7 +48,15 @@
 			}
 		},
 		onLoad() {
-			
+			/* 线下课详情 */
+			this.$request.OfflineCourse({
+				id: 1
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			goback() {

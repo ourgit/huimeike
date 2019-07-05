@@ -182,5 +182,10 @@ export default {
 	SweepCode: async function (prams) {
 		let response = await request.Fetch(requestURL.SweepCode,prams,'POST',true)
 		return response;
-	}
+	},
+	//线下课详情
+	OfflineCourse: async function (prams) {
+		let response = await request.Fetch(requestURL.OfflineCourse,prams,'POST',true)
+		return response;
+	}	
 }

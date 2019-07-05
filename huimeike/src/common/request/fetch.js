@@ -17,9 +17,11 @@
 					title: '请稍候...'
 				})
 			}
+			//如果token存在，将vuex中在登陆页同步到的token赋值给请求参数token
 			if(CheckToken){
 				pram.token = store.state.token;						
 			}
+			//同理
 			if(NeedPhone){
 				pram.phone =  store.state.phone;
 			}
@@ -50,7 +52,7 @@
 							icon: "none"
 						})
 						resolve(res.data.msg);
-						//传入vuex设置的token
+						//传入vuex设置的token和手机号
 						let data = {token:store.state.token,phone:store.state.phone}
 						store.commit('SetUserInfo',data)
 

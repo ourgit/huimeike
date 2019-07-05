@@ -21,12 +21,6 @@
 						</view>
 		            </checkbox-group>
 					<text class="chkRem">记住密码</text>
-					
-
-					
-					
-					
-					
 		        </view>
 				<view>
 					<text @click="forgot">忘记密码？</text>
@@ -67,10 +61,6 @@
 				this.password = '';
 			}		
 		},
-		onReady() {
-			
-
-		},
 		methods: {
 			...mapMutations(['SetUserInfo']),
 			goRegister() {
@@ -108,7 +98,9 @@
 					if(res.code === 1) {
 						this.isDisable = true;
 						this.$msg(res.msg);
-					this.SetUserInfo({token:res.token,phone:this.phone})
+						//获取登陆成功后台返的token和手机号
+						this.SetUserInfo({token:res.token,phone:this.phone})
+						//为了防止页面刷新造成数据丢失，在这里要存储VueX里的state
 						uni.setStorage({
 							key: 'state',
 							data: this.$store.state

@@ -12,9 +12,9 @@
 
 		<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular">
 			<swiper-item v-for="(item, index) in banner" :key="index">				
-				<view class="swiper-item"><image :src="imgUrl + item.images" @click="goOffline"></image></view>
+				<view class="swiper-item"><image :src="imgUrl + item.images"></image></view>
 			</swiper-item>
-		</swiper>		
+		</swiper>
 		<view class="nav">
 			<view class="nav-item" @click="classroom">
 				<text class="ico icon1"></text>
@@ -50,6 +50,9 @@
 				<view class="view">{{$tools.cutString(item.title,21)}}</view>
 				<text class="icon font">&#xe656;</text>
 			</view>
+		</view>
+		<view class="OfflineCourse" @click="goOffline">
+			<image src="http://hmk.qmwhcb.cn/public/static/home/images/xxk.jpg"></image>
 		</view>
 		<view class="NewCurriculum">
 			<view class="title3">
@@ -221,6 +224,7 @@
 			/* 获取banner请求 */
 			this.$request.banner().then(res =>{
 				res = JSON.parse(res);
+				console.log(res)
 				this.banner  = res.banner;
 				this.wmhbanner = res.wmh;
 			},err =>{
@@ -662,6 +666,16 @@
 				}
 			}
 
+		}
+		.OfflineCourse {
+			height: 200upx;
+			padding: 0 40upx;
+			box-sizing: border-box;
+			margin-bottom: 20upx;
+			image {
+				width: 100%;
+				height: 100%;
+			}
 		}
 		.commonItem {
 			width: 90%;
