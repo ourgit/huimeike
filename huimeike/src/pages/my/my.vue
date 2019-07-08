@@ -69,7 +69,7 @@
 					<text class="text3">收藏</text>
 					<text class="text4">{{sccount}}个</text>
 				</view>
-				<view>
+				<view @click="StudyNotes">
 					<text class="ico ico6"></text>
 					<text class="text3">心得</text>
 					<text class="text4">{{xdcount}}条</text>
@@ -215,6 +215,12 @@
 				uni.navigateTo({
 					url: "/pages/download/download"
 				})					
+			},
+			//学习心得
+			StudyNotes() {
+				uni.navigateTo({
+					url: "/pages/StudyNotes/StudyNotes"
+				})
 			}
 		}
 	}

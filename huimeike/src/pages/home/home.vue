@@ -52,7 +52,7 @@
 			</view>
 		</view>
 		<view class="OfflineCourse" @click="goOffline">
-			<image src="http://hmk.qmwhcb.cn/public/static/home/images/xxk.jpg"></image>
+			<image src="http://hmk.qmwhcb.cn/static/home/images/xxk.jpg"></image>
 		</view>
 		<view class="NewCurriculum">
 			<view class="title3">

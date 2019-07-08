@@ -2,29 +2,32 @@
 	<view class="Offline">
 
 		<view class="banner">
-			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558517802790&di=adb7b867c405ebac825c23484acb9509&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170603%2F756ce73de73c4a3ca5bf2fa5bce2bec7_th.jpg"></image>
+			<image v-if="OfflineData.kcxq" :src="imgUrl + OfflineData.kcxq.photo"></image>
 			<view class="enroll">
 				<view>
 					<text>倒计时：</text>
-					<count-down endTime="1566489600" :callback="callback" endText="已经结束了"></count-down>					
+					<count-down v-if="OfflineData.kcxq" :endTime="OfflineData.kcxq.endsj + ''" :callback="callback" endText="已经结束了"></count-down>					
 				</view>
 				<button :class="{disabled: !this.canClick}" @click="countDown">{{content}}</button>
 			</view>
 		</view>
 		<view class="content">
-			<view class="dabiaoti">对新领域保持好奇，多结交新朋友</view>
+			<view class="dabiaoti" v-if="OfflineData.kcxq">{{OfflineData.kcxq.hyname}}</view>
 			<view class="box1">
 				<view class="v1">
 					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558519496977&di=263688d811e1dabbfa9dad32edbd0827&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F6971d6fd691a2d2bb249424387d25157fdc49e1e.jpg" mode=""></image>
 					<view>
-						<text class="t1">逻辑思维</text>
-						<text class="t2">2019-06-20</text>						
+						<text class="t1">逻辑思维</text>					
 					</view>
 				</view>
 				<view class="v2">
 					<text class="icon t3">&#xe61a;</text>
 					<text class="t4">关注</text>
 				</view>
+			</view>
+			<view class="box2">
+				<text>时间：2019年8月20日</text>
+				<text>地点：河北省秦皇岛市海港区新世纪小区</text>
 			</view>
 			<!-- 富文本编辑 -->
 			<view>
@@ -43,8 +46,11 @@
 		data() {
 			return {
 				placeholderSrc: '../../static/images/common/abc.png',
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
 				canClick: true,
-				content: "报名"
+				content: "报名",
+				OfflineData: {}
 			}
 		},
 		onLoad() {
@@ -53,7 +59,13 @@
 				id: 1
 			}).then(res =>{
 				res = JSON.parse(res);
-				console.log(res)
+				
+				this.OfflineData = res;
+				console.log(this.OfflineData)
+				if(this.OfflineData.bmzt === 1) {
+					this.content = this.OfflineData.count;
+				}
+				
 			},err =>{
 				console.log(err)
 			})
@@ -66,12 +78,14 @@
 			},
 			callback() {
 				uni.showModal({
-					title: '活动结束！',
+					title: '课程结束！',
 					content: '2019-5-23',
 					showCancel: false,
 					cancelText: '',
 					confirmText: '',
-					success: res => {},
+					success: res => {
+						
+					},
 					fail: () => {},
 					complete: () => {}
 				});
@@ -79,7 +93,7 @@
 			countDown () {
 				if (!this.canClick) return;
 					this.canClick = false
-					this.content = "4520人已报名"
+					this.content = this.OfflineData.count;
 			},
 			//点击导航栏 buttons 时触发
 			onNavigationBarButtonTap(e) {
@@ -112,6 +126,12 @@
 	
 	.Offline {
 		padding-bottom: 130upx;
+		background-color: #fff;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
 		.banner {
 			box-sizing: border-box;
 			height: 510upx;
@@ -171,16 +191,14 @@
 					}
 					view {
 						display: flex;
-						flex-direction: column;						
+						flex-direction: column;	
+						align-items: center;
+						justify-content: center;
 						margin-left: 18upx;
 						.t1 {
 							font-size: 25upx;
 							color: #676767;
 							margin-top: 8upx;
-						}
-						.t2 {
-							font-size: 18upx;
-							color: #adadad;
 						}
 					}
 				}
@@ -194,6 +212,14 @@
 					.t4 {
 						font-size: 32upx;
 					}
+				}
+			}
+			.box2 {
+				padding: 28upx 0;
+				display: flex;
+				flex-direction: column;
+				text {
+					color: #515151;
 				}
 			}
 		}				
