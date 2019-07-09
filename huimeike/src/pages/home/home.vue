@@ -215,7 +215,7 @@
 			}
 		},
 		onLoad() {
-			this.mask = false;
+			this.mask = true;
 			
 			uni.showLoading({
 				title: '加载中...',
@@ -255,23 +255,55 @@
 			})					
 		},
 		methods: {
+			/* 点击确定唤起微信支付 */
 			pop_up_btn() {
 				this.mask = false;
 				uni.showTabBar()
-				this.$request.WXZF({
-					total_fee: 1
-				}).then(res =>{
-					res = JSON.parse(res);
-					if(res.code === 1) {
-						// #ifdef H5
-						window.location.href = res.msg
-						// #endif
-					}else if(res.code === 2) {
-						this.$msg(res.msg)
-					}
-				},err =>{
-					console.log(err)
-				})
+				// #ifdef  H5
+					this.$request.WXZF({
+						total_fee: 1
+					}).then(res =>{
+						res = JSON.parse(res);
+						if(res.code === 1) {
+							// #ifdef H5
+							window.location.href = res.msg
+							// #endif
+						}else if(res.code === 2) {
+							this.$msg(res.msg)
+						}
+					},err =>{
+						console.log(err)
+					})
+				// #endif
+				
+				// #ifdef  APP-PLUS
+					this.$request.APPWXZF().then(res =>{
+						console.log(res);
+						uni.requestPayment({
+							provider: 'wxpay',
+							orderInfo: {
+								"appId": res.appid,
+								"partnerId": res.partnerid,
+								"prepayId": res.prepayid,
+								"packageValue": res.package,
+								"nonceStr": res.noncestr,
+								"timeStamp": res.timestamp,
+								"signType": 'MD5',
+								"paySign": res.sign
+							},
+							success: function (res) {
+								console.log(JSON.stringify(res));
+								this.$msg("支付成功！")
+							},
+							fail: function (err) {
+
+							}
+						});
+					},err =>{
+						console.log(err)
+					})
+				
+				// #endif
 			},
 			//点击进入云课堂
 			classroom() {
@@ -441,6 +473,7 @@
 	.home {
 		width: 100%;
 		box-sizing: border-box;
+		padding-bottom: 110upx;
 		.header {
 			width: 100%;
 			height: 100upx;

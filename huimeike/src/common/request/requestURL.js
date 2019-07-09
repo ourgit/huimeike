@@ -75,5 +75,7 @@ export default {
 	//扫码接口
 	SweepCode: `${baseurl}/hycc/hyxx/`,
 	// 线下课详情
-	OfflineCourse: `${baseurl}/Hyapi/hyxq`
+	OfflineCourse: `${baseurl}/Hyapi/hyxq`,
+	//APP微信注册支付接口
+	APPWXZF: 'http://hmk.qmwhcb.cn/api/apppay/wxpay'
 }

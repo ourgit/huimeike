@@ -187,5 +187,10 @@ export default {
 	OfflineCourse: async function (prams) {
 		let response = await request.Fetch(requestURL.OfflineCourse,prams,'POST',true)
 		return response;
+	},
+	//APP微信支付
+	APPWXZF: async function (prams) {
+		let response = await request.Fetch(requestURL.APPWXZF,prams,'POST',false,false)
+		return response;
 	}	
 }

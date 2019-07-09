@@ -8,6 +8,7 @@
 					selWidth="200px"
 					selHeight="400upx"
 					@upload="ModifyAvatar"
+					v-if="userInfo"
 					:avatarSrc="imgUrl2 + userInfo.head_img"
 					avatarStyle="width:80upx;height:80upx;"
 					inner="true"
@@ -104,7 +105,7 @@
 			this.$request.set().then(res =>{
 				res = JSON.parse(res);
 				this.userInfo = res;
-				console.log(this.userInfo)
+				console.log(this.userInfo.head_img)
 				this.$store.commit('SetAvatar', this.userInfo.head_img)
 				
 			},err =>{
