@@ -170,11 +170,6 @@
 		<view class="end">
 			<text>—— 我是有底线的 ——</text>
 		</view>
-		<view class="mask" v-show="mask">
-			<view class="pop_up">
-				<button class="pop_up-btn" @click="pop_up_btn"></button>
-			</view> 
-		</view>
 	</view>
 </template>
 
@@ -183,6 +178,7 @@
 	export default {
 		data() {
 			return {
+				windowHeight: '',
 				placeholderSrc: '../../static/images/common/abc.png',
 				placeholderSrc2: '../../static/images/common/loading.gif',
 				imgUrl: this.$imgUrl.imgUrl,
@@ -209,14 +205,22 @@
 				//行业动态
 				hydt: [],
 				//全屏显示开关
-				show: false,
-				//遮罩层
-				mask: false
+				show: false
 			}
 		},
 		onLoad() {
-			this.mask = true;
-			
+		// 	uni.getSystemInfo({
+		//         success: (res)=> {
+		//             this.windowHeight = res.windowHeight;
+		//         }
+		//     });    
+		//     uni.onWindowResize((res) => {
+		//         if(res.size.windowHeight < this.windowHeight){
+		//             uni.hideTabBar()
+		//         }else{
+		//             uni.showTabBar()
+		//         }
+		//     })
 			uni.showLoading({
 				title: '加载中...',
 				mask: true
@@ -234,7 +238,7 @@
 			/* 获取首页请求 */
 			this.$request.index().then(res =>{
 				res = JSON.parse(res);
-				// console.log(res);
+				console.log(res);
 				this.zxkc  = res.zxkc;
 				this.guwenan = res.gwa;
 				this.jcfx = res.jcfx;
@@ -255,56 +259,6 @@
 			})					
 		},
 		methods: {
-			/* 点击确定唤起微信支付 */
-			pop_up_btn() {
-				this.mask = false;
-				uni.showTabBar()
-				// #ifdef  H5
-					this.$request.WXZF({
-						total_fee: 1
-					}).then(res =>{
-						res = JSON.parse(res);
-						if(res.code === 1) {
-							// #ifdef H5
-							window.location.href = res.msg
-							// #endif
-						}else if(res.code === 2) {
-							this.$msg(res.msg)
-						}
-					},err =>{
-						console.log(err)
-					})
-				// #endif
-				
-				// #ifdef  APP-PLUS
-					this.$request.APPWXZF().then(res =>{
-						console.log(res);
-						uni.requestPayment({
-							provider: 'wxpay',
-							orderInfo: {
-								"appId": res.appid,
-								"partnerId": res.partnerid,
-								"prepayId": res.prepayid,
-								"packageValue": res.package,
-								"nonceStr": res.noncestr,
-								"timeStamp": res.timestamp,
-								"signType": 'MD5',
-								"paySign": res.sign
-							},
-							success: function (res) {
-								console.log(JSON.stringify(res));
-								this.$msg("支付成功！")
-							},
-							fail: function (err) {
-
-							}
-						});
-					},err =>{
-						console.log(err)
-					})
-				
-				// #endif
-			},
 			//点击进入云课堂
 			classroom() {
 				uni.navigateTo({
@@ -351,7 +305,7 @@
 				const index = e.index;
 				if (index === 0) {
 					// #ifdef  H5
-					this.$msg('请在APP个人点击中心扫码');
+					this.$msg('请在APP进行扫码');
 					//#endif
 					
 					// #ifdef  APP-PLUS
@@ -360,6 +314,7 @@
 						success: function (res) {
 							let url = res.result;
 							let [a,b,c,d] = url.match(/(hyid).*/gi)[0].split('/')
+							console.log(b,d)
 							uni.navigateTo({
 								url: `/pages/signIn/signIn?hyid=${b}&ccid=${d}`
 							})
@@ -473,7 +428,6 @@
 	.home {
 		width: 100%;
 		box-sizing: border-box;
-		padding-bottom: 110upx;
 		.header {
 			width: 100%;
 			height: 100upx;
@@ -509,14 +463,7 @@
 			}
 		}
 		.swiper {
-			/* #ifdef APP-PLUS */
-			padding-top: 162upx;
-			height: 470upx;
-			/* #endif  */
-			/* #ifdef MP || H5 */
-			padding-top: 100upx;
-			height: 410upx;
-			/* #endif  */
+			height: 310upx;
 			.swiper-item {
 				image {
 					width: 100%;

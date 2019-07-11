@@ -17,16 +17,16 @@
 		onLoad(options) {
 			console.log(options.hyid)
 			console.log(options.ccid)
-			/* 获取个人中心请求 */
-			this.$request.SweepCode({
-				hyid: options.hyid,
-				ccid: options.ccid
-			}).then(res =>{
-				res = JSON.parse(res);
-				console.log(res)
-			},err =>{
-				console.log(err)
-			})
+			// /* 获取个人中心请求 */
+			// this.$request.SweepCode({
+			// 	hyid: options.hyid,
+			// 	ccid: options.ccid
+			// }).then(res =>{
+			// 	res = JSON.parse(res);
+			// 	console.log(res)
+			// },err =>{
+			// 	console.log(err)
+			// })
 		}
 	}
 </script>

@@ -77,5 +77,7 @@ export default {
 	// 线下课详情
 	OfflineCourse: `${baseurl}/Hyapi/hyxq`,
 	//APP微信注册支付接口
-	APPWXZF: 'http://hmk.qmwhcb.cn/api/apppay/wxpay'
+	APPWXZF: `${baseurl}/apppay/wxpay`,
+	//线下课报名
+	enroll: `${baseurl}/apppay/bmwxpay`
 }

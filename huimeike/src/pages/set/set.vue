@@ -8,13 +8,14 @@
 					selWidth="200px"
 					selHeight="400upx"
 					@upload="ModifyAvatar"
-					v-if="userInfo"
+					v-if="userInfo.head_img"
 					:avatarSrc="imgUrl2 + userInfo.head_img"
 					avatarStyle="width:80upx;height:80upx;"
 					inner="true"
 					canRotate="false"
 				>
 				</avatar>
+				<image v-else src="../../static/images/my/headImg.png"></image>
 				<text class="icon">&#xe656;</text>
 			</view>
 		</view>
@@ -22,7 +23,7 @@
 			<view class="view">
 				<text>姓名</text>
 				<view>
-					<text class="hui" @click="revise(userInfo.nickname)">{{userInfo.nickname}}</text>
+					<text class="hui" @click="revise(userInfo.nickname)" v-if="userInfo.nickname !== null">{{userInfo.nickname}}</text>
 					<text class="icon">&#xe656;</text>
 				</view>
 			</view>

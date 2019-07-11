@@ -180,7 +180,7 @@ export default {
 	},
 	//扫码接口
 	SweepCode: async function (prams) {
-		let response = await request.Fetch(requestURL.SweepCode,prams,'POST',true)
+		let response = await request.Fetch(requestURL.SweepCode,prams,'POST',true,true)
 		return response;
 	},
 	//线下课详情
@@ -190,7 +190,12 @@ export default {
 	},
 	//APP微信支付
 	APPWXZF: async function (prams) {
-		let response = await request.Fetch(requestURL.APPWXZF,prams,'POST',false,false)
+		let response = await request.Fetch(requestURL.APPWXZF,prams,'POST',true,true)
 		return response;
-	}	
+	},
+	//线下课报名
+	enroll: async function (prams) {
+		let response = await request.Fetch(requestURL.enroll,prams,'POST',true,true)
+		return response;
+	}
 }

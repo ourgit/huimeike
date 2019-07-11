@@ -11,6 +11,9 @@
         "compatible" : {
             "ignoreVersion" : true
         },
+		"softinput" : {
+            "mode" : "adjustPan"
+        },
         "splashscreen" : {
             "alwaysShowBeforeRender" : true,
             "waiting" : true,

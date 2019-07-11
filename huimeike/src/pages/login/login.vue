@@ -120,15 +120,29 @@
 								title: '请稍后...'							
 							})
 						}, 1500);
+						//已经购买完注册会员
+						console.log(res.regzt);
+						if(res.regzt === 1) {
+							setTimeout(() => {
+								uni.hideLoading();
+								this.isDisable = false;
+								uni.switchTab({
+									url: '/pages/home/home',
+									animationType: 'none'
+								})
+							}, 3000);	
+						//未购买注册会员
+						}else if(res.regzt === 2) {
+							setTimeout(() => {
+								uni.hideLoading();
+								this.isDisable = false;
+								uni.redirectTo({
+									url: '/pages/BuyMember/BuyMember',
+									animationType: 'none'
+								})
+							}, 3000);
+						}
 
-						setTimeout(() => {
-							uni.hideLoading();
-							this.isDisable = false;
-							uni.switchTab({
-								url: '/pages/home/home',
-								animationType: 'none'
-							})
-						}, 3000);
 						
 					}
 					if(res.code === -2) {

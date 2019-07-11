@@ -6,32 +6,36 @@
 			<view class="enroll">
 				<view>
 					<text>倒计时：</text>
-					<count-down v-if="OfflineData.kcxq" :endTime="OfflineData.kcxq.endsj + ''" :callback="callback" endText="已经结束了"></count-down>					
+					<count-down v-if="OfflineData.kcxq" :endTime="OfflineData.kcxq.endsj + ''" endText="已经结束了"></count-down>					
 				</view>
-				<button :class="{disabled: !this.canClick}" @click="countDown">{{content}}</button>
+				<view class="bmzt" @click="GObmzt">
+					<view class="button" v-if="!bmzt">报名</view>
+					<view class="buttonActive" v-if="bmzt">{{OfflineData.count}}</view>
+				</view>
 			</view>
 		</view>
 		<view class="content">
 			<view class="dabiaoti" v-if="OfflineData.kcxq">{{OfflineData.kcxq.hyname}}</view>
 			<view class="box1">
-				<view class="v1">
-					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558519496977&di=263688d811e1dabbfa9dad32edbd0827&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F6971d6fd691a2d2bb249424387d25157fdc49e1e.jpg" mode=""></image>
+				<view class="v1" @click="jsdetail">
+					<image v-if="OfflineData.kcxq" :src="imgUrl2 + OfflineData.kcxq.portrait"></image>
 					<view>
-						<text class="t1">逻辑思维</text>					
+						<text class="t1" v-if="OfflineData.kcxq">{{OfflineData.kcxq.jsname}}</text>					
 					</view>
 				</view>
-				<view class="v2">
-					<text class="icon t3">&#xe61a;</text>
+				<view class="v2" @click="collectFunc">
+					<text class="icon t3" v-if="!collect">&#xe61a;</text>
+					<text class="icon t3 yellow" v-if="collect">&#xe642;</text>
 					<text class="t4">关注</text>
 				</view>
 			</view>
 			<view class="box2">
-				<text>时间：2019年8月20日</text>
-				<text>地点：河北省秦皇岛市海港区新世纪小区</text>
+				<text v-if="OfflineData.kcxq" class="time">时间：{{OfflineData.kcxq.hykssj}}</text>
+				<text v-if="OfflineData.kcxq" class="mt">地点：{{OfflineData.kcxq.hydd}}</text>
 			</view>
 			<!-- 富文本编辑 -->
-			<view>
-				
+			<view class="parse">
+				<u-parse v-if="OfflineData.kcxq" :content="OfflineData.kcxq.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
 			</view>
 		</view>		
 <!-- 		<view class="end">
@@ -50,20 +54,28 @@
 				imgUrl2: this.$imgUrl.imgUrl2,
 				canClick: true,
 				content: "报名",
-				OfflineData: {}
+				OfflineData: {},
+				bmzt: 0,
+				collect:0
 			}
 		},
 		onLoad() {
+			let day = this.$moment.unix(1318781876);
+			console.info(day)
 			/* 线下课详情 */
 			this.$request.OfflineCourse({
 				id: 1
 			}).then(res =>{
 				res = JSON.parse(res);
-				
 				this.OfflineData = res;
+				
 				console.log(this.OfflineData)
 				if(this.OfflineData.bmzt === 1) {
-					this.content = this.OfflineData.count;
+					this.bmzt = this.OfflineData.bmzt;
+				}
+				if(this.OfflineData.kcxq.gzjs === 1) {
+					
+					this.collect = this.OfflineData.kcxq.gzjs;
 				}
 				
 			},err =>{
@@ -76,24 +88,103 @@
 					delta: 1
 				});
 			},
-			callback() {
-				uni.showModal({
-					title: '课程结束！',
-					content: '2019-5-23',
-					showCancel: false,
-					cancelText: '',
-					confirmText: '',
-					success: res => {
-						
-					},
-					fail: () => {},
-					complete: () => {}
-				});
+			// callback() {
+			// 	uni.showModal({
+			// 		title: '课程结束！',
+			// 		content: this.OfflineData.kcxq.hykssj + "-" + this.OfflineData.kcxq.endsj,
+			// 		showCancel: false,
+			// 		cancelText: '',
+			// 		confirmText: '',
+			// 		success: res => {
+			// 			
+			// 		},
+			// 		fail: () => {},
+			// 		complete: () => {}
+			// 	});
+			// },
+			GObmzt () {
+				if(this.OfflineData.bmzt === -1) {
+
+					//这里发送报名给后台
+					this.$request.enroll(
+						{
+							id: this.OfflineData.kcxq.id
+						}
+					).then(res =>{
+						console.log(res)
+						uni.showLoading({
+							title: '支付中...'
+						})
+						uni.requestPayment({
+							provider: "wxpay",  
+							timeStamp: JSON.stringify(res.timestamp),  
+							nonceStr: res.noncestr,  
+							package: res.package,  
+							signType:"MD5",  
+							paySign: res.sign,  
+							orderInfo: JSON.stringify({  
+								appid: res.appid,  
+								noncestr: res.noncestr,  
+								package: res.package,  
+								partnerid: res.partnerid,  
+								prepayid: res.prepayid,  
+								timestamp: res.timestamp,  
+								sign: res.sign  
+							}),
+							success: function (res) {
+								console.log(res)
+								uni.hideLoading()
+								uni.showToast({  
+									title:"支付成功",  
+									icon:"success",  
+									duration:2000,  
+									success:function(){
+										uni.redirectTo({
+											url: '/pages/OfflineClass/Offline'
+										})
+									}  
+								}); 
+							},
+							fail: function (err) {
+								uni.showToast({  
+									title:"支付失败",  
+									icon:"success",  
+									duration:2000,  
+									complete:function(){  
+										
+									}  
+								});
+							}
+						});						
+					},err =>{
+						console.log(err)
+					})
+				}else if (this.OfflineData.bmzt === 1) {
+					this.$msg("您已经报过名了！")
+				}
+				
 			},
-			countDown () {
-				if (!this.canClick) return;
-					this.canClick = false
-					this.content = this.OfflineData.count;
+			//关注讲师
+			collectFunc(){
+				this.collect = !this.collect
+				/* 获取未购买课程请求 */
+				this.$request.focus(
+					{
+						id: this.OfflineData.kcxq.hyjs,
+						zt: this.collect
+					}
+				).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+				},err =>{
+					console.log(err)
+				})
+			},
+			//进入讲师详情
+			jsdetail() {
+				uni.navigateTo({
+					url: `/pages/LecturerDetails/LecturerDetails?id=${this.OfflineData.kcxq.hyjs}`
+				})
 			},
 			//点击导航栏 buttons 时触发
 			onNavigationBarButtonTap(e) {
@@ -154,18 +245,30 @@
 				color: #fff;
 				line-height: 97upx;
 				background: #737373;
-				
-				button {
-					margin: 0;
-					width: 179upx;
-					height: 59upx;
-					line-height: 59upx;
-					background-color: #f86e25;
-					color: #fff;
-					border-radius: 80upx;
-					font-size: 28upx;
+				.bmzt {
 					margin-right: 20upx;
+					text-align: center;
+					.button {
+						width: 180upx;
+						height: 60upx;
+						line-height: 60upx;
+						background-color: #f86e25;
+						color: #fff;
+						border-radius: 40upx;
+						font-size: 28upx;
+						
+					}
+					.buttonActive {
+						width: 180upx;
+						height: 60upx;
+						line-height: 60upx;
+						background-color: #f86e25;
+						color: #fff;
+						border-radius: 40upx;
+						font-size: 28upx;
+					}
 				}
+
 			}
 		}
 		.content {
@@ -179,6 +282,7 @@
 			.box1 {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				margin-top: 55upx;
 				padding-bottom: 40upx;
 				border-bottom: 1upx solid #e6e6e6;
@@ -209,6 +313,9 @@
 					.t3 {
 						font-size: 35upx;
 					}
+					.yellow {
+						color: orange;
+					}
 					.t4 {
 						font-size: 32upx;
 					}
@@ -218,9 +325,30 @@
 				padding: 28upx 0;
 				display: flex;
 				flex-direction: column;
+				border-bottom: 1upx solid #e6e6e6;
 				text {
-					color: #515151;
+					color: #686868;
+					font-size: 28upx;
 				}
+				.time {
+					&:before {
+						.iconfont;
+						content: '\e73c';
+						margin-right: 10upx;
+					}
+				}
+				.mt {
+					margin-top: 25upx;
+					&:before {
+						.iconfont;
+						content: '\e644';
+						margin-right: 8upx;
+						font-size: 30upx;
+					}
+				}
+			}
+			.parse {
+				margin-top: 20upx;
 			}
 		}				
 	}	

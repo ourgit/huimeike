@@ -46,20 +46,21 @@
 				// #endif 
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent",
+						"type": "default",
+						"backgroundColor": "#f5b345",
 						"searchInput": {
 							"backgroundColor": "rgba(231, 231, 231,.7)",
 							"borderRadius": "16px",
 							"placeholder": "请输入搜索的内容",
 							//允许输入框点击
 							"disabled": false,
-							"placeholderColor": "#606266"
+							"placeholderColor": "#333"
 						},
 						"buttons": [{
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue600",
 								"fontSize": "26",
-								"color": "#303133",
+								"color": "#fff",
 								"float": "left",
 								"background": "rgba(0,0,0,0)"
 							},
@@ -67,7 +68,7 @@
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text": "\ue70a",
 								"fontSize": "27",
-								"color": "#303133",
+								"color": "#fff",
 								"background": "rgba(0,0,0,0)"
 							}
 						]
@@ -680,6 +681,21 @@
 					"titleNView": {
 						"type": "default",
 						"titleText": "学习心得"
+					}
+				}
+			}			
+		},
+		{	//开通注册会员
+			"path":"pages/BuyMember/BuyMember",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "注册会员",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "注册会员",
+						"backgroundColor": "rgba(0,0,0,.8)"
 					}
 				}
 			}			

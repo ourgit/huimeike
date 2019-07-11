@@ -34,6 +34,7 @@ Vue.filter('time', function (value, formatString) {
   formatString = formatString || 'YYYY-MM-DD HH:mm';
   return moment(value).format(formatString);
 })
+ Vue.prototype.$moment = moment;
 
 //引入选项卡组件
 import WucTab from './components/wuc-tab.vue';

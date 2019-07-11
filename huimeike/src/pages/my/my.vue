@@ -3,7 +3,8 @@
 		<view class="info">
 			<view class="top">
 				<image v-if="Avatar" :src="imgUrl2 + Avatar"></image>
-				<image v-if="user.head_img" :src="imgUrl2 + user.head_img"></image>				
+				<image v-if="!Avatar && user.head_img" :src="imgUrl2 + user.head_img"></image>
+				<image v-if="!Avatar && !user.head_img" src="../../static/images/my/headImg.png"></image>
 				<view class="box">
 					<view>
 						<text class="text1">{{user.nickname}}</text>

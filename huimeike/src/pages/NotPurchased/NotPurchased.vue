@@ -274,6 +274,7 @@
 			.box1 {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				margin-top: 55upx;
 				padding-bottom: 40upx;
 				border-bottom: 1upx solid #e6e6e6;
