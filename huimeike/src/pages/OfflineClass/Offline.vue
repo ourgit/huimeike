@@ -8,7 +8,7 @@
 					<text>倒计时：</text>
 					<count-down v-if="OfflineData.kcxq" :endTime="OfflineData.kcxq.endsj + ''" endText="已经结束了"></count-down>					
 				</view>
-				<view class="bmzt" @click="GObmzt">
+				<view class="bmzt" @click="GObmzt(OfflineData.kcxq.id)">
 					<view class="button" v-if="!bmzt">报名</view>
 					<view class="buttonActive" v-if="bmzt">{{OfflineData.count}}</view>
 				</view>
@@ -60,8 +60,6 @@
 			}
 		},
 		onLoad() {
-			let day = this.$moment.unix(1318781876);
-			console.info(day)
 			/* 线下课详情 */
 			this.$request.OfflineCourse({
 				id: 1
@@ -102,66 +100,69 @@
 			// 		complete: () => {}
 			// 	});
 			// },
-			GObmzt () {
-				if(this.OfflineData.bmzt === -1) {
-
-					//这里发送报名给后台
-					this.$request.enroll(
-						{
-							id: this.OfflineData.kcxq.id
-						}
-					).then(res =>{
-						console.log(res)
-						uni.showLoading({
-							title: '支付中...'
-						})
-						uni.requestPayment({
-							provider: "wxpay",  
-							timeStamp: JSON.stringify(res.timestamp),  
-							nonceStr: res.noncestr,  
-							package: res.package,  
-							signType:"MD5",  
-							paySign: res.sign,  
-							orderInfo: JSON.stringify({  
-								appid: res.appid,  
-								noncestr: res.noncestr,  
-								package: res.package,  
-								partnerid: res.partnerid,  
-								prepayid: res.prepayid,  
-								timestamp: res.timestamp,  
-								sign: res.sign  
-							}),
-							success: function (res) {
-								console.log(res)
-								uni.hideLoading()
-								uni.showToast({  
-									title:"支付成功",  
-									icon:"success",  
-									duration:2000,  
-									success:function(){
-										uni.redirectTo({
-											url: '/pages/OfflineClass/Offline'
-										})
-									}  
-								}); 
-							},
-							fail: function (err) {
-								uni.showToast({  
-									title:"支付失败",  
-									icon:"success",  
-									duration:2000,  
-									complete:function(){  
-										
-									}  
-								});
-							}
-						});						
-					},err =>{
-						console.log(err)
-					})
-				}else if (this.OfflineData.bmzt === 1) {
-					this.$msg("您已经报过名了！")
-				}
+			GObmzt (id) {
+				
+				uni.navigateTo({
+					url: `/pages/checkout/checkout?id=${id}`
+				})
+				// if(this.OfflineData.bmzt === -1) {
+				// 	//这里发送报名给后台
+				// 	this.$request.enroll(
+				// 		{
+				// 			id: this.OfflineData.kcxq.id
+				// 		}
+				// 	).then(res =>{
+				// 		console.log(res)
+				// 		uni.showLoading({
+				// 			title: '支付中...'
+				// 		})
+				// 		uni.requestPayment({
+				// 			provider: "wxpay",  
+				// 			timeStamp: JSON.stringify(res.timestamp),  
+				// 			nonceStr: res.noncestr,  
+				// 			package: res.package,  
+				// 			signType:"MD5",  
+				// 			paySign: res.sign,  
+				// 			orderInfo: JSON.stringify({  
+				// 				appid: res.appid,  
+				// 				noncestr: res.noncestr,  
+				// 				package: res.package,  
+				// 				partnerid: res.partnerid,  
+				// 				prepayid: res.prepayid,  
+				// 				timestamp: res.timestamp,  
+				// 				sign: res.sign  
+				// 			}),
+				// 			success: function (res) {
+				// 				console.log(res)
+				// 				uni.hideLoading()
+				// 				uni.showToast({  
+				// 					title:"支付成功",  
+				// 					icon:"success",  
+				// 					duration:2000,  
+				// 					success:function(){
+				// 						uni.redirectTo({
+				// 							url: '/pages/OfflineClass/Offline'
+				// 						})
+				// 					}  
+				// 				}); 
+				// 			},
+				// 			fail: function (err) {
+				// 				uni.showToast({  
+				// 					title:"支付失败",  
+				// 					icon:"success",  
+				// 					duration:2000,  
+				// 					complete:function(){  
+				// 						
+				// 					}  
+				// 				});
+				// 			}
+				// 		});						
+				// 	},err =>{
+				// 		console.log(err)
+				// 	})
+				// }else if (this.OfflineData.bmzt === 1) {
+				// 	this.$msg("您已经报过名了！")
+				// }
 				
 			},
 			//关注讲师

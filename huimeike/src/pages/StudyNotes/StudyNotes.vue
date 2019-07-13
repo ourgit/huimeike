@@ -13,12 +13,12 @@
 					<view class="box">
 						<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562322432887&di=7fc81b5c6391b9916842926c09999b06&imgtype=0&src=http%3A%2F%2F04imgmini.eastday.com%2Fmobile%2F20190302%2F20190302013530_55772c68da68ec6b6f3930f099e073d5_3.jpeg"></image>
 						<view class="box2">
-							<text>对今领域保持好奇，多结交良师益友</text>
+							<text>对今领域保持好奇，多结交良师益</text>
 							<text>逻辑思维</text>
 						</view>
 					</view>
 					<view class="box3">
-						<text class="orange">学习心得</text>
+						<text class="orange">学习心得：</text>
 						<text class="content">学习心得内容学习心得内容学习心得内容学习心得内容学习心得内容</text>
 					</view>
 				</view>
@@ -44,7 +44,7 @@
 	.StudyNotes {
 		.item {
 			background-color: #fff;
-			margin-bottom: 20upx;
+			margin-bottom: 30upx;
 			padding: 0 20upx;
 			.top {
 				padding-top: 32upx;
@@ -91,11 +91,15 @@
 							.box2 {
 								display: flex;
 								flex-direction: column;
+								justify-content: space-between;
 								margin-left: 20upx;
 							}
 						}
 						.box3 {
 							margin: 25upx 0;
+							.orange {
+								color: #ed824a;
+							}
 						}
 					}
 				}

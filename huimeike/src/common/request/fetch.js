@@ -17,9 +17,9 @@
 					title: '请稍候...'
 				})
 			}
-			//如果token存在，将vuex中在登陆页同步到的token赋值给请求参数token
+			//如果token存在，将vuex中在登陆页同步到的token赋值给请求参数token，也可以将它放在CheckToken函数里
 			if(CheckToken){
-				pram.token = store.state.token;						
+				pram.token = store.state.token;
 			}
 			//同理
 			if(NeedPhone){
@@ -46,11 +46,12 @@
 					if (res.statusCode == 200) {
 						resolve(res.data);
 					if(JSON.parse(res.data).code === 1) {
-
-						uni.showToast({
-							title: `${JSON.parse(res.data).msg}`,
-							icon: "none"
-						})
+						if(JSON.parse(res.data).msg) {
+							uni.showToast({
+								title: `${JSON.parse(res.data).msg}`,
+								icon: "none"
+							})
+						}
 						resolve(res.data.msg);
 						//传入vuex设置的token和手机号
 						let data = {token:store.state.token,phone:store.state.phone}
@@ -71,6 +72,7 @@
 						})
 						resolve(res.data.msg);						
 					}
+					//也可以将它放在CheckToken函数里做判断
 					else if(JSON.parse(res.data).code === 201) {
 						
 						uni.showLoading({

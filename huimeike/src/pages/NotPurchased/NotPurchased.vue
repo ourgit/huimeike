@@ -206,7 +206,7 @@
 			},
 			collectFunc(){
 				this.collect = !this.collect
-				/* 获取未购买课程请求 */
+				/* 关注老师 */
 				this.$request.focus(
 					{
 						id: this.js.id,

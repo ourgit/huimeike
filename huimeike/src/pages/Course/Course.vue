@@ -1,6 +1,5 @@
 <template>
 	<view class="Course">
-
 		<view class="banner">
 			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558517802790&di=adb7b867c405ebac825c23484acb9509&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170603%2F756ce73de73c4a3ca5bf2fa5bce2bec7_th.jpg"></image>
 			<view class="enroll">
@@ -48,7 +47,13 @@
 			}
 		},
 		onLoad() {
-
+			/* 预约精品线上课接口 */
+			this.$request.Course().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			goback() {

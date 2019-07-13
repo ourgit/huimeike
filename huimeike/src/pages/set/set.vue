@@ -5,7 +5,7 @@
 			<text>头像</text>
 			<view>
 				<avatar 
-					selWidth="200px"
+					selWidth="200upx"
 					selHeight="400upx"
 					@upload="ModifyAvatar"
 					v-if="userInfo.head_img"

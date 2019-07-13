@@ -141,6 +141,10 @@
   content: "\e61a";
 }
 
+.icon-huiyi:before {
+  content: "\e609";
+}
+
 .icon-wode1:before {
   content: "\e70a";
 }
@@ -149,12 +153,20 @@
   content: "\e601";
 }
 
+.icon-zuowei:before {
+  content: "\e613";
+}
+
 .icon-gouxuan-xuanzhong-yuankuang:before {
   content: "\e77c";
 }
 
 .icon-tubiaozhizuo-:before {
   content: "\e605";
+}
+
+.icon-shouji:before {
+  content: "\e602";
 }
 
 .icon-ico:before {

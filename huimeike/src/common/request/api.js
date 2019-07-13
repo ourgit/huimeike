@@ -197,5 +197,30 @@ export default {
 	enroll: async function (prams) {
 		let response = await request.Fetch(requestURL.enroll,prams,'POST',true,true)
 		return response;
+	},
+	//线下课报名确认支付
+	xxkpay: async function (prams) {
+		let response = await request.Fetch(requestURL.xxkpay,prams,'POST',true,true)
+		return response;
+	},
+	//充值金额档次
+	pay: async function (prams) {
+		let response = await request.Fetch(requestURL.pay,prams,'POST',true,true)
+		return response;
+	},
+	//充值
+	recharge: async function (prams) {
+		let response = await request.Fetch(requestURL.recharge,prams,'POST',true,true)
+		return response;
+	},
+	//充值
+	OfflineCourseSettlement: async function (prams) {
+		let response = await request.Fetch(requestURL.OfflineCourseSettlement,prams,'POST',true,true)
+		return response;
+	},
+	//精品课预约接口
+	Course: async function (prams) {
+		let response = await request.Fetch(requestURL.Course,prams,'POST',true,true)
+		return response;
 	}
 }

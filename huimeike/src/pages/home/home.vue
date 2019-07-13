@@ -103,7 +103,9 @@
 			</view>
 			<view class="classItem" v-for="(item,index) in jcfx" :key="index">
 				<view class="top">
-					<lazy-image class="img" :realSrc="imgUrl2 + item.head_img" :placeholdSrc="placeholderSrc"></lazy-image>
+					<view class="img">
+						<lazy-image :realSrc="imgUrl2 + item.head_img" :placeholdSrc="placeholderSrc"></lazy-image>
+					</view>
 					<view>
 						<text class="user">{{item.nickname}}</text>
 						<text class="time">{{item.time}}</text>
@@ -180,7 +182,6 @@
 			return {
 				windowHeight: '',
 				placeholderSrc: '../../static/images/common/abc.png',
-				placeholderSrc2: '../../static/images/common/loading.gif',
 				imgUrl: this.$imgUrl.imgUrl,
 				imgUrl2: this.$imgUrl.imgUrl2,
 				//轮播图的组件
@@ -314,7 +315,6 @@
 						success: function (res) {
 							let url = res.result;
 							let [a,b,c,d] = url.match(/(hyid).*/gi)[0].split('/')
-							console.log(b,d)
 							uni.navigateTo({
 								url: `/pages/signIn/signIn?hyid=${b}&ccid=${d}`
 							})
@@ -428,6 +428,7 @@
 	.home {
 		width: 100%;
 		box-sizing: border-box;
+		padding-bottom: 100upx;
 		.header {
 			width: 100%;
 			height: 100upx;
@@ -708,6 +709,14 @@
 					height: 75upx;
 					border-radius: 50%;
 					margin-left: 27upx;
+					margin-right: 10upx;
+					.lazy-image {
+						margin-left: 0;
+						image {
+							width: 75upx;
+							height: 75upx;	
+						}
+					}
 				}
 				view {
 					display: flex;

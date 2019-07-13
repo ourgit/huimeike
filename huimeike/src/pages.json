@@ -413,12 +413,12 @@
 			"path":"pages/pay/pay",
 			"style": {
 				// #ifdef MP 
-				"navigationBarTitleText": "商品详情",				
+				"navigationBarTitleText": "充值",				
 				// #endif 
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
-						"titleText": "商品详情"
+						"titleText": "充值"
 					}
 				}
 			}			
@@ -696,6 +696,20 @@
 						"type": "default",
 						"titleText": "注册会员",
 						"backgroundColor": "rgba(0,0,0,.8)"
+					}
+				}
+			}			
+		},
+		{	//无地址的结算台
+			"path":"pages/checkout/checkout",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台"
 					}
 				}
 			}			

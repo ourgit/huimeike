@@ -73,11 +73,21 @@ export default {
 	//讲师介绍
 	lecturer: `${baseurl}/teacher/taecher_details`,
 	//扫码接口
-	SweepCode: `${baseurl}/hycc/hyxx/`,
+	SweepCode: `${baseurl}/hycc/hyxx`,
 	// 线下课详情
 	OfflineCourse: `${baseurl}/Hyapi/hyxq`,
 	//APP微信注册支付接口
 	APPWXZF: `${baseurl}/apppay/wxpay`,
 	//线下课报名
-	enroll: `${baseurl}/apppay/bmwxpay`
+	enroll: `${baseurl}/apppay/bmwxpay`,
+	//充值金额档次
+	pay: `${baseurl}/chongzhi/chongzhi`,
+	//充值
+	recharge: `${baseurl}/apppay/czwxpay`,
+	//线下课报名结算台
+	OfflineCourseSettlement: `${baseurl}/hyapi/hybmjs`,
+	//线下课报名确认支付
+	xxkpay: `${baseurl}/hyapi/payxxk`,
+	//线上精品课预约接口
+	Course: `${baseurl}/xsk/nowxsk`
 }
