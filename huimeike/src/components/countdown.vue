@@ -15,8 +15,7 @@
     },
     props:{
       endTime:{
-        type: String,
-        default :''
+        type: Number
       },
       endText:{
         type : String,

@@ -9,7 +9,7 @@
 		</view>	
 		<view class="content">
 			<view v-for="(item,index2) in ShopList" :key="index2" v-if="index2==TabCur" class="ul">
-				<view class="li" v-for="(items, index3) in item.list" :key="index3" @click="shopDetail">
+				<view class="li" v-for="(items, index3) in item.list" :key="index3" @click="shopDetail(items.id)">
 					<lazy-image :realSrc="imgUrl + items.photo" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
 					<text class="title2">《{{items.title}}》</text>
 					<text class="content2">{{$tools.cutString(items.abstract,20)}}</text>
@@ -64,9 +64,10 @@
 					url: '/pages/home/home'
 				})
 			},
-			shopDetail() {
+			shopDetail(id) {
+				console.log(id)
 				uni.navigateTo({
-					url: '/pages/shopDetail/shopDetail'
+					url: `/pages/shopDetail/shopDetail?id=${id}`
 				})
 			},
 			//点击导航栏 buttons 时触发

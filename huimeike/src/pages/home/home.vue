@@ -55,11 +55,11 @@
 			<image src="http://hmk.qmwhcb.cn/static/home/images/xxk.jpg"></image>
 		</view>
 		<view class="NewCurriculum">
-			<view class="title3">
+			<view class="title3" style="margin-bottom: 30upx;">
 				<text class="headline">顾问案</text>
 				<text class="icon more" @click="gwmore">更多</text>
 			</view>
-			<view class="CurriculumItem" v-for="(item, index) in guwenan" :key="index" @click="gw">
+			<view class="gwa" v-for="(item, index) in guwenan" :key="index" @click="gw">
 				<view class="img"><lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc"></lazy-image></view>
 				<view class="flexC">
 					<text class="f30">《{{item.title}}》</text>
@@ -414,6 +414,9 @@
 	.iconfont {
 		font-family: 'iconfont' !important;
 	}
+	view {
+		box-sizing: border-box;
+	}
 	.end {
 		display: flex;
 		justify-content: center;
@@ -537,7 +540,6 @@
 				display: flex;
 				flex-direction: column;
 				color: #fff;
-				
 				margin-left: 56upx;
 				.title1 {
 					font-size: 34upx;
@@ -646,6 +648,39 @@
 					}
 				}
 			}
+			.gwa {
+				display: flex;
+				align-items: center;
+				padding: 19upx;
+				background-color: #fff;
+				margin-bottom: 25upx;
+				border-radius: 10upx;
+				.img {
+					width: 175upx;
+					height: 175upx;
+					border-radius: 50%;
+					margin-left: 18upx;
+					margin-right: 19upx;
+				}
+				.flexC {
+					width: 70%;
+					display: flex;
+					flex-direction: column;
+					.f30 {
+						font-size: 30upx;
+						font-weight: bold;
+						text-align: left;
+					}
+					.f20 {
+						font-size: 20upx;
+						color: #919191;
+					}
+					.f26 {
+						font-size: 26upx;
+						color: #ff802b;
+					}
+				}
+			}
 
 		}
 		.OfflineCourse {
@@ -669,7 +704,7 @@
 				width: 324upx;
 				background-color: #fff;
 				display: flex;
-				justify-content: center;
+				justify-content: space-between;
 				align-items: center;
 				flex-direction: column;
 				margin-bottom: 31upx;
@@ -677,12 +712,14 @@
 				box-sizing: border-box;
 				.img2 {
 					width: 100%;
-					height: 300upx;					
+					height: 324upx;					
 				}
 				.biaoti {
 					margin-top: 10upx;
 					font-size: 24upx;
 					font-weight: bold;
+					padding: 0 10upx;
+					text-align: center;
 				}
 				.duanluo {
 					width: 280upx;

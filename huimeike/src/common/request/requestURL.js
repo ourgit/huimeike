@@ -88,6 +88,14 @@ export default {
 	OfflineCourseSettlement: `${baseurl}/hyapi/hybmjs`,
 	//线下课报名确认支付
 	xxkpay: `${baseurl}/hyapi/payxxk`,
-	//线上精品课预约接口
-	Course: `${baseurl}/xsk/nowxsk`
+	//周五精品课预约接口
+	Course: `${baseurl}/xsk/nowxsk`,
+	//周五精品预约接口
+	goCourse: `${baseurl}/xsk/xskyy`,
+	//顾问案列表
+	gwaList: `${baseurl}/shopapi/gwa`,
+	//商品详情页
+	shopDetail: `${baseurl}/shopapi/content`,
+	//人脉接口
+	connection: `${baseurl}/Renmai/renmai`
 }

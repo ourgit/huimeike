@@ -56,7 +56,13 @@
 			}
 		},
 		onLoad() {
-
+			//顾问案列表请求
+			this.$request.connection().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 		

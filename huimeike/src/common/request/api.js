@@ -222,5 +222,25 @@ export default {
 	Course: async function (prams) {
 		let response = await request.Fetch(requestURL.Course,prams,'POST',true,true)
 		return response;
+	},
+	//精品课点击预约
+	goCourse: async function (prams) {
+		let response = await request.Fetch(requestURL.goCourse,prams,'POST',true,true)
+		return response;
+	},
+	//顾问案列表
+	gwaList: async function (prams) {
+		let response = await request.Fetch(requestURL.gwaList,prams,'POST',true,true)
+		return response;
+	},
+	//商品详情
+	shopDetail: async function (prams) {
+		let response = await request.Fetch(requestURL.shopDetail,prams,'POST',true,true)
+		return response;
+	},
+	//人脉接口
+	connection: async function (prams) {
+		let response = await request.Fetch(requestURL.connection,prams,'POST',true,true)
+		return response;
 	}
 }

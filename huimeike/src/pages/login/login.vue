@@ -14,7 +14,7 @@
 				<input type="password" placeholder="请输入密码" placeholder-style="color:#b2b2b2" v-model="password" value="password" autocomplete="password" />
 			</view>
 			<view class="between">
-		        <view class="align-center">		       
+		        <view class="align-center">
 		            <checkbox-group @change="checkboxChange">
 						<view class="cu-form-group" style="padding: 0; margin-right: 12upx;">
 							<checkbox id="chkRem" :class="rememberPsw?'checked':''" :checked="rememberPsw?true:false" @tap="rememberPsw = !rememberPsw" style="transform:scale(0.7)"></checkbox>

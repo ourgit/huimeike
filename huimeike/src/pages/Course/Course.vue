@@ -1,33 +1,37 @@
 <template>
 	<view class="Course">
 		<view class="banner">
-			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558517802790&di=adb7b867c405ebac825c23484acb9509&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170603%2F756ce73de73c4a3ca5bf2fa5bce2bec7_th.jpg"></image>
-			<view class="enroll">
-				<view>
-					<text>倒计时：</text>
-					<count-down endTime="1561910400" :callback="callback" endText="已经结束了"></count-down>					
-				</view>
-				<button :class="{disabled: !this.canClick}" @click="countDown">{{content}}</button>
+			<image v-if="CourseData.jsxq" :src="imgUrl + CourseData.kcxq.img"></image>
+		</view>
+		<view class="enroll">
+			<view>
+				<text>倒计时：</text>
+				<count-down  v-if="CourseData.kcxq" :endTime="CourseData.kcxq.start_time" endText="已经结束了"></count-down>					
+			</view>
+			<view class="bmzt"   v-if="CourseData.kcxq" @click="GObmzt(CourseData.kcxq.xsk_id)">
+				<view class="button" v-if="!bmzt">预约</view>
+				<view class="buttonActive" v-if="bmzt">{{CourseData.kcxq.yyrs}}</view>
 			</view>
 		</view>
 		<view class="content">
-			<view class="dabiaoti">对新领域保持好奇，多结交新朋友</view>
+			<view class="dabiaoti" v-if="CourseData.kcxq">{{CourseData.kcxq.name}}</view>
 			<view class="box1">
 				<view class="v1">
-					<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558519496977&di=263688d811e1dabbfa9dad32edbd0827&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F6971d6fd691a2d2bb249424387d25157fdc49e1e.jpg" mode=""></image>
+					<image v-if="CourseData.jsxq" :src="imgUrl2 + CourseData.jsxq.portrait"></image>
 					<view>
-						<text class="t1">逻辑思维</text>
-						<text class="t2">2019-06-20</text>						
+						<text class="t1" v-if="CourseData.jsxq">{{CourseData.jsxq.name}}</text>
+						<text class="t2" v-if="CourseData.jsxq">{{CourseData.jsxq.time}}</text>						
 					</view>
 				</view>
-				<view class="v2">
-					<text class="icon t3">&#xe61a;</text>
+				<view class="v2" @click="collectFunc">
+					<text class="icon t3" v-if="!collect">&#xe61a;</text>
+					<text class="icon t3 yellow" v-if="collect">&#xe642;</text>
 					<text class="t4">关注</text>
 				</view>
 			</view>
 			<!-- 富文本编辑 -->
-			<view>
-				
+			<view class="parse">
+				<u-parse v-if="CourseData.kcxq" :content="CourseData.kcxq.js" @preview="preview" @navigate="navigate" :imgOptions="false" />
 			</view>
 		</view>	
 <!-- 		<view class="end">
@@ -42,8 +46,13 @@
 		data() {
 			return {
 				placeholderSrc: '../../static/images/common/abc.png',
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
 				canClick: true,
-				content: "预约"
+				content: "预约",
+				CourseData: {},
+				bmzt: 0,
+				collect:0
 			}
 		},
 		onLoad() {
@@ -51,6 +60,13 @@
 			this.$request.Course().then(res =>{
 				res = JSON.parse(res);
 				console.log(res)
+				this.CourseData = res;
+				if(this.CourseData.is_gz === 1) {
+					this.collect = this.CourseData.is_gz;
+				}
+				if(this.CourseData.is_yy === 1) {
+					this.bmzt = this.CourseData.is_yy;
+				}
 			},err =>{
 				console.log(err)
 			})
@@ -61,25 +77,51 @@
 					delta: 1
 				});
 			},
-			callback() {
-				uni.showModal({
-					title: '活动结束！',
-					content: '2019-5-23',
-					showCancel: false,
-					cancelText: '',
-					confirmText: '',
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
-				});
+			GObmzt (xskid) {
+				console.log(xskid)
+				if(this.CourseData.is_yy === 1) {
+					this.$msg("您已经报过名了！")
+				}else {
+					/* 去预约接口 */
+					this.$request.goCourse({
+						kcid: xskid
+					}).then(res =>{
+						res = JSON.parse(res);
+						console.log(res)
+						this.CourseData = res;
+					},err =>{
+						console.log(err)
+					})
+				}
 			},
-			countDown () {
-				if (!this.canClick) return;
-
-					this.canClick = false
-					this.content = "4520人已预约"
-
-			},
+			//关注讲师
+			collectFunc(){
+				this.collect = !this.collect
+				/* 获取未购买课程请求 */
+				this.$request.focus(
+					{
+						id: this.CourseData.jsxq.id,
+						zt: this.collect
+					}
+				).then(res =>{
+					res = JSON.parse(res);
+					console.log(res)
+				},err =>{
+					console.log(err)
+				})
+			},			
+			// callback() {
+			// 	uni.showModal({
+			// 		title: '活动结束！',
+			// 		content: '2019-5-23',
+			// 		showCancel: false,
+			// 		cancelText: '',
+			// 		confirmText: '',
+			// 		success: res => {},
+			// 		fail: () => {},
+			// 		complete: () => {}
+			// 	});
+			// },
 			//点击导航栏 buttons 时触发
 			onNavigationBarButtonTap(e) {
 				const index = e.index;
@@ -125,40 +167,51 @@
 	}
 	
 	.Course {
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
 		padding-bottom: 130upx;
 		.banner {
 			box-sizing: border-box;
-			height: 548upx;
+			height: 424upx;
 			position: relative;
 			image {
 				width: 100%;
 				height: 100%;
 			}
-			.enroll {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				width: 100%;
-				height: 97upx;
-				position: absolute;
-				left: 0;
-				bottom: 0;
-				text-indent: 13upx;
-				font-size: 32upx;
-				color: #fff;
-				line-height: 97upx;
-				background: #ed824a;
-				
-				button {
-					margin: 0;
-					width: 179upx;
-					height: 59upx;
-					line-height: 59upx;
+		}
+		.enroll {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			height: 97upx;
+			text-indent: 13upx;
+			font-size: 32upx;
+			color: #fff;
+			line-height: 97upx;
+			background: #ed824a;
+			.bmzt {
+				margin-right: 20upx;
+				text-align: center;
+				.button {
+					width: 180upx;
+					height: 60upx;
+					line-height: 60upx;
 					background-color: #ffb81f;
 					color: #fff;
-					border-radius: 80upx;
+					border-radius: 40upx;
 					font-size: 28upx;
-					margin-right: 20upx;
+					
+				}
+				.buttonActive {
+					width: 180upx;
+					height: 60upx;
+					line-height: 60upx;
+					background-color: #ffb81f;
+					color: #fff;
+					border-radius: 40upx;
+					font-size: 28upx;
 				}
 			}
 		}
@@ -173,6 +226,7 @@
 			.box1 {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				margin-top: 55upx;
 				padding-bottom: 40upx;
 				border-bottom: 1upx solid #e6e6e6;
@@ -193,6 +247,7 @@
 							margin-top: 8upx;
 						}
 						.t2 {
+							margin-top: 5upx;
 							font-size: 18upx;
 							color: #adadad;
 						}
@@ -205,11 +260,17 @@
 					.t3 {
 						font-size: 35upx;
 					}
+					.yellow {
+						color: orange;
+					}
 					.t4 {
 						font-size: 32upx;
 					}
 				}
-			}			
+			}
+			.parse {
+				margin-top: 20upx;
+			}
 		}				
 	}	
 

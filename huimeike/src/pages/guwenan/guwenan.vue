@@ -2,11 +2,11 @@
 	<view class="guwenan">
 		<view class="content">
 			<view class="ul">
-				<view class="li" v-for="(item, index) in 20" :key="index">
-					<lazy-image realSrc="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558428196660&di=eefe6366a6731a7423684c752674b739&imgtype=0&src=http%3A%2F%2Fpic12.nipic.com%2F20110221%2F177770_101451530140_2.jpg" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
-					<text class="title2">《努力到无能为力》</text>
-					<text class="content2">介绍说明介绍说明介绍说明介绍说明介绍说明介绍说明介绍说明</text>
-					<text class="yzd">99颜值豆</text>
+				<view class="li" v-for="(item, index) in gwaList" :key="index">
+					<lazy-image :realSrc="imgUrl + item.photo" :placeholdSrc="placeholderSrc" class="img"></lazy-image>					
+					<text class="title2">《{{item.title}}》</text>
+					<text class="content2">{{item.abstract}}</text>
+					<text class="yzd">{{item.gmsl}}颜值豆</text>
 				</view>
 			</view>		
 		</view>
@@ -22,14 +22,23 @@
 	export default {
 		data() {
 			return {
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
 				TabCur: 0,
 				tabList: [{ name: '精美书籍' }, { name: '顾问案' },{ name: '医美项目' },{ name: '商务礼品' },{ name: '最新课程' },{ name: '技术支持' },{ name: '电话咨询' }],
-				placeholderSrc: '../../static/images/common/abc.png'
-
+				placeholderSrc: '../../static/images/common/abc.png',
+				gwaList: []
 			}
 		},
 		onLoad() {
-			
+			//顾问案列表请求
+			this.$request.gwaList().then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.gwaList = res;
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			goback() {
@@ -80,7 +89,7 @@
 					width: 324upx;
 					display: flex;
 					flex-direction: column;
-					justify-content: center;
+					justify-content: space-between;
 					align-items: center;
 					padding-bottom: 15upx;
 					background-color: #fff;
@@ -90,7 +99,7 @@
 					.img {
 						display: block;
 						width: 100%;
-						height: 320upx;
+						height: 324upx;
 						border-top-left-radius: 10upx;
 						border-top-right-radius: 10upx;
 					}

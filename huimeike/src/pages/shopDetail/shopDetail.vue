@@ -1,20 +1,17 @@
 <template>
 	<view class="shopDetail">
 		<view class="banner">
-			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
-			 :autoplay="true" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in swiperList" :key="index">
-					<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
-				</swiper-item>
-			</swiper>
+			<image v-if="shopDetail.photo" :src="imgUrl + shopDetail.photo"></image>
 		</view>
 		<view class="info">
-			<text class="price">¥99.9</text>
-			<text class="explain">新款女装 长荣摇粒哈哈哈哈哈哈哈哈哈哈哈哈哈</text>
+			<text class="price">¥{{shopDetail.gmsl}}</text>
+			<text class="explain">{{shopDetail.title}}</text>
 		</view>
 		<view class="detail">
 			<text class="x">产品详情</text>
-			<image src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3469209669,3124796523&fm=26&gp=0.jpg"></image>
+			<view style="padding: 0 20upx;">
+				<u-parse :content="shopDetail.content" @preview="preview" @navigate="navigate" :imgOptions="false" />
+			</view>
 		</view>
 		<view class="footer">
 			<view class="t" @click="gohome">
@@ -35,6 +32,8 @@
 	export default {
 		data() {
 			return {
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
 				placeholderSrc: '../../static/images/common/abc.png',
 				//轮播图的组件
 				indicatorDots: true,
@@ -74,11 +73,20 @@
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
 				}],
 				dotStyle: false,
-				towerStart: 0
+				towerStart: 0,
+				shopDetail: {}
 			}
 		},
-		onLoad() {
-			
+		onLoad(options) {
+			this.$request.shopDetail({
+				id: options.id
+			}).then(res =>{
+				res = JSON.parse(res);
+				console.log(res)
+				this.shopDetail = res;
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
 			goback() {
@@ -137,6 +145,7 @@
 	.shopDetail {
 		.banner {
 			width: 100%;
+			height: 700upx;
 			overflow: hidden;
 			box-sizing: border-box;			
 			image {
@@ -192,6 +201,8 @@
 			.t, .t2 {
 				display: flex;
 				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 				padding: 0 53upx;
 				font-size: 20upx;
 				margin: 8upx 0;				
