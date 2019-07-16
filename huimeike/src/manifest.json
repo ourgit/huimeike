@@ -11,7 +11,7 @@
         "compatible" : {
             "ignoreVersion" : true
         },
-		"softinput" : {
+        "softinput" : {
             "mode" : "adjustPan"
         },
         "splashscreen" : {
@@ -21,7 +21,8 @@
             "delay" : 0
         },
         "modules" : {
-            "Payment" : {}
+            "Payment" : {},
+            "VideoPlayer" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -92,13 +93,13 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/24.png",
+                    "hdpi" : "C:/Users/Administrator/Desktop/背景.png",
                     "xhdpi" : "",
                     "xxhdpi" : ""
                 },
                 "ios" : {
                     "iphone" : {
-                        "retina47" : "C:/Users/Administrator/Desktop/24.png"
+                        "retina47" : "C:/Users/Administrator/Desktop/背景.png"
                     }
                 }
             }

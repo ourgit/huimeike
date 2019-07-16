@@ -713,6 +713,20 @@
 					}
 				}
 			}			
+		},
+		{	//无地址的结算台
+			"path":"pages/checkout/checkout2",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "结算台",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleText": "结算台"
+					}
+				}
+			}			
 		}
 	],
 	"globalStyle": {

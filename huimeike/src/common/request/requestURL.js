@@ -97,5 +97,12 @@ export default {
 	//商品详情页
 	shopDetail: `${baseurl}/shopapi/content`,
 	//人脉接口
-	connection: `${baseurl}/Renmai/renmai`
+	connection: `${baseurl}/Renmai/renmai`,
+	//视频/音频结算台
+	checkout2: `${baseurl}/Kcxq/kcxq`,
+	//收藏列表
+	FavouriteList: `${baseurl}/Personal/my_sc`,
+	//视频/音频确认购买
+	Purchase: `${baseurl}/Kcxq/gmkc`,
+
 }

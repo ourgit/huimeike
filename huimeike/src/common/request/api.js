@@ -242,5 +242,18 @@ export default {
 	connection: async function (prams) {
 		let response = await request.Fetch(requestURL.connection,prams,'POST',true,true)
 		return response;
+	},
+	checkout2: async function (prams) {
+		let response = await request.Fetch(requestURL.checkout2,prams,'POST',true,true)
+		return response;
+	},
+	FavouriteList: async function (prams) {
+		let response = await request.Fetch(requestURL.FavouriteList,prams,'POST',true,true)
+		return response;
+	},
+	//视频/音频确认购买
+	Purchase: async function (prams) {
+		let response = await request.Fetch(requestURL.Purchase,prams,'POST',true,true)
+		return response;
 	}
 }

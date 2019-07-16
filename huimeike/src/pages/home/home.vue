@@ -169,6 +169,14 @@
 				<text class="icon font">&#xe656;</text>
 			</view>
 		</view>
+		<view class="NewCurriculum" style="margin-top: 30upx;">
+			<view class="title3">
+				<text class="headline">合作伙伴</text>
+			</view>
+			<view class="hezuoimg">
+				<image src="http://hmk.qmwhcb.cn/static/home/images/hzhb.png"></image>
+			</view>
+		</view>
 		<view class="end">
 			<text>—— 我是有底线的 ——</text>
 		</view>
@@ -917,6 +925,15 @@
 					background: url('~@/static/images/common/pop_up-btn.png') no-repeat;
 					background-size: 100% 100%;
 				}
+			}
+		}
+		.hezuoimg {
+			margin-top: 30upx;
+			width: 100%;
+			height: 1000upx;
+			image {
+				width: 100%;
+				height: 100%;
 			}
 		}
 	}

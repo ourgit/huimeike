@@ -191,6 +191,7 @@
 			}
 		}
 		.footer {
+			border-top: 1upx solid #c1c1c1;
 			display: flex;
 			justify-content: space-between;
 			text-align: center;

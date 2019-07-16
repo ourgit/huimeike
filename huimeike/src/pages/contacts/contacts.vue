@@ -4,46 +4,35 @@
 		<view class="item">
 			<view class="title">你的团队正在不断壮大！！！</view>
 			<view class="flex">
-				<text>今天已有6位新朋友加入！</text>
-				<view class="img">
-					<image src="http://pic.58pic.com/58pic/15/17/01/47U58PICVQJ_1024.jpg" class="img1"></image>
-					<image src="http://pic.58pic.com/58pic/11/71/64/90h58PICfG2.jpg" class="img2"></image>
-					<image src="http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg"  class="img3"></image>
-					<text class="num">+6</text>
+				<text>今天已有{{contactsData.count}}位新朋友加入！</text>
+				<view>
+					<view class="cu-avatar-group">
+						<view class="cu-avatar round lg"  v-for="(item,index) in contactsData.my_tj" :key="index" v-if="item.head_img" :style="[{ backgroundImage:'url(' + imgUrl2 + item.head_img + ')' }]"></view>
+						<view class="renshu">+6</view>
+					</view>
 				</view>
 			</view>
 		</view>
 		<view class="text">—————  我的介绍人  —————</view>
-		<view class="item2">
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559274232915&di=6812f7be89a3cbbee69bde4b7f01156f&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001TZ3a0gy6J1D1t1Ju10%26690"></image>			
+		<view class="item2" v-if="contactsData.my_js">
+				<image :src="imgUrl2 + contactsData.my_js.head_img"></image>			
 			<view class="v1">
-				<text>柚子酱</text>
-				<text class="small">2019-02-02</text>
+				<text>{{contactsData.my_js.nickname}}</text>
+				<text class="small">{{parseInt(contactsData.my_js.create_time)*1000 | time}}</text>
 			</view>
 		</view>
 		
 		<view class="text">—————  我介绍的人  —————</view>
-		<view class="item2 t2">
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559274232915&di=6812f7be89a3cbbee69bde4b7f01156f&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001TZ3a0gy6J1D1t1Ju10%26690"></image>			
+		<view class="item2 t2" v-for="(item,index) in contactsData.my_tj" :key="index">
+				<image v-if="item.head_img" :src="imgUrl2 + item.head_img"></image>
+				<view class="cu-avatar radius" v-else style="width: 94upx;height: 94upx;">
+					<text class="cuIcon-people"></text>
+				</view>
 			<view class="v1">
 				<text>柚子酱</text>
 				<text class="small">2019-02-02</text>
 			</view>
-		</view>
-		<view class="item2 t2">
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559274232915&di=6812f7be89a3cbbee69bde4b7f01156f&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001TZ3a0gy6J1D1t1Ju10%26690"></image>			
-			<view class="v1">
-				<text>柚子酱</text>
-				<text class="small">2019-02-02</text>
-			</view>
-		</view>
-		<view class="item2 t2">
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559274232915&di=6812f7be89a3cbbee69bde4b7f01156f&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001TZ3a0gy6J1D1t1Ju10%26690"></image>			
-			<view class="v1">
-				<text>柚子酱</text>
-				<text class="small">2019-02-02</text>
-			</view>
-		</view>				
+		</view>	
 	</view>
 </template>
 
@@ -52,7 +41,15 @@
 	export default {
 		data() {
 			return {
-
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
+				avatar: [
+					'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
+					'https://ossweb-img.qq.com/images/lol/web201310/skin/big81005.jpg',
+					'https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg',
+					'https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg'
+				],
+				contactsData: {}
 			}
 		},
 		onLoad() {
@@ -60,6 +57,7 @@
 			this.$request.connection().then(res =>{
 				res = JSON.parse(res);
 				console.log(res)
+				this.contactsData = res;
 			},err =>{
 				console.log(err)
 			})
@@ -97,7 +95,9 @@
 			}
 			.flex {
 				display: flex;
-				margin-top: 42upx;
+				align-items: center;
+				margin-top: 32upx;
+				position: relative;
 				text {
 					font-size: 24upx;
 					color: #acb8bf;
@@ -141,7 +141,19 @@
 						top: 0;
 						z-index: 5;
 					}	
-				}				
+				}
+				.renshu {
+					width: 60upx;
+					height: 60upx;
+					line-height: 60upx;
+					text-align: center;
+					border-radius: 50%;
+					background-color: #f86e25;
+					color: #fff;
+					position: absolute;
+					right: 110upx;
+					top: 0;
+				}
 			}
 		}
 		.text {
@@ -178,6 +190,10 @@
 		}
 		.t2 {
 			margin-bottom: 10upx;
+		}
+		.cu-avatar.lg {
+			width: 60upx;
+			height: 60upx;
 		}
 	}
 </style>

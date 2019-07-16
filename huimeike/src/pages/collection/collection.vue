@@ -1,13 +1,13 @@
 
 <template>
 	<view class="collection">
-		<view class="item">
-			<text class="title">对新领域保持好奇，多结交新朋友</text>
+		<view class="item" v-for="(item,index) in FavouriteList" :key="index">
+			<text class="title">{{item.title}}</text>
 			<view>
-				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559281359935&di=a52953ef5d57ca1428772617a9ad5262&imgtype=0&src=http%3A%2F%2Fpic2.52pk.com%2Ffiles%2Fallimg%2F090626%2F1553504U2-2.jpg"></image>
-				<text class="luoji">逻辑思维</text>
-				<text class="time">2019-02-03</text>
-				<text class="student">学习</text>
+				<image :src="imgUrl2 + item.portrait"></image>
+				<text class="luoji">{{item.name}}</text>
+				<text class="time">{{parseInt(item.time)*1000 | time}}</text>
+				<text class="student" @click="goStudy(item.kcid)">学习</text>
 			</view>
 		</view>
 
@@ -19,14 +19,29 @@
 	export default {
 		data() {
 			return {
-
+				imgUrl: this.$imgUrl.imgUrl,
+				imgUrl2: this.$imgUrl.imgUrl2,
+				FavouriteList: []
 			}
 		},
 		onLoad() {
-
+			this.$request.FavouriteList({
+				id: this.id
+			}).then(res =>{
+				res = JSON.parse(res);
+				this.FavouriteList = res;
+				console.log(this.FavouriteList)
+			},err =>{
+				console.log(err)
+			})
 		},
 		methods: {
-		
+			goStudy(id) {
+				console.log(id)
+				uni.navigateTo({
+					url: `/pages/NotPurchased/NotPurchased?id=${id}`
+				})
+			}
 		},
 		//点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {

@@ -101,7 +101,7 @@
 			<view class="tabBar" v-else>
 				<text class="yzd">{{xqxx.gmsl}}颜值豆</text>
 				<text class="mianfei" @click="play">免费试听</text>
-				<button @click="buy">购买</button>
+				<button @click="buy(xqxx.id)">购买</button>
 			</view>
 		</view>
 		<view class="end">
@@ -167,9 +167,9 @@
 					delta: 1
 				});
 			},
-			buy() {
+			buy(id) {
 				uni.navigateTo({
-					url: '/pages/buy/buy'
+					url: `/pages/checkout/checkout2?id=${id}`
 				})
 			},
 			//点击导航栏 buttons 时触发
